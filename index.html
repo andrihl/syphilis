@@ -1,0 +1,1246 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Outil syphilis – Supabase corrigé v3</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+:root{--bg:#f4f8fd;--card:#fff;--line:#d6e2ef;--text:#17324d;--muted:#5f738d;--primary:#2563eb;--green:#16a34a;--orange:#d97706;--red:#dc2626;--violet:#7c3aed}
+*{box-sizing:border-box}
+body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;color:var(--text);
+background:radial-gradient(900px 400px at 100% 0%, #e8f0ff 0%, transparent 60%),radial-gradient(700px 400px at 0% 100%, #eefcf5 0%, transparent 55%),var(--bg)}
+.wrap{max-width:1320px;margin:8px auto;padding:0 14px 24px}
+.hero,.card{background:var(--card);border:1px solid var(--line);border-radius:24px;box-shadow:0 14px 34px rgba(15,23,42,.06)}
+.hero{padding:10px 12px 8px;margin-bottom:8px}
+h1{margin:0 0 8px;font-size:31px;line-height:1.08}.sub{color:var(--muted);font-size:15px;max-width:1000px}
+.grid{display:grid;grid-template-columns:1.15fr .85fr;gap:16px;margin-top:16px}@media (max-width:1020px){.grid{grid-template-columns:1fr}}
+.card-h{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:16px 18px;border-bottom:1px solid var(--line);background:#fbfdff;border-radius:24px 24px 0 0}.card-h h2{margin:0;font-size:20px}
+.card-b{padding:16px 18px}.toolbar{display:flex;flex-wrap:wrap;gap:10px}.stack{display:grid;gap:14px}
+button{border:none;border-radius:14px;padding:12px 16px;font-weight:800;cursor:pointer;transition:.15s transform ease} button:hover{transform:translateY(-1px)}
+.btn-primary{background:var(--primary);color:#fff}.btn-soft{background:#eef4ff;color:var(--primary)}.btn-green{background:#eaf9ef;color:var(--green)}.btn-red{background:#fff1f2;color:var(--red)}.btn-orange{background:#fff7ed;color:var(--orange)}.btn-violet{background:#f4efff;color:var(--violet)}
+.section-title{font-size:13px;color:var(--muted);font-weight:900;text-transform:uppercase;letter-spacing:.05em}.help{color:var(--muted);font-size:13px}
+.rowbox{border:1px solid var(--line);border-radius:18px;padding:14px;background:#fcfdff}
+.row{display:grid;grid-template-columns:1fr .95fr .95fr .9fr auto;gap:10px;align-items:end}.row.idrow{grid-template-columns:1fr}.row.tx{grid-template-columns:1fr 1.55fr auto}.row.csf{grid-template-columns:1fr 1fr}
+@media (max-width:900px){.row,.row.tx,.row.csf,.row.idrow{grid-template-columns:1fr 1fr}.row > :last-child,.row.tx > :last-child,.row.csf > :last-child,.row.idrow > :last-child{grid-column:1/-1}}
+.field{display:grid;gap:6px}.field label{font-size:13px;color:var(--muted);font-weight:800}
+input,select,textarea{width:100%;padding:12px 13px;border:1px solid #cfd9e6;border-radius:14px;font-size:16px;background:#fff;color:var(--text)}
+.pillbar{display:flex;flex-wrap:wrap;gap:10px}.check{border:1px solid var(--line);background:#fff;border-radius:999px;padding:10px 14px;display:flex;align-items:center;gap:8px;font-weight:700}.check input{width:auto;margin:0}
+.result{white-space:pre-line;background:linear-gradient(180deg,#f8fbff,#f2f7ff);border:1px solid #d9e6ff;border-radius:18px;padding:16px;line-height:1.5;font-size:16px}
+.badge{display:inline-block;padding:8px 12px;border-radius:999px;font-size:12px;font-weight:900;margin-bottom:10px}
+.b-red{background:#fff1f2;color:var(--red)} .b-green{background:#ecfdf5;color:var(--green)} .b-orange{background:#fff7ed;color:var(--orange)} .b-blue{background:#eff6ff;color:var(--primary)} .b-violet{background:#f4efff;color:var(--violet)}
+.note{font-size:13px;color:var(--muted)} .mini{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}.mini .box{border:1px solid var(--line);border-radius:16px;padding:12px;background:#fff}
+@media (max-width:760px){.mini{grid-template-columns:1fr}}
+canvas{margin-top:14px;background:#fff;border:1px solid var(--line);border-radius:18px;padding:8px;height:250px!important}
+.empty{color:var(--muted);font-style:italic}.small{font-size:12px;color:var(--muted)}.hidden{display:none!important}
+.ratingbar{display:flex;gap:8px;flex-wrap:wrap}.ratingbar button{min-width:46px}.status{font-size:12px;color:var(--muted)}
+table{width:100%;border-collapse:collapse;font-size:14px} th,td{padding:10px;border-bottom:1px solid #eef2f7;text-align:left;vertical-align:top}
+</style>
+</head>
+<body>
+<div class="wrap">
+    <div class="hero">
+    <div class="toolbar" style="margin-bottom:10px">
+      <button class="btn-soft lang-btn" type="button" data-lang="fr">🇫🇷 FR</button>
+      <button class="btn-soft lang-btn" type="button" data-lang="en">🇬🇧 EN</button>
+      <button class="btn-soft lang-btn" type="button" data-lang="es">🇪🇸 ES</button>
+      <button class="btn-soft lang-btn" type="button" data-lang="pt">🇵🇹 PT</button>
+      <button class="btn-soft lang-btn" type="button" data-lang="de">🇩🇪 DE</button>
+      <button class="btn-soft lang-btn" type="button" data-lang="pl">🇵🇱 PL</button>
+      <button class="btn-soft lang-btn" type="button" data-lang="it">🇮🇹 IT</button>
+      <button class="btn-soft lang-btn" type="button" data-lang="ar">🇸🇦 AR</button>
+      <button class="btn-soft lang-btn" type="button" data-lang="zh">🇨🇳 中文</button>
+      <button class="btn-soft lang-btn" type="button" data-lang="ja">🇯🇵 日本語</button>
+    </div>
+</div>
+    <h1 id="i18nTitle">Outil pratique syphilis</h1>
+    <div class="sub" id="i18nSubtitle">Renseignez les données cliniques, sérologiques et thérapeutiques pour obtenir une interprétation structurée, un suivi chronologique, un graphique VDRL lisible et des exports utiles en pratique clinique.</div>
+  </div>
+
+  <div class="grid">
+    <div class="card">
+      <div class="card-h">
+        <h2>Données à remplir</h2>
+      </div>
+      <div class="card-b stack">
+        <div>
+          <div class="section-title">Identification</div>
+          <div class="rowbox">
+            <div class="row idrow">
+              <div class="field">
+                <label style="font-size:12px">Identifiant patient / dossier</label>
+                <input id="patientId" type="text" placeholder="ex : AB12-2026-045">
+              </div>
+            </div>
+          </div>
+          <input id="analysisDate" type="hidden">
+        </div>
+
+        <div>
+          <div class="section-title" id="i18nClinicalTitle">Clinique</div>
+          <div class="pillbar" style="margin-top:10px">
+            <label class="check"><input type="checkbox" id="chancreTypical"> <span id="i18nChancreTypical">Chancre typique</span></label>
+            <label class="check"><input type="checkbox" id="chancreDoubtful"> <span id="i18nChancreDoubtful">Chancre douteux</span></label>
+            <label class="check"><input type="checkbox" id="contact"> <span id="i18nContact">Contage &lt; 6 semaines</span></label>
+            <label class="check"><input type="checkbox" id="neuro"> <span id="i18nNeuro">Signes neuro / ORL / ophtalmo</span></label>
+            <label class="check"><input type="checkbox" id="cutaneous"> <span id="i18nCutaneous">Autres signes cutanés</span></label>
+            <label class="check"><input type="checkbox" id="scarKnown"> <span id="i18nScarKnown">Cicatrice sérologique connue</span></label>
+          </div>
+          <div class="small" style="margin-top:8px" id="i18nCutaneousHelp">Les autres signes cutanés ne permettent pas de dater l’infection.</div>
+          <div class="toolbar" style="margin-top:10px">
+            <button class="btn-green" type="button" id="btnAddSero">+ Sérologie</button>
+            <button class="btn-soft" type="button" id="btnAddTx">+ Traitement</button>
+          </div>
+        </div>
+
+        <div>
+          <div class="section-title">Sérologies</div>
+          <div class="help" style="margin:6px 0 10px">Tu peux remplir EIA seul, TPHA seul, ou les deux. Si EIA ou TPHA est négatif et VDRL non renseigné, la sérologie est considérée négative.</div>
+          <div id="seroList" class="stack"></div>
+        </div>
+
+        <div>
+          <div class="section-title">Traitements antérieurs</div>
+          <div class="help" style="margin:6px 0 10px">Un traitement &lt; 1 semaine avant une sérologie est considéré comme traitement de l’épisode.</div>
+          <div id="treatmentList" class="stack"></div>
+        </div>
+
+        <div id="csfPanel" class="hidden">
+          <div class="section-title">Ponction lombaire / LCR</div>
+          <div class="rowbox">
+            <div class="row csf">
+              <div class="field">
+                <label>TPHA LCR</label>
+                <select id="csfTpha"><option value="">—</option><option value="pos">Positif</option><option value="neg">Négatif</option></select>
+              </div>
+              <div class="field">
+                <label>VDRL LCR</label>
+                <select id="csfVdrl"><option value="">—</option><option value="pos">Positif</option><option value="neg">Négatif</option></select>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="toolbar">
+          <button class="btn-primary" type="button" id="btnAnalyse">Analyser</button>
+          <button class="btn-red" type="button" id="btnReset">Réinitialiser</button>
+          <button class="btn-orange" type="button" id="btnPdf">Télécharger PDF</button>
+          <button class="btn-soft" type="button" id="btnBigChart">Ouvrir le graphique en grand</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-h">
+        <h2>Interprétation</h2>
+        <div class="help">conclusion + CAT + justification</div>
+      </div>
+      <div class="card-b">
+        <div id="resultBox" class="result"><span class="empty">Remplis les données puis clique sur « Analyser ».</span></div>
+        <div class="toolbar" style="margin-top:10px"><button class="btn-soft" type="button" id="btnExpert">Mode expert</button></div>
+        <div id="expertBox" class="rowbox hidden" style="margin-top:10px"><pre id="expertContent" style="white-space:pre-wrap;margin:0;font-family:inherit;font-size:13px"></pre></div>
+        <div class="mini">
+          <div class="box"><div class="section-title">VDRL de référence retenu</div><div id="compareInfo" class="note" style="margin-top:8px">—</div></div>
+          <div class="box"><div class="section-title">Traitement antérieur retenu</div><div id="txInfo" class="note" style="margin-top:8px">—</div></div>
+        </div>
+        <div class="mini">
+          <div class="box"><div class="section-title">Score de confiance</div><div id="confidenceInfo" class="note" style="margin-top:8px">—</div></div>
+          <div class="box"><div class="section-title">Pourquoi cette conclusion</div><div id="whyInfo" class="note" style="margin-top:8px">—</div></div>
+        </div>
+        <canvas id="chart"></canvas>
+
+        <div class="rowbox" style="margin-top:14px">
+          <div class="section-title">Évaluation de l’interprétation</div>
+          <div class="help" style="margin:8px 0 12px">Note de 0 à 5.</div>
+          <div class="ratingbar">
+            <button class="btn-soft" type="button" data-rating="0">0</button>
+            <button class="btn-soft" type="button" data-rating="1">1</button>
+            <button class="btn-soft" type="button" data-rating="2">2</button>
+            <button class="btn-soft" type="button" data-rating="3">3</button>
+            <button class="btn-soft" type="button" data-rating="4">4</button>
+            <button class="btn-soft" type="button" data-rating="5">5</button>
+          </div>
+          <div id="feedbackStatus" class="status" style="margin-top:10px">Aucune évaluation envoyée.</div>
+        </div>
+
+        <div class="rowbox" style="margin-top:14px">
+          <div class="section-title">Souhaitez-vous signaler un cas problématique ?</div>
+          <div class="help" style="margin:8px 0 12px">Le commentaire sera envoyé avec les données cliniques et biologiques de cette analyse, sans identifiant patient.</div>
+          <div class="field">
+            <label>Commentaire</label>
+            <textarea id="problematicCaseText" rows="5" placeholder="Décris le problème observé, l’erreur supposée, ou la nuance clinique manquante."></textarea>
+          </div>
+          <div class="toolbar" style="margin-top:12px">
+            <button class="btn-orange" type="button" id="btnProblem">Envoyer le cas problématique</button>
+          </div>
+          <div id="problemStatus" class="status" style="margin-top:10px">Aucun signalement envoyé.</div>
+          <div id="supabaseStatus" class="status" style="margin-top:10px">Supabase prêt.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:16px">
+    <div class="card-h">
+      <h2>Mémoire des analyses</h2>
+      <div class="help">historique local dans le navigateur</div>
+    </div>
+    <div class="card-b">
+      <div class="toolbar" style="margin-bottom:12px">
+        <button class="btn-violet" type="button" id="btnHistoryExcel">Télécharger toutes les analyses (Excel)</button>
+        <button class="btn-soft" type="button" id="btnHistoryRefresh">Actualiser</button>
+        <button class="btn-red" type="button" id="btnHistoryReset">Vider la mémoire</button>
+      </div>
+      <div id="historyInfo" class="note">Aucune analyse mémorisée.</div>
+      <div style="overflow:auto; margin-top:12px">
+        <table id="historyTable">
+          <thead><tr><th>Date analyse</th><th>Identifiant</th><th>Conclusion</th><th>VDRL de référence</th><th>Traitement antérieur retenu</th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const HISTORY_KEY = "syphilis_analyses_history_v2";
+const TOOL_VERSION = "supabase-v1";
+const SUPABASE_URL = "https://atygwhyxysxroknnfrjn.supabase.co";
+const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImF0eWd3aHl4eXN4cm9rbm5mcmpuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQwOTI4NzgsImV4cCI6MjA4OTY2ODg3OH0._xb6K6v9SyGFoQEmW9X-i0xHlHDeUei_ayYmnr3fkwc";
+
+let chart = null;
+let lastAnalysisPayload = null;
+let lastSavedAnalysisEventId = null;
+let supabaseClient = null;
+
+const TREATMENTS = {
+  benz1: { label: "Extencilline 2,4 MUI dose unique", group: "early" },
+  doxy2: { label: "Doxycycline 2 semaines", group: "early" },
+  cef7:  { label: "Ceftriaxone 1 g/j pendant 7 jours", group: "early" },
+  benz3: { label: "Extencilline 2,4 MUI 1 fois/semaine pendant 3 semaines", group: "late" },
+  doxy4: { label: "Doxycycline 4 semaines", group: "late" },
+  peniv: { label: "Pénicilline G IV 14 jours", group: "neuro" },
+  cef14: { label: "Ceftriaxone 2 g/j pendant 14 jours", group: "neuro" },
+  unknown: { label: "Inconnu", group: "unknown" }
+};
+let currentLang = "fr";
+const I18N = {
+  fr:{title:"Outil pratique syphilis", subtitle:"Remplissez l’outil avec les données cliniques, biologiques et thérapeutiques pour obtenir une interprétation structurée, un suivi chronologique et un export utile en pratique clinique.", clinical:"Clinique", chancre:"Chancre", chancreHelp:"Si un chancre est coché, préciser s’il est typique ou douteux.", chancreTypical:"Chancre typique", chancreDoubtful:"Chancre douteux", contact:"Contage < 6 semaines", neuro:"Signes neuro / ORL / ophtalmo", cutaneous:"Autres signes cutanés", scar:"Cicatrice sérologique connue", cutaneousHelp:"Les autres signes cutanés ne permettent pas de dater l’infection.", expert:"Mode expert", expertOn:"Masquer mode expert", noFeedback:"Aucune évaluation envoyée.", noProblem:"Aucun signalement envoyé.", severe:"Ponction lombaire indiquée", earlyCertain:"Syphilis précoce certaine", earlyProb:"Syphilis précoce probable", postexp:"Traitement post-exposition / primaire très précoce", negative:"Sérologie considérée négative", scarProb:"Sérologie cicatricielle probable", recentOrScar:"Possible cicatrice / infection récente", lateDefault:"Syphilis tardive par défaut", treated:"Épisode considéré bien traité", goodResponse:"Probable cicatrice post-traitement", lateSafety:"Traiter comme syphilis tardive par sécurité"},
+  en:{title:"Practical syphilis tool", subtitle:"Fill in the clinical, biological and treatment data to obtain a structured interpretation, chronological follow-up and useful clinical export.", clinical:"Clinical", chancre:"Chancre", chancreHelp:"If chancre is checked, specify whether it is typical or doubtful.", chancreTypical:"Typical chancre", chancreDoubtful:"Doubtful chancre", contact:"Exposure < 6 weeks", neuro:"Neuro / ENT / ophthalmic signs", cutaneous:"Other skin signs", scar:"Known serologic scar", cutaneousHelp:"Other skin signs do not date infection.", expert:"Expert mode", expertOn:"Hide expert mode", noFeedback:"No rating sent.", noProblem:"No report sent."},
+  es:{title:"Herramienta práctica de sífilis", subtitle:"Complete la herramienta con los datos clínicos, biológicos y terapéuticos para obtener una interpretación estructurada, seguimiento cronológico y un informe útil en práctica clínica.", clinical:"Clínica", chancre:"Chancro", chancreHelp:"Si se marca chancro, precise si es típico o dudoso.", chancreTypical:"Chancro típico", chancreDoubtful:"Chancro dudoso", contact:"Contacto < 6 semanas", neuro:"Signos neuro / ORL / oftalmológicos", cutaneous:"Otros signos cutáneos", scar:"Cicatriz serológica conocida", cutaneousHelp:"Otros signos cutáneos no datan la infección.", expert:"Modo experto", expertOn:"Ocultar modo experto", noFeedback:"Ninguna evaluación enviada.", noProblem:"Ningún caso enviado."},
+  pt:{title:"Ferramenta prática de sífilis", subtitle:"Preencha a ferramenta com dados clínicos, biológicos e terapêuticos para obter uma interpretação estruturada, seguimento cronológico e uma exportação útil na prática clínica.", clinical:"Clínica", chancre:"Cancro", chancreHelp:"Se cancro estiver assinalado, especificar se é típico ou duvidoso.", chancreTypical:"Cancro típico", chancreDoubtful:"Cancro duvidoso", contact:"Contato < 6 semanas", neuro:"Sinais neuro / ORL / oftalmológicos", cutaneous:"Outros sinais cutâneos", scar:"Cicatriz sorológica conhecida", cutaneousHelp:"Outros sinais cutâneos não datam a infecção.", expert:"Modo especialista", expertOn:"Ocultar modo especialista", noFeedback:"Nenhuma avaliação enviada.", noProblem:"Nenhum caso enviado."},
+  de:{title:"Praktisches Syphilis-Tool", subtitle:"Korrigierte Version: klinische Analyse, lokaler Verlauf, PDF/Excel-Export, Supabase-Versand, Bewertungen und Problemfälle.", clinical:"Klinik", chancreTypical:"Typischer Schanker", chancreDoubtful:"Unsicherer Schanker", contact:"Kontakt < 6 Wochen", neuro:"Neuro / HNO / Augenzeichen", cutaneous:"Andere Hautzeichen", scar:"Bekannte serologische Narbe", cutaneousHelp:"Andere Hautzeichen datieren die Infektion nicht.", expert:"Expertenmodus", expertOn:"Expertenmodus ausblenden", noFeedback:"Keine Bewertung gesendet.", noProblem:"Kein Fall gesendet."},
+  pl:{title:"Praktyczne narzędzie kiły", subtitle:"Uzupełnij narzędzie danymi klinicznymi, biologicznymi i terapeutycznymi, aby uzyskać uporządkowaną interpretację, chronologiczny monitoring i przydatny eksport kliniczny.", clinical:"Dane kliniczne", chancreTypical:"Typowy wrzód twardy", chancreDoubtful:"Wrzód wątpliwy", contact:"Kontakt < 6 tygodni", neuro:"Objawy neuro / laryngologiczne / okulistyczne", cutaneous:"Inne objawy skórne", scar:"Znana blizna serologiczna", cutaneousHelp:"Inne objawy skórne nie pozwalają datować zakażenia.", expert:"Tryb ekspercki", expertOn:"Ukryj tryb ekspercki", noFeedback:"Nie wysłano oceny.", noProblem:"Nie wysłano zgłoszenia."}
+};
+function tr(key){ return (I18N[currentLang] && I18N[currentLang][key]) || I18N.fr[key] || key; }
+function applyTranslations(){
+  document.documentElement.lang = currentLang;
+  const set = (id, value) => { const el = document.getElementById(id); if(el) el.textContent = value; };
+  set("i18nTitle", tr("title"));
+  set("i18nSubtitle", tr("subtitle"));
+  set("i18nClinicalTitle", tr("clinical"));
+  set("i18nChancre", tr("chancre"));
+  set("i18nChancreHelp", tr("chancreHelp"));
+  set("i18nChancreTypical", tr("chancreTypical"));
+  set("i18nChancreDoubtful", tr("chancreDoubtful"));
+  set("i18nContact", tr("contact"));
+  set("i18nNeuro", tr("neuro"));
+  set("i18nCutaneous", tr("cutaneous"));
+  set("i18nScarKnown", tr("scar"));
+  set("i18nCutaneousHelp", tr("cutaneousHelp"));
+  const btnExpert = document.getElementById("btnExpert");
+  const expertBox = document.getElementById("expertBox");
+  if(btnExpert && expertBox) btnExpert.textContent = expertBox.classList.contains("hidden") ? tr("expert") : tr("expertOn");
+  if(!lastSavedAnalysisEventId){ const f = document.getElementById("feedbackStatus"); if(f) f.textContent = tr("noFeedback"); }
+  const prob = document.getElementById("problematicCaseText"); const ps = document.getElementById("problemStatus");
+  if(prob && ps && prob.value === "") ps.textContent = tr("noProblem");
+}
+
+
+
+
+const UI_I18N = {
+  fr:{title:"Outil pratique syphilis",subtitle:"Renseignez les données cliniques, sérologiques et thérapeutiques pour obtenir une interprétation structurée, un suivi chronologique, un graphique VDRL lisible et des exports utiles en pratique clinique.",data:"Données à remplir",inter:"Interprétation",interSub:"conclusion + CAT + justification",memory:"Mémoire des analyses",memorySub:"historique local dans le navigateur",id:"Identification",pid:"Identifiant patient / dossier",clinical:"Clinique",chancreTypical:"Chancre typique",chancreDoubtful:"Chancre douteux",contact:"Contage < 6 semaines",neuro:"Signes neuro / ORL / ophtalmo",cutaneous:"Autres signes cutanés",scar:"Cicatrice sérologique connue",cutaneousHelp:"Les autres signes cutanés ne permettent pas de dater l’infection.",sero:"+ Sérologie",tx:"+ Traitement",analyze:"Analyser",reset:"Réinitialiser",pdf:"Télécharger PDF",big:"Ouvrir le graphique en grand",expert:"Mode expert",empty:"Remplis les données puis clique sur « Analyser ».",noFeedback:"Aucune évaluation envoyée.",noProblem:"Aucun signalement envoyé."},
+  en:{title:"Practical syphilis tool",subtitle:"Enter clinical, serological and treatment data to obtain a structured interpretation, chronological follow-up, a readable VDRL chart and useful clinical exports.",data:"Data entry",inter:"Interpretation",interSub:"conclusion + management + rationale",memory:"Analysis memory",memorySub:"local browser history",id:"Identification",pid:"Patient / record identifier",clinical:"Clinical",chancreTypical:"Typical chancre",chancreDoubtful:"Doubtful chancre",contact:"Exposure < 6 weeks",neuro:"Neuro / ENT / ophthalmic signs",cutaneous:"Other skin signs",scar:"Known serologic scar",cutaneousHelp:"Other skin signs do not date the infection.",sero:"+ Serology",tx:"+ Treatment",analyze:"Analyze",reset:"Reset",pdf:"Download PDF",big:"Open large chart",expert:"Expert mode",empty:"Fill in the data then click Analyze.",noFeedback:"No rating sent.",noProblem:"No report sent."},
+  es:{title:"Herramienta práctica de sífilis",subtitle:"Introduzca datos clínicos, serológicos y terapéuticos para obtener una interpretación estructurada, seguimiento cronológico, un gráfico VDRL legible y exportaciones útiles en la práctica clínica.",data:"Datos a completar",inter:"Interpretación",interSub:"conclusión + conducta + justificación",memory:"Memoria de análisis",memorySub:"historial local del navegador",id:"Identificación",pid:"Identificador del paciente / expediente",clinical:"Clínica",chancreTypical:"Chancro típico",chancreDoubtful:"Chancro dudoso",contact:"Contacto < 6 semanas",neuro:"Signos neuro / ORL / oftálmicos",cutaneous:"Otros signos cutáneos",scar:"Cicatriz serológica conocida",cutaneousHelp:"Otros signos cutáneos no permiten fechar la infección.",sero:"+ Serología",tx:"+ Tratamiento",analyze:"Analizar",reset:"Reiniciar",pdf:"Descargar PDF",big:"Abrir gráfico grande",expert:"Modo experto",empty:"Complete los datos y pulse Analizar.",noFeedback:"Ninguna evaluación enviada.",noProblem:"Ningún caso enviado."},
+  pt:{title:"Ferramenta prática de sífilis",subtitle:"Preencha dados clínicos, serológicos e terapêuticos para obter uma interpretação estruturada, seguimento cronológico, um gráfico VDRL legível e exportações úteis na prática clínica.",data:"Dados a preencher",inter:"Interpretação",interSub:"conclusão + conduta + justificação",memory:"Memória das análises",memorySub:"histórico local no navegador",id:"Identificação",pid:"Identificador do paciente / processo",clinical:"Clínica",chancreTypical:"Cancro típico",chancreDoubtful:"Cancro duvidoso",contact:"Contato < 6 semanas",neuro:"Sinais neuro / ORL / oftalmológicos",cutaneous:"Outros sinais cutâneos",scar:"Cicatriz sorológica conhecida",cutaneousHelp:"Outros sinais cutâneos não datam a infeção.",sero:"+ Sorologia",tx:"+ Tratamento",analyze:"Analisar",reset:"Reinicializar",pdf:"Descarregar PDF",big:"Abrir gráfico grande",expert:"Modo especialista",empty:"Preencha os dados e clique em Analisar.",noFeedback:"Nenhuma avaliação enviada.",noProblem:"Nenhum caso enviado."},
+  de:{title:"Praktisches Syphilis-Tool",subtitle:"Geben Sie klinische, serologische und therapeutische Daten ein, um eine strukturierte Interpretation, chronologische Verlaufskontrolle, ein lesbares VDRL-Diagramm und nützliche Exporte zu erhalten.",data:"Eingabedaten",inter:"Interpretation",interSub:"Schlussfolgerung + Vorgehen + Begründung",memory:"Analysespeicher",memorySub:"lokaler Verlauf im Browser",id:"Identifikation",pid:"Patienten-/Fallkennung",clinical:"Klinik",chancreTypical:"Typischer Schanker",chancreDoubtful:"Fraglicher Schanker",contact:"Kontakt < 6 Wochen",neuro:"Neuro / HNO / augenärztliche Zeichen",cutaneous:"Andere Hautzeichen",scar:"Bekannte serologische Narbe",cutaneousHelp:"Andere Hautzeichen datieren die Infektion nicht.",sero:"+ Serologie",tx:"+ Behandlung",analyze:"Analysieren",reset:"Zurücksetzen",pdf:"PDF herunterladen",big:"Großes Diagramm öffnen",expert:"Expertenmodus",empty:"Bitte Daten eingeben und dann Analysieren klicken.",noFeedback:"Keine Bewertung gesendet.",noProblem:"Kein Fall gesendet."},
+  pl:{title:"Praktyczne narzędzie kiły",subtitle:"Wprowadź dane kliniczne, serologiczne i dotyczące leczenia, aby uzyskać uporządkowaną interpretację, chronologiczne monitorowanie, czytelny wykres VDRL i przydatne eksporty kliniczne.",data:"Dane do wprowadzenia",inter:"Interpretacja",interSub:"wniosek + postępowanie + uzasadnienie",memory:"Pamięć analiz",memorySub:"lokalna historia w przeglądarce",id:"Identyfikacja",pid:"Identyfikator pacjenta / sprawy",clinical:"Dane kliniczne",chancreTypical:"Typowy wrzód",chancreDoubtful:"Wrzód wątpliwy",contact:"Kontakt < 6 tygodni",neuro:"Objawy neuro / laryngologiczne / okulistyczne",cutaneous:"Inne objawy skórne",scar:"Znana blizna serologiczna",cutaneousHelp:"Inne objawy skórne nie pozwalają datować zakażenia.",sero:"+ Serologia",tx:"+ Leczenie",analyze:"Analizuj",reset:"Resetuj",pdf:"Pobierz PDF",big:"Otwórz duży wykres",expert:"Tryb ekspercki",empty:"Wypełnij dane i kliknij Analizuj.",noFeedback:"Nie wysłano oceny.",noProblem:"Nie wysłano zgłoszenia."},
+  it:{title:"Strumento pratico per la sifilide",subtitle:"Inserisci dati clinici, sierologici e terapeutici per ottenere un’interpretazione strutturata, un follow-up cronologico, un grafico VDRL leggibile ed esportazioni utili nella pratica clinica.",data:"Dati da compilare",inter:"Interpretazione",interSub:"conclusione + condotta + giustificazione",memory:"Memoria delle analisi",memorySub:"storico locale nel browser",id:"Identificazione",pid:"Identificativo paziente / cartella",clinical:"Clinica",chancreTypical:"Sifiloma tipico",chancreDoubtful:"Sifiloma dubbio",contact:"Contatto < 6 settimane",neuro:"Segni neuro / ORL / oftalmologici",cutaneous:"Altri segni cutanei",scar:"Cicatrice sierologica nota",cutaneousHelp:"Altri segni cutanei non permettono di datare l’infezione.",sero:"+ Sierologia",tx:"+ Trattamento",analyze:"Analizza",reset:"Reimposta",pdf:"Scarica PDF",big:"Apri grafico grande",expert:"Modalità esperta",empty:"Compila i dati e clicca su Analizza.",noFeedback:"Nessuna valutazione inviata.",noProblem:"Nessun caso inviato."},
+  ar:{title:"أداة الزهري العملية",subtitle:"أدخل البيانات السريرية والمصلية والعلاجية للحصول على تفسير منظم، ومتابعة زمنية، ومخطط VDRL واضح، وتصديرات مفيدة في الممارسة السريرية.",data:"البيانات المطلوب إدخالها",inter:"التفسير",interSub:"الخلاصة + التدبير + التبرير",memory:"ذاكرة التحاليل",memorySub:"سجل محلي في المتصفح",id:"التعريف",pid:"معرّف المريض / الملف",clinical:"السريريات",chancreTypical:"قرحة نموذجية",chancreDoubtful:"قرحة مشكوك فيها",contact:"تعرّض أقل من 6 أسابيع",neuro:"علامات عصبية / أنف أذن حنجرة / عينية",cutaneous:"علامات جلدية أخرى",scar:"ندبة مصلية معروفة",cutaneousHelp:"العلامات الجلدية الأخرى لا تسمح بتأريخ العدوى.",sero:"+ مصلية",tx:"+ علاج",analyze:"حلّل",reset:"إعادة ضبط",pdf:"تنزيل PDF",big:"فتح الرسم كبيرًا",expert:"وضع الخبير",empty:"املأ البيانات ثم اضغط تحليل.",noFeedback:"لم يتم إرسال تقييم.",noProblem:"لم يتم إرسال بلاغ."},
+  zh:{title:"梅毒实用工具",subtitle:"填写临床、血清学和治疗信息，以获得结构化解释、时间顺序随访、清晰的 VDRL 图表以及临床可用导出。",data:"待填写数据",inter:"解释",interSub:"结论 + 处理 + 理由",memory:"分析记录",memorySub:"浏览器本地历史",id:"身份信息",pid:"患者 / 病历编号",clinical:"临床",chancreTypical:"典型硬下疳",chancreDoubtful:"可疑硬下疳",contact:"接触 < 6 周",neuro:"神经 / 耳鼻喉 / 眼科体征",cutaneous:"其他皮肤体征",scar:"已知血清学瘢痕",cutaneousHelp:"其他皮肤体征不能用于判断感染时间。",sero:"+ 血清学",tx:"+ 治疗",analyze:"分析",reset:"重置",pdf:"下载 PDF",big:"打开大图表",expert:"专家模式",empty:"请填写数据后点击分析。",noFeedback:"尚未发送评分。",noProblem:"尚未发送报告。"},
+  ja:{title:"梅毒 実用ツール",subtitle:"臨床・血清学・治療データを入力すると、構造化された解釈、時系列フォロー、読みやすいVDRLグラフ、臨床で使えるエクスポートが得られます。",data:"入力データ",inter:"解釈",interSub:"結論 + 対応 + 根拠",memory:"解析履歴",memorySub:"ブラウザ内ローカル履歴",id:"識別",pid:"患者 / 症例ID",clinical:"臨床",chancreTypical:"典型的な硬性下疳",chancreDoubtful:"疑わしい硬性下疳",contact:"接触 < 6週間",neuro:"神経 / 耳鼻咽喉 / 眼症状",cutaneous:"その他の皮膚症状",scar:"既知の血清学的瘢痕",cutaneousHelp:"その他の皮膚症状だけでは感染時期は判断できません。",sero:"+ 血清",tx:"+ 治療",analyze:"解析",reset:"リセット",pdf:"PDF をダウンロード",big:"大きなグラフを開く",expert:"エキスパートモード",empty:"データを入力して解析を押してください。",noFeedback:"評価は未送信です。",noProblem:"報告は未送信です。"}
+};
+
+
+
+function applyTranslations(lang){
+  currentLang = lang || currentLang || "fr";
+  const d = UI_I18N[currentLang] || UI_I18N.fr;
+  const heroTitle = document.querySelector('.hero h1');
+  const heroSub = document.querySelector('.hero .sub');
+  const cardHeads = document.querySelectorAll('.card-h h2');
+  const sectionTitles = document.querySelectorAll('.section-title');
+  if(heroTitle) heroTitle.textContent = d.title;
+  if(heroSub) heroSub.textContent = d.subtitle;
+  if(cardHeads[0]) cardHeads[0].textContent = d.data;
+  if(cardHeads[1]) cardHeads[1].textContent = d.inter;
+  if(cardHeads[2]) cardHeads[2].textContent = d.memory;
+  if(sectionTitles[0]) sectionTitles[0].textContent = d.id;
+  const pidLabel = document.querySelector('#patientId').previousElementSibling;
+  if(pidLabel) pidLabel.textContent = d.pid;
+  if(sectionTitles[1]) sectionTitles[1].textContent = d.clinical;
+  const labels = document.querySelectorAll('.pillbar label.check');
+  if(labels[0]) labels[0].lastChild.textContent = d.chancreTypical;
+  if(labels[1]) labels[1].lastChild.textContent = d.chancreDoubtful;
+  if(labels[2]) labels[2].lastChild.textContent = d.contact;
+  if(labels[3]) labels[3].lastChild.textContent = d.neuro;
+  if(labels[4]) labels[4].lastChild.textContent = d.cutaneous;
+  if(labels[5]) labels[5].lastChild.textContent = d.scar;
+  const smalls = document.querySelectorAll('.small');
+  if(smalls[0]) smalls[0].textContent = d.cutanousHelp || d.cutenousHelp || d.cutaneousHelp || UI_I18N.fr.cutaneousHelp;
+  if(document.getElementById('btnAddSero')) document.getElementById('btnAddSero').textContent = d.sero;
+  if(document.getElementById('btnAddTx')) document.getElementById('btnAddTx').textContent = d.tx;
+  if(document.getElementById('btnAnalyse')) document.getElementById('btnAnalyse').textContent = d.analyze;
+  if(document.getElementById('btnReset')) document.getElementById('btnReset').textContent = d.reset;
+  if(document.getElementById('btnPdf')) document.getElementById('btnPdf').textContent = d.pdf;
+  if(document.getElementById('btnBigChart')) document.getElementById('btnBigChart').textContent = d.big;
+  if(document.getElementById('btnExpert')) document.getElementById('btnExpert').textContent = d.expert;
+  const helpInterp = document.querySelectorAll('.card-h .help');
+  if(helpInterp[0]) helpInterp[0].textContent = d.interSub || "conclusion + CAT + justification";
+  if(helpInterp[1]) helpInterp[1].textContent = d.memorySub || "historique local dans le navigateur";
+  const resultEmpty = document.querySelector('#resultBox .empty');
+  if(resultEmpty) resultEmpty.textContent = d.empty || "Remplis les données puis clique sur « Analyser ».";
+  const stat1 = document.getElementById('feedbackStatus');
+  const stat2 = document.getElementById('problemStatus');
+  if(stat1 && (!stat1.textContent || stat1.textContent.includes('Aucune') || stat1.textContent.includes('No ') || stat1.textContent.includes('Ning'))) stat1.textContent = d.noFeedback;
+  if(stat2 && (!stat2.textContent || stat2.textContent.includes('Aucun') || stat2.textContent.includes('No ') || stat2.textContent.includes('Ning'))) stat2.textContent = d.noProblem;
+}
+
+
+function initSupabase(){
+  try{
+    supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    document.getElementById("supabaseStatus").textContent = "Supabase prêt.";
+  }catch(e){
+    console.error(e);
+    document.getElementById("supabaseStatus").textContent = "Erreur initialisation Supabase.";
+  }
+}
+function badge(kind, text){
+  const map = { danger:"b-red", success:"b-green", warning:"b-orange", info:"b-blue", violet:"b-violet" };
+  return `<span class="badge ${map[kind] || 'b-blue'}">${text}</span>`;
+}
+function setToday(){ document.getElementById("analysisDate").value = new Date().toISOString().slice(0,10); }
+function createSerologyRow(v={}){
+  const row = document.createElement("div");
+  row.className = "rowbox";
+  row.innerHTML = `
+    <div class="row">
+      <div class="field"><label>Date</label><input type="date" class="sero-date" value="${v.date || ''}"></div>
+      <div class="field"><label>EIA</label><select class="sero-eia"><option value="" ${!v.eia ? "selected":""}>—</option><option value="pos" ${v.eia==="pos"?"selected":""}>Positif</option><option value="neg" ${v.eia==="neg"?"selected":""}>Négatif</option><option value="ind" ${v.eia==="ind"?"selected":""}>Indéterminé</option></select></div>
+      <div class="field"><label>TPHA</label><select class="sero-tpha"><option value="" ${!v.tpha ? "selected":""}>—</option><option value="pos" ${v.tpha==="pos"?"selected":""}>Positif</option><option value="neg" ${v.tpha==="neg"?"selected":""}>Négatif</option><option value="ind" ${v.tpha==="ind"?"selected":""}>Indéterminé</option></select></div>
+      <div class="field"><label>VDRL (0, 1, 2, 4, 8...)</label><input type="number" min="0" step="1" class="sero-vdrl" value="${v.vdrl ?? ''}"></div>
+      <div><button class="btn-red btnRemoveSero" type="button">Supprimer</button></div>
+    </div>`;
+  row.querySelector(".btnRemoveSero").addEventListener("click", () => row.remove());
+  document.getElementById("seroList").appendChild(row);
+}
+function createTreatmentRow(v={}){
+  const row = document.createElement("div");
+  row.className = "rowbox";
+  row.innerHTML = `
+    <div class="row tx">
+      <div class="field"><label>Date</label><input type="date" class="tx-date" value="${v.date || ''}"></div>
+      <div class="field"><label>Traitement</label><select class="tx-type">
+        <option value="" ${!v.type ? "selected":""}>—</option>
+        <option value="benz1" ${v.type==="benz1"?"selected":""}>Extencilline 2,4 MUI dose unique</option>
+        <option value="doxy2" ${v.type==="doxy2"?"selected":""}>Doxycycline 2 semaines</option>
+        <option value="cef7" ${v.type==="cef7"?"selected":""}>Ceftriaxone 1 g/j pendant 7 jours</option>
+        <option value="benz3" ${v.type==="benz3"?"selected":""}>Extencilline 2,4 MUI 3 semaines</option>
+        <option value="doxy4" ${v.type==="doxy4"?"selected":""}>Doxycycline 4 semaines</option>
+        <option value="peniv" ${v.type==="peniv"?"selected":""}>Pénicilline G IV 14 jours</option>
+        <option value="cef14" ${v.type==="cef14"?"selected":""}>Ceftriaxone 2 g/j pendant 14 jours</option>
+        <option value="unknown" ${v.type==="unknown"?"selected":""}>Inconnu</option>
+      </select></div>
+      <div><button class="btn-red btnRemoveTx" type="button">Supprimer</button></div>
+    </div>`;
+  row.querySelector(".btnRemoveTx").addEventListener("click", () => row.remove());
+  document.getElementById("treatmentList").appendChild(row);
+}
+
+function translateResultText(text){
+  if(currentLang === "fr" || !text) return text;
+  const dict = {
+    "Ponction lombaire indiquée":"Lumbar puncture indicated",
+    "Syphilis précoce certaine":"Certain early syphilis",
+    "Syphilis précoce probable":"Probable early syphilis",
+    "Traitement post-exposition / primaire très précoce":"Post-exposure / very early primary treatment",
+    "Sérologie considérée négative":"Serology considered negative",
+    "Sérologie cicatricielle probable":"Probable serologic scar",
+    "Possible cicatrice / infection récente":"Possible scar / recent infection",
+    "Syphilis tardive par défaut":"Late syphilis by default",
+    "Épisode considéré bien traité":"Episode considered adequately treated",
+    "Probable cicatrice post-traitement":"Probable post-treatment scar",
+    "Traiter comme syphilis tardive par sécurité":"Treat as late syphilis for safety",
+    "Dernière sérologie":"Last serology",
+    "Aucun traitement valide retenu":"No valid previous treatment retained"
+  };
+  let out = text;
+  for(const [fr,en] of Object.entries(dict)){
+    out = out.split(fr).join(en);
+  }
+  return out;
+}
+
+function setBoxes(compare, tx, conf, why){
+  document.getElementById("compareInfo").textContent = compare;
+  document.getElementById("txInfo").textContent = tx;
+  document.getElementById("confidenceInfo").textContent = conf;
+  document.getElementById("whyInfo").textContent = why;
+}
+function parseDate(s){ return new Date(s + "T00:00:00"); }
+function daysDiff(a,b){ return Math.round((a - b)/(1000*60*60*24)); }
+function absDays(a,b){ return Math.abs(daysDiff(a,b)); }
+function parseData(){
+  const serologies = [...document.querySelectorAll("#seroList .rowbox")].map(row => {
+    const dateStr = row.querySelector(".sero-date").value;
+    if(!dateStr) return null;
+    const eia = row.querySelector(".sero-eia").value || null;
+    const tpha = row.querySelector(".sero-tpha").value || null;
+    const raw = row.querySelector(".sero-vdrl").value;
+    let vdrl = raw === "" ? null : Number(raw);
+    if(Number.isNaN(vdrl)) vdrl = null;
+    return { date: parseDate(dateStr), dateStr, eia, tpha, vdrl };
+  }).filter(Boolean).sort((a,b)=>a.date-b.date);
+
+  const treatments = [...document.querySelectorAll("#treatmentList .rowbox")].map(row => {
+    const dateStr = row.querySelector(".tx-date").value;
+    const type = row.querySelector(".tx-type").value || null;
+    if(!dateStr || !type) return null;
+    return { date: parseDate(dateStr), dateStr, type };
+  }).filter(Boolean).sort((a,b)=>a.date-b.date);
+
+  return { identifier: document.getElementById("patientId").value.trim(), analysisDate: document.getElementById("analysisDate").value, serologies, treatments };
+}
+
+function hasBiologicalData(serologies){
+  return serologies.some(s => (s.eia && s.eia !== "") || (s.tpha && s.tpha !== "") || s.vdrl !== null);
+}
+
+function renderChart(serologies, treatments){
+  const labels = serologies.map(s => s.dateStr);
+  const values = serologies.map(s => s.vdrl);
+  const pointLabels = serologies.map(s => {
+    const parts = [];
+    if(s.eia) parts.push("EIA " + (s.eia==="pos"?"+":s.eia==="neg"?"-":"ind"));
+    if(s.tpha) parts.push("TPHA " + (s.tpha==="pos"?"+":s.tpha==="neg"?"-":"ind"));
+    return parts.join(" | ");
+  });
+  if(chart) chart.destroy();
+  chart = new Chart(document.getElementById("chart"), {
+    type:"line",
+    data:{labels,datasets:[
+      {label:"VDRL",data:values,tension:0.25,borderWidth:2,pointRadius:4,spanGaps:true},
+      {label:"Repères traitement",data:labels.map(l => treatments.some(t => t.dateStr===l)?0:null),pointRadius:7,showLine:false}
+    ]},
+    options:{
+      responsive:true, maintainAspectRatio:false,
+      plugins:{legend:{display:true}, tooltip:{callbacks:{afterLabel:function(context){
+        if(context.datasetIndex===0) return pointLabels[context.dataIndex] || "";
+        const d = labels[context.dataIndex];
+        const txs = treatments.filter(t=>t.dateStr===d).map(t=>TREATMENTS[t.type]?.label || t.type);
+        return txs.length ? "Traitement : " + txs.join(" ; ") : "";
+      }}}},
+      scales:{y:{beginAtZero:true,ticks:{precision:0}}}
+    }
+  });
+}
+function trepPositive(s){ return s && (s.eia==="pos" || s.tpha==="pos"); }
+function trepNegativeOrMissingVdrl(s){
+  if((s.eia==="neg" || s.tpha==="neg") && s.vdrl===null) return true;
+  const noPos = s.eia!=="pos" && s.tpha!=="pos";
+  return noPos && ((s.eia==="neg" || s.tpha==="neg") && (!s.vdrl || s.vdrl===0));
+}
+function trepIndeterminate(s){ return (s.eia==="ind" || s.tpha==="ind") && !trepPositive(s); }
+function vdrlPositive(v){ return v !== null && v > 0; }
+function isValidVDRL(v){
+  if(v === null || v === undefined || v === "") return true;
+  const valid = new Set([0,1,2,4,8,16,32,64,128,256,512,1024,2048,4096,8192,16384,32768]);
+  return valid.has(Number(v));
+}
+
+function confidence(level, reason){ return `${level} — ${reason}`; }
+function standardLateTreatment(){ return `Traitement proposé :\n• Extencilline 2,4 MUI 1 fois/semaine pendant 3 semaines\nou\n• Doxycycline 4 semaines`; }
+function standardEarlyTreatment(){ return `Traitement proposé :\n• 1re intention : Extencilline 2,4 MUI dose unique\n• 2e intention : Doxycycline 2 semaines\n• 3e intention : Ceftriaxone 1 g/j pendant 7 jours`; }
+function standardNeuroTreatment(){ return `Traitement de neurosyphilis :\n• Pénicilline G IV 14 jours\nou\n• Ceftriaxone 2 g/j pendant 14 jours`; }
+function treatmentValidForCategory(type, category){
+  if(!type || type==="unknown") return false;
+  const group = TREATMENTS[type]?.group;
+  if(category==="early") return group==="early";
+  if(category==="late") return group==="late";
+  if(category==="neuro") return group==="neuro";
+  return false;
+}
+function getEpisodeSerologyForTreatment(serologies, tx){
+  const within7After = serologies.find(s => daysDiff(s.date, tx.date) >= 0 && daysDiff(s.date, tx.date) <= 7);
+  if(within7After) return { serology: within7After };
+  const before = [...serologies].filter(s => s.date <= tx.date).slice(-1)[0];
+  return { serology: before || null };
+}
+function currentClinical(){
+  const chancreTypical = !!document.getElementById("chancreTypical")?.checked;
+  const chancreDoubtful = !!document.getElementById("chancreDoubtful")?.checked;
+  return {
+    chancreTypical,
+    chancreDoubtful,
+    chancre: chancreTypical || chancreDoubtful,
+    contact: !!document.getElementById("contact")?.checked,
+    neuro: !!document.getElementById("neuro")?.checked,
+    cutaneous: !!document.getElementById("cutaneous")?.checked,
+    scarKnown: !!document.getElementById("scarKnown")?.checked
+  };
+}
+function categoryAtSerology(serologiesUpToIndex, serology, clinical){
+  const prevNegTrep = serologiesUpToIndex.some(s => s.date < serology.date && (s.eia==="neg" || s.tpha==="neg"));
+  const prevNegVdrl = serologiesUpToIndex.some(s => s.date < serology.date && s.vdrl===0);
+  if(clinical.neuro && trepPositive(serology) && vdrlPositive(serology.vdrl)) return "neuro";
+  if(trepIndeterminate(serology)){
+    if(clinical.contact || clinical.chancre) return "early";
+    return clinical.scarKnown ? "scar" : "recontrol";
+  }
+  if(clinical.chancre && trepNegativeOrMissingVdrl(serology)) return "early";
+  if(clinical.contact && trepNegativeOrMissingVdrl(serology)) return "early";
+  if((serology.tpha==="pos" || serology.eia==="pos") && (serology.vdrl===null || serology.vdrl===0)){
+    if(clinical.chancre || clinical.contact) return "early";
+    if(clinical.scarKnown) return "scar";
+    return "recontrol";
+  }
+  if((serology.tpha==="pos" || serology.eia==="pos") && vdrlPositive(serology.vdrl)){
+    if(clinical.chancre) return "early";
+    if(prevNegTrep || prevNegVdrl) return "early";
+    return "late";
+  }
+  return null;
+}
+function buildTreatmentAudit(serologies, treatments, clinical){
+  return treatments.map(tx => {
+    const ep = getEpisodeSerologyForTreatment(serologies, tx);
+    let expected = null;
+    if(ep.serology){
+      expected = categoryAtSerology(serologies.filter(s=>s.date<=ep.serology.date), ep.serology, clinical);
+    }
+    let valid = false, overtreated = false;
+    if(tx.type==="unknown"){
+      valid = serologies.some(s => s.date > tx.date && s.vdrl===0);
+    } else if(expected==="early" || expected==="late" || expected==="neuro"){
+      valid = treatmentValidForCategory(tx.type, expected);
+      const group = TREATMENTS[tx.type]?.group;
+      if(!valid && expected==="early" && (group==="late" || group==="neuro")){
+        valid = true; overtreated = true;
+      }
+    }
+    return { ...tx, valid, expected, overtreated };
+  });
+}
+function getLastValidTreatment(audits){ return [...audits].filter(a=>a.valid).slice(-1)[0] || null; }
+function dilutionDiff(current, reference){
+  if(current===null || reference===null) return null;
+  if(reference===0 && current>1) return Infinity;
+  if(reference<=0 || current<=0) return null;
+  return Math.log2(current)-Math.log2(reference);
+}
+function finalWhy(lines){ return lines.filter(Boolean).join(" | "); }
+
+function getHistory(){ try{ return JSON.parse(localStorage.getItem(HISTORY_KEY) || "[]"); } catch(e){ return []; } }
+function saveCurrentAnalysisToHistory(){
+  if(!lastAnalysisPayload) return;
+  const history = getHistory();
+  history.push({savedAt:new Date().toISOString(),identifier:lastAnalysisPayload.identifier||"",analysisDate:lastAnalysisPayload.analysisDate||"",conclusion:lastAnalysisPayload.conclusion||"",compare:lastAnalysisPayload.compare||"",tx:lastAnalysisPayload.tx||"",why:lastAnalysisPayload.why||""});
+  localStorage.setItem(HISTORY_KEY, JSON.stringify(history));
+  renderHistory();
+}
+function renderHistory(){
+  const history = getHistory();
+  const info = document.getElementById("historyInfo");
+  const tbody = document.querySelector("#historyTable tbody");
+  tbody.innerHTML = "";
+  if(!history.length){ info.textContent = "Aucune analyse mémorisée."; return; }
+  info.textContent = history.length + " analyse(s) mémorisée(s) localement dans ce navigateur.";
+  history.forEach(item => {
+    const tr = document.createElement("tr");
+    [item.analysisDate || "", item.identifier || "", item.conclusion || "", item.compare || "", item.tx || ""].forEach(v => {
+      const td = document.createElement("td"); td.textContent = v; tr.appendChild(td);
+    });
+    tbody.appendChild(tr);
+  });
+}
+function resetHistory(){ localStorage.removeItem(HISTORY_KEY); renderHistory(); }
+function downloadHistoryExcel(){
+  const history = getHistory();
+  if(!history.length){ alert("Aucune analyse enregistrée dans la mémoire locale."); return; }
+  const rows = history.map(item => ({Date_Analyse:item.analysisDate || "",Identifiant:item.identifier || "",Resultat:item.conclusion || "",VDRL_Reference:item.compare || "",Traitement_Anterieur_Retenu:item.tx || "",Pourquoi:item.why || "",Date_Sauvegarde:item.savedAt || ""}));
+  const ws = XLSX.utils.json_to_sheet(rows); const wb = XLSX.utils.book_new(); XLSX.utils.book_append_sheet(wb, ws, "Analyses"); XLSX.writeFile(wb, "historique_analyses_syphilis.xlsx");
+}
+function buildAnalyticsPayload(parsed, clinical, resultMeta){
+  return {
+    tool_version: TOOL_VERSION,
+    conclusion: resultMeta.conclusion || "",
+    confidence: resultMeta.confidence || "",
+    compare_text: resultMeta.compare || "",
+    treatment_text: resultMeta.treatment || "",
+    why_text: resultMeta.why || "",
+    category: resultMeta.category || "",
+    recommended_treatment: resultMeta.recommended_treatment || resultMeta.treatment || "",
+    payload: {
+      clinical: { chancre:!!clinical.chancre, contact_lt_6w:!!clinical.contact, neuro_orl_oph:!!clinical.neuro, cutaneous:!!clinical.cutaneous, scar_known:!!clinical.scarKnown },
+      serologies: (parsed.serologies || []).map(s => ({ date:s.dateStr, eia:s.eia, tpha:s.tpha, vdrl:s.vdrl })),
+      treatments: (parsed.treatments || []).map(t => ({ date:t.dateStr, type:t.type }))
+    }
+  };
+}
+async function saveAnalysisEventToSupabase(parsed, clinical, resultMeta){
+  if(!supabaseClient){ document.getElementById("supabaseStatus").textContent = "Supabase indisponible."; return null; }
+  try{
+    const record = buildAnalyticsPayload(parsed, clinical, resultMeta);
+    const { error } = await supabaseClient.from("analysis_events").insert(record);
+    if(error){
+      document.getElementById("supabaseStatus").textContent = "Erreur events : " + (error.message || "");
+      console.error(error);
+      return null;
+    }
+    lastSavedAnalysisEventId = null;
+    document.getElementById("supabaseStatus").textContent = "Analyse envoyée dans Supabase.";
+    return true;
+  }catch(e){
+    document.getElementById("supabaseStatus").textContent = "Erreur events : " + e.message;
+    console.error(e);
+    return null;
+  }
+}
+async function sendFeedback(rating){
+  try{
+    const useful_label = rating >= 4 ? "utile" : rating >= 2 ? "moyen" : "pas utile";
+    const { error } = await supabaseClient.from("analysis_feedback").insert({ analysis_event_id:lastSavedAnalysisEventId || null, rating, useful_label });
+    document.getElementById("feedbackStatus").textContent = error ? ("Erreur feedback : " + (error.message || "")) : `Évaluation envoyée : ${rating}/5.`;
+  }catch(e){
+    document.getElementById("feedbackStatus").textContent = "Erreur feedback : " + e.message;
+  }
+}
+async function sendProblematicCase(){
+  const message = document.getElementById("problematicCaseText").value.trim();
+  if(!message){ document.getElementById("problemStatus").textContent = "Merci d’écrire un commentaire."; return; }
+  if(!lastAnalysisPayload){ document.getElementById("problemStatus").textContent = "Aucune analyse à transmettre."; return; }
+  try{
+    const payload = {
+      conclusion:lastAnalysisPayload.conclusion || "", compare:lastAnalysisPayload.compare || "", tx:lastAnalysisPayload.tx || "", why:lastAnalysisPayload.why || "",
+      serologies:(lastAnalysisPayload.serologies || []).map(s => ({ date:s.dateStr || "", eia:s.eia || null, tpha:s.tpha || null, vdrl:s.vdrl ?? null })),
+      treatments:(lastAnalysisPayload.treatments || []).map(t => ({ date:t.dateStr || "", type:t.type || null }))
+    };
+    const { error } = await supabaseClient.from("problematic_cases").insert({ analysis_event_id:lastSavedAnalysisEventId || null, message, payload });
+    if(error) document.getElementById("problemStatus").textContent = "Erreur report : " + (error.message || "");
+    else { document.getElementById("problemStatus").textContent = "Cas problématique envoyé."; document.getElementById("problematicCaseText").value = ""; }
+  }catch(e){
+    document.getElementById("problemStatus").textContent = "Erreur report : " + e.message;
+  }
+}
+async function setResult(html, compare, tx, conf, why, payload, parsed, clinical, expertText){
+  document.getElementById("resultBox").innerHTML = translateResultText(html);
+  setBoxes(compare, tx, conf, why);
+  lastAnalysisPayload = payload;
+  if(payload) saveCurrentAnalysisToHistory();
+  if(parsed && clinical){
+    await saveAnalysisEventToSupabase(parsed, clinical, { conclusion:payload?.conclusion || "", confidence:conf || "", compare:compare || "", treatment:tx || "", why:why || "" });
+  }
+  const ec = document.getElementById("expertContent");
+  if(ec){ ec.textContent = expertText || ""; }
+}
+async function analyse(){
+  const parsed = parseData();
+  const { identifier, analysisDate, serologies, treatments } = parsed;
+  const clinical = currentClinical();
+
+  for(const s of serologies){
+    if(s.vdrl !== null && !isValidVDRL(s.vdrl)){
+      alert("VDRL non valide : valeurs attendues 0, 1, 2, 4, 8, 16, ... jusqu’à 32 768.");
+      return;
+    }
+  }
+
+  if(!analysisDate) setToday();
+
+  if((clinical.chancreTypical || clinical.chancreDoubtful) && serologies.length === 0){
+    const category = "early";
+    const recommended_treatment = standardEarlyTreatment();
+    const conclusion = "Chancre sans biologie : traiter comme syphilis précoce et faire une sérologie de confirmation.";
+    expert = [];
+    expert.push("Règle déclenchée: chancre sans résultat biologique => traitement précoce + sérologie de confirmation");
+    await setResult(
+`${badge("warning", tr("earlyCertain"))}
+Chancre sans résultat biologique.
+
+→ Traiter comme un stade précoce
+→ Faire une sérologie de confirmation
+→ Adapter secondairement le traitement selon les résultats`,
+      "—",
+      "Aucun traitement retenu",
+      confidence("Modérée","clinique sans biologie"),
+      "chancre sans biologie",
+      { identifier, analysisDate:document.getElementById("analysisDate").value, conclusion, category, recommended_treatment, compare:"—", tx:"Aucun traitement retenu", why:"chancre sans biologie", serologies, treatments },
+      parsed, clinical, expert.join("\n")
+    );
+    return;
+  }
+
+  if(clinical.contact && serologies.length === 0){
+    const category = "early";
+    const recommended_treatment = standardEarlyTreatment();
+    const conclusion = "Contage < 6 semaines sans test biologique : traitement post-exposition.";
+    expert = [];
+    expert.push("Règle déclenchée: contage < 6 semaines sans biologie => traitement post-exposition");
+    await setResult(
+`${badge("warning", tr("postexp"))}
+Contage < 6 semaines sans test biologique.
+
+→ Traitement post-exposition
+→ Identique au traitement d’un stade précoce / inoculation`,
+      "—",
+      "Aucun traitement retenu",
+      confidence("Modérée","contage sans biologie"),
+      "contage sans biologie",
+      { identifier, analysisDate:document.getElementById("analysisDate").value, conclusion, category, recommended_treatment, compare:"—", tx:"Aucun traitement retenu", why:"contage sans biologie", serologies, treatments },
+      parsed, clinical, expert.join("\n")
+    );
+    return;
+  }
+
+  if(clinical.cutaneous && !clinical.chancre && serologies.length === 0){
+    const category = "late";
+    const recommended_treatment = standardLateTreatment();
+    const conclusion = "Autres signes cutanés isolés sans sérologie : traiter comme syphilis tardive si le tableau est évocateur et indatable.";
+    expert = [];
+    expert.push("Règle déclenchée: autre signe cutané isolé sans biologie => tardive par sécurité si tableau évocateur");
+    await setResult(
+`${badge("violet", tr("lateSafety"))}
+Autres signes cutanés isolés sans sérologie.
+
+→ Si tableau d’exanthème maculo-papuleux syphilitique ou syphilide palmo-plantaire
+→ Traiter comme syphilis tardive si indatable`,
+      "—",
+      "Aucun traitement retenu",
+      confidence("Faible","clinique cutanée sans biologie"),
+      "autres signes cutanés sans biologie",
+      { identifier, analysisDate:document.getElementById("analysisDate").value, conclusion, category, recommended_treatment, compare:"—", tx:"Aucun traitement retenu", why:"cutané sans biologie", serologies, treatments },
+      parsed, clinical, expert.join("\n")
+    );
+    return;
+  }
+  if(!serologies.length){
+    await setResult('<span class="empty">Ajoute au moins une sérologie datée.</span>', "—", "—", "—", "—", null, null, null, "");
+    return;
+  }
+
+  renderChart(serologies, treatments);
+  const last = serologies[serologies.length-1];
+  const vdrlSeries = serologies.filter(s => s.vdrl !== null);
+  const lastVDRL = vdrlSeries.length ? vdrlSeries[vdrlSeries.length-1] : null;
+  const audits = buildTreatmentAudit(serologies, treatments, clinical);
+  const lastValidTx = getLastValidTreatment(audits);
+  const txText = lastValidTx ? `${lastValidTx.dateStr} — ${TREATMENTS[lastValidTx.type].label}${lastValidTx.overtreated ? " (plus que nécessaire : un traitement précoce aurait suffi)" : ""}` : "Aucun traitement valide retenu";
+  const why = [];
+  if(audits.filter(a => !a.valid).length) why.push(`${audits.filter(a => !a.valid).length} traitement(s) ignoré(s)`);
+  let expert = [];
+  expert.push(`Langue: ${currentLang}`);
+  expert.push(`Identifiant: ${identifier || "—"}`);
+  expert.push(`Sérologies: ${serologies.map(s => `${s.dateStr} EIA=${s.eia||"—"} TPHA=${s.tpha||"—"} VDRL=${s.vdrl ?? "—"}`).join(" | ")}`);
+  expert.push(`Traitements: ${treatments.length ? treatments.map(t => `${t.dateStr} ${TREATMENTS[t.type]?.label || t.type}`).join(" | ") : "aucun"}`);
+  expert.push(`Clinique: chancre typique=${clinical.chancreTypical ? "oui":"non"}; chancre douteux=${clinical.chancreDoubtful ? "oui":"non"}; contage=${clinical.contact ? "oui":"non"}; neuro=${clinical.neuro ? "oui":"non"}; cicatrice connue=${clinical.scarKnown ? "oui":"non"}`);
+
+  document.getElementById("csfPanel").classList.add("hidden");
+
+  if(clinical.chancreTypical && trepPositive(last) && vdrlPositive(last.vdrl)){
+    const conclusion = "Syphilis précoce certaine (chancre typique + tréponémique positif + VDRL positif).";
+    return await setResult(
+`${badge("warning","Syphilis précoce certaine")}
+Chancre typique + EIA/TPHA positif + VDRL positif
+
+→ Syphilis précoce retenue
+→ Être sûr de la clinique du chancre
+
+${standardEarlyTreatment()}`,
+    `Dernière sérologie du ${last.dateStr} (VDRL ${last.vdrl})`, txText, confidence("Élevée","chancre typique + tréponémique positif + VDRL positif"), finalWhy([...why,"chancre typique","tréponémique positif","VDRL positif"]),
+    { identifier, analysisDate:document.getElementById("analysisDate").value, conclusion, category:"early", recommended_treatment:standardEarlyTreatment(), compare:`Dernière sérologie du ${last.dateStr} (VDRL ${last.vdrl})`, tx:txText, why:finalWhy([...why,"chancre typique","tréponémique positif","VDRL positif"]), serologies, treatments }, parsed, clinical);
+  }
+
+  if(clinical.chancreDoubtful && trepPositive(last) && vdrlPositive(last.vdrl)){
+    const conclusion = "Syphilis précoce probable ; si doute clinique important, garder l’hypothèse d’une syphilis tardive.";
+    return await setResult(
+`${badge("warning","Syphilis précoce probable")}
+Chancre douteux + EIA/TPHA positif + VDRL positif
+
+→ Syphilis précoce probable
+→ Si la clinique est douteuse ou atypique, garder en réserve l’hypothèse d’une syphilis tardive
+
+${standardEarlyTreatment()}`,
+    `Dernière sérologie du ${last.dateStr} (VDRL ${last.vdrl})`, txText, confidence("Modérée","chancre douteux + sérologie positive"), finalWhy([...why,"chancre douteux","tréponémique positif","VDRL positif"]),
+    { identifier, analysisDate:document.getElementById("analysisDate").value, conclusion, category:"early", recommended_treatment:standardEarlyTreatment(), compare:`Dernière sérologie du ${last.dateStr} (VDRL ${last.vdrl})`, tx:txText, why:finalWhy([...why,"chancre douteux","tréponémique positif","VDRL positif"]), serologies, treatments }, parsed, clinical);
+  }
+
+  if(clinical.neuro && trepPositive(last) && vdrlPositive(last.vdrl)){
+    const category = "neuro";
+    const recommended_treatment = standardNeuroTreatment();
+    const conclusion = "Ponction lombaire indiquée ; suspicion de neurosyphilis.";
+    expert.push("Règle déclenchée: neuro + tréponémique positif + VDRL positif => neurosyphilis suspectée");
+    return await setResult(
+`${badge("danger","Ponction lombaire indiquée")}
+Signes neurologiques / ORL / ophtalmologiques avec TPHA ou EIA positif et VDRL positif.
+
+→ Indication de ponction lombaire
+→ Suspicion de neurosyphilis
+
+${recommended_treatment}`,
+      `Dernière sérologie positive du ${last.dateStr} (VDRL ${last.vdrl})`,
+      txText,
+      confidence("Élevée","clinique neuro/ORL/oph + sérologie positive"),
+      finalWhy([...why,"PL indiquée"]),
+      { identifier, analysisDate:document.getElementById("analysisDate").value, conclusion, category, recommended_treatment, compare:`Dernière sérologie positive du ${last.dateStr} (VDRL ${last.vdrl})`, tx:txText, why:finalWhy([...why,"PL indiquée"]), serologies, treatments },
+      parsed, clinical, expert.join("\n")
+    );
+  }
+
+  if(clinical.chancreTypical && trepNegativeOrMissingVdrl(last)){
+    const category = "early";
+    const recommended_treatment = standardEarlyTreatment();
+    const conclusion = "Chancre typique avec sérologie négative : syphilis précoce à traiter.";
+    expert.push("Règle déclenchée: chancre typique + sérologie négative => traiter comme précoce");
+    return await setResult(
+`${badge("warning", tr("earlyCertain"))}
+Chancre compatible avec syphilis primaire.
+
+→ Si la clinique est certaine : syphilis précoce
+→ Traiter comme stade précoce
+
+${recommended_treatment}`,
+      `Dernière sérologie du ${last.dateStr}`,
+      txText,
+      confidence("Élevée","chancre typique malgré sérologie négative"),
+      finalWhy([...why,"chancre typique","sérologie négative"]),
+      { identifier, analysisDate:document.getElementById("analysisDate").value, conclusion, category, recommended_treatment, compare:`Dernière sérologie du ${last.dateStr}`, tx:txText, why:finalWhy([...why,"chancre typique","sérologie négative"]), serologies, treatments },
+      parsed, clinical, expert.join("\n")
+    );
+  }
+
+  if(clinical.chancreTypical && trepPositive(last) && vdrlPositive(last.vdrl)){
+    const category = "early";
+    const recommended_treatment = standardEarlyTreatment();
+    const conclusion = "Syphilis précoce certaine.";
+    expert.push("Règle déclenchée: chancre typique + EIA/TPHA positif + VDRL positif => précoce certain");
+    return await setResult(
+`${badge("warning", tr("earlyCertain"))}
+Chancre compatible avec syphilis primaire.
+
+→ Si la clinique est certaine : syphilis précoce
+→ Traitement précoce recommandé
+
+${recommended_treatment}
+
+Note de sécurité :
+• Être sûr de la clinique
+• Dans le doute ou si l’aspect est atypique, garder en réserve l’hypothèse d’une syphilis tardive.`,
+      `Dernière sérologie du ${last.dateStr} (VDRL ${last.vdrl})`,
+      txText,
+      confidence("Élevée","chancre typique + tréponémique positif + VDRL positif"),
+      finalWhy([...why,"chancre typique","tréponémique positif","VDRL positif"]),
+      { identifier, analysisDate:document.getElementById("analysisDate").value, conclusion, category, recommended_treatment, compare:`Dernière sérologie du ${last.dateStr} (VDRL ${last.vdrl})`, tx:txText, why:finalWhy([...why,"chancre typique","tréponémique positif","VDRL positif"]), serologies, treatments },
+      parsed, clinical, expert.join("\n")
+    );
+  }
+
+  if(clinical.chancreDoubtful && trepPositive(last) && vdrlPositive(last.vdrl)){
+    const category = "early";
+    const recommended_treatment = standardEarlyTreatment();
+    const conclusion = "Syphilis précoce probable.";
+    expert.push("Règle déclenchée: chancre douteux + EIA/TPHA positif + VDRL positif => précoce probable, tardive en réserve");
+    return await setResult(
+`${badge("warning", tr("earlyProb"))}
+Chancre compatible avec syphilis primaire, mais clinique non certaine.
+
+→ Si la clinique est douteuse ou atypique : garder en réserve l’hypothèse d’une syphilis tardive
+→ Orientation principale : syphilis précoce
+
+${recommended_treatment}`,
+      `Dernière sérologie du ${last.dateStr} (VDRL ${last.vdrl})`,
+      txText,
+      confidence("Modérée","chancre douteux + sérologie positive"),
+      finalWhy([...why,"chancre douteux","tréponémique positif","VDRL positif"]),
+      { identifier, analysisDate:document.getElementById("analysisDate").value, conclusion, category, recommended_treatment, compare:`Dernière sérologie du ${last.dateStr} (VDRL ${last.vdrl})`, tx:txText, why:finalWhy([...why,"chancre douteux","tréponémique positif","VDRL positif"]), serologies, treatments },
+      parsed, clinical, expert.join("\n")
+    );
+  }
+
+  if(clinical.contact && trepNegativeOrMissingVdrl(last)){
+    const category = "early";
+    const recommended_treatment = standardEarlyTreatment();
+    const conclusion = "Contage récent avec sérologie négative : traiter comme post-exposition / primaire très précoce.";
+    expert.push("Règle déclenchée: contage récent + sérologie négative => post-exposition");
+    return await setResult(
+`${badge("warning", tr("postexp"))}
+Contage récent (< 6 semaines) avec sérologie négative.
+
+→ Syphilis primaire très précoce possible ou phase d’incubation
+→ Traiter
+
+${recommended_treatment}`,
+      `Dernière sérologie négative du ${last.dateStr}`,
+      txText,
+      confidence("Modérée","contage récent malgré sérologie négative"),
+      finalWhy([...why,"contage < 6 semaines","sérologie négative"]),
+      { identifier, analysisDate:document.getElementById("analysisDate").value, conclusion, category, recommended_treatment, compare:`Dernière sérologie négative du ${last.dateStr}`, tx:txText, why:finalWhy([...why,"contage < 6 semaines","sérologie négative"]), serologies, treatments },
+      parsed, clinical, expert.join("\n")
+    );
+  }
+
+  if(trepIndeterminate(last)){
+    const category = clinical.contact || clinical.chancreTypical || clinical.chancreDoubtful ? "early" : "recontrol";
+    const recommended_treatment = clinical.contact || clinical.chancreTypical || clinical.chancreDoubtful ? standardEarlyTreatment() : "Recontrôle à 2–3 semaines";
+    const html = clinical.contact || clinical.chancreTypical || clinical.chancreDoubtful ? `${badge("warning","EIA / TPHA indéterminé")}
+Contexte de contage ou symptômes compatibles.
+
+→ Traiter comme syphilis précoce
+
+${recommended_treatment}` : `${badge("info","EIA / TPHA indéterminé")}
+Pas de contage ni symptôme datant.
+
+→ Recontrôle précoce à 2–3 semaines
+→ En se protégeant d’ici là`;
+    const conclusion = clinical.contact || clinical.chancreTypical || clinical.chancreDoubtful ? "EIA/TPHA indéterminé avec contexte compatible : traiter comme syphilis précoce." : "EIA/TPHA indéterminé : recontrôle à 2–3 semaines.";
+    expert.push("Règle déclenchée: tréponémique indéterminé");
+    return await setResult(html, `Dernière sérologie du ${last.dateStr}`, txText, confidence(clinical.contact || clinical.chancreTypical || clinical.chancreDoubtful ? "Modérée":"Faible", clinical.contact || clinical.chancreTypical || clinical.chancreDoubtful ? "indéterminé mais contexte compatible":"indéterminé isolé"), finalWhy([...why,"EIA/TPHA indéterminé"]),
+      { identifier, analysisDate:document.getElementById("analysisDate").value, conclusion, category, recommended_treatment, compare:`Dernière sérologie du ${last.dateStr}`, tx:txText, why:finalWhy([...why,"EIA/TPHA indéterminé"]), serologies, treatments }, parsed, clinical, expert.join("\n"));
+  }
+
+  if((last.eia==="neg" || last.tpha==="neg") && last.vdrl===null){
+    const category = "recontrol";
+    const recommended_treatment = "Recontrôle selon le contexte clinique";
+    const conclusion = "Sérologie considérée négative (EIA ou TPHA négatif sans VDRL).";
+    expert.push("Règle déclenchée: EIA ou TPHA négatif sans VDRL => sérologie négative");
+    return await setResult(
+`${badge("info", tr("negative"))}
+EIA ou TPHA négatif sans VDRL renseigné.
+
+→ Considéré comme sérologie négative
+→ Recontrôle selon le contexte clinique`,
+      `Dernière sérologie du ${last.dateStr}`,
+      txText,
+      confidence("Modérée","tréponémique négatif sans VDRL"),
+      finalWhy([...why,"EIA ou TPHA négatif","VDRL non renseigné"]),
+      { identifier, analysisDate:document.getElementById("analysisDate").value, conclusion, category, recommended_treatment, compare:`Dernière sérologie du ${last.dateStr}`, tx:txText, why:finalWhy([...why,"EIA ou TPHA négatif","VDRL non renseigné"]), serologies, treatments }, parsed, clinical, expert.join("\n")
+    );
+  }
+
+  if(clinical.scarKnown && trepPositive(last) && last.vdrl===0){
+    const category = "scar";
+    const recommended_treatment = "Pas de traitement immédiat ; recontrôle à 3 mois si exposition ou doute clinique";
+    const conclusion = "Sérologie cicatricielle probable ; pas de traitement immédiat.";
+    expert.push("Règle déclenchée: cicatrice connue + tréponémique positif + VDRL 0 => cicatrice probable");
+    return await setResult(
+`${badge("info", tr("scarProb"))}
+Sérologie compatible avec une cicatrice syphilitique connue.
+
+→ TPHA/EIA positif avec VDRL négatif
+→ Compatible avec infection ancienne déjà traitée
+
+Conduite à tenir :
+• Pas de traitement immédiat
+• Recontrôle VDRL à 3 mois si exposition ou doute clinique
+• Surveillance simple sinon`,
+      `Dernière sérologie du ${last.dateStr} (VDRL 0)`,
+      txText,
+      confidence("Élevée","cohérence avec cicatrice connue"),
+      finalWhy([...why,"cicatrice connue","VDRL négatif"]),
+      { identifier, analysisDate:document.getElementById("analysisDate").value, conclusion, category, recommended_treatment, compare:`Dernière sérologie du ${last.dateStr} (VDRL 0)`, tx:txText, why:finalWhy([...why,"cicatrice connue","VDRL négatif"]), serologies, treatments }, parsed, clinical, expert.join("\n")
+    );
+  }
+
+  if((last.tpha==="pos" || last.eia==="pos") && last.vdrl===0 && !clinical.scarKnown && !clinical.chancreTypical && !clinical.chancreDoubtful && !clinical.contact){
+    const category = "recontrol";
+    const recommended_treatment = "Pas de traitement immédiat ; recontrôle à 3–6 semaines";
+    const conclusion = "Possible cicatrice ou infection récente ; recontrôle à 3–6 semaines.";
+    expert.push("Règle déclenchée: tréponémique positif + VDRL 0 sans autre argument => recontrôle");
+    return await setResult(
+`${badge("info", tr("recentOrScar"))}
+Sérologie tréponémique positive avec VDRL négatif, sans cicatrice connue, sans chancre et sans contage récent.
+
+→ Possible cicatrice
+→ Possible infection très récente non datable
+→ Pas de traitement immédiat
+→ Recontrôle à 3–6 semaines`,
+      `Dernière sérologie du ${last.dateStr} (VDRL 0)`,
+      txText,
+      confidence("Modérée","tréponémique positif avec VDRL négatif"),
+      finalWhy([...why,"VDRL négatif","pas de chancre","pas de contage"]),
+      { identifier, analysisDate:document.getElementById("analysisDate").value, conclusion, category, recommended_treatment, compare:`Dernière sérologie du ${last.dateStr} (VDRL 0)`, tx:txText, why:finalWhy([...why,"VDRL négatif","pas de chancre","pas de contage"]), serologies, treatments }, parsed, clinical, expert.join("\n")
+    );
+  }
+
+  if(serologies.length === 1 && vdrlPositive(last.vdrl) && !clinical.scarKnown && !clinical.chancre){
+    const category = "late";
+    const recommended_treatment = standardLateTreatment();
+    const conclusion = "Considérée comme syphilis tardive par défaut.";
+    expert.push("Règle déclenchée: une seule sérologie avec VDRL > 0 sans chancre ni cicatrice => tardive");
+    return await setResult(
+`${badge("violet", tr("lateDefault"))}
+Pas d’historique antérieur exploitable.
+
+→ Une seule sérologie avec VDRL > 0
+→ Infection non datable
+→ À considérer comme syphilis tardive
+
+${recommended_treatment}`,
+      `${last.dateStr} (VDRL ${last.vdrl})`,
+      txText,
+      confidence("Élevée","une seule sérologie avec VDRL > 0"),
+      finalWhy([...why,"une seule sérologie","VDRL > 0"]),
+      { identifier, analysisDate:document.getElementById("analysisDate").value, conclusion, category, recommended_treatment, compare:`${last.dateStr} (VDRL ${last.vdrl})`, tx:txText, why:finalWhy([...why,"une seule sérologie","VDRL > 0"]), serologies, treatments }, parsed, clinical, expert.join("\n")
+    );
+  }
+
+  const anyPriorNegVdrl = vdrlSeries.some(s => s.date < last.date && s.vdrl===0);
+  const anyPriorNegTrep = serologies.some(s => s.date < last.date && (s.eia==="neg" || s.tpha==="neg"));
+  if(vdrlSeries.length >= 1 && !lastValidTx && !anyPriorNegVdrl && !anyPriorNegTrep && !clinical.chancreTypical && !clinical.chancreDoubtful && trepPositive(last) && vdrlPositive(last.vdrl)){
+    const category = "late";
+    const recommended_treatment = standardLateTreatment();
+    const conclusion = "Considérée comme syphilis tardive par défaut.";
+    expert.push("Règle déclenchée: pas d'antécédent négatif ni traitement validé => tardive par défaut");
+    return await setResult(
+`${badge("violet", tr("lateDefault"))}
+Pas d’historique de traitement validé, pas d’antécédent négatif, et absence de chancre clinique.
+
+→ Infection non datable
+→ À considérer comme syphilis tardive
+
+${recommended_treatment}`,
+      vdrlSeries.length >= 2 ? `${vdrlSeries[0].dateStr} (VDRL ${vdrlSeries[0].vdrl}) → ${last.dateStr} (VDRL ${last.vdrl})` : `${last.dateStr} (VDRL ${last.vdrl})`,
+      txText,
+      confidence("Élevée","pas d’antécédent négatif ni de traitement validé"),
+      finalWhy([...why,"pas d’antécédent négatif","pas de traitement validé","pas de chancre"]),
+      { identifier, analysisDate:document.getElementById("analysisDate").value, conclusion, category, recommended_treatment, compare:vdrlSeries.length >= 2 ? `${vdrlSeries[0].dateStr} (VDRL ${vdrlSeries[0].vdrl}) → ${last.dateStr} (VDRL ${last.vdrl})` : `${last.dateStr} (VDRL ${last.vdrl})`, tx:txText, why:finalWhy([...why,"pas d’antécédent négatif","pas de traitement validé","pas de chancre"]), serologies, treatments }, parsed, clinical, expert.join("\n")
+    );
+  }
+
+  const lastTxWithin7 = lastValidTx && lastVDRL && daysDiff(lastVDRL.date, lastValidTx.date) >= 0 && daysDiff(lastVDRL.date, lastValidTx.date) <= 7;
+  if(lastTxWithin7){
+    const category = lastValidTx.expected || "early";
+    const recommended_treatment = "Suivi VDRL tous les 3 mois jusqu’à négativation";
+    const conclusion = "Épisode considéré bien traité ; suivi VDRL trimestriel jusqu’à négativation.";
+    expert.push("Règle déclenchée: traitement adapté reçu dans les 7 jours avant dernier VDRL => bien traité");
+    return await setResult(
+`${badge("success", tr("treated"))}
+Traitement adapté reçu < 1 semaine avant le dernier VDRL.
+
+→ Considéré comme bien traité pour cet épisode
+→ Suivi VDRL tous les 3 mois jusqu’à négativation`,
+      `${last.dateStr} (dernier VDRL ${last.vdrl ?? "non renseigné"})`,
+      txText,
+      confidence("Élevée","traitement adapté très proche de la sérologie"),
+      finalWhy([...why,"traitement adapté < 1 semaine avant dernier VDRL"]),
+      { identifier, analysisDate:document.getElementById("analysisDate").value, conclusion, category, recommended_treatment, compare:`${last.dateStr} (dernier VDRL ${last.vdrl ?? "non renseigné"})`, tx:txText, why:finalWhy([...why,"traitement adapté < 1 semaine avant dernier VDRL"]), serologies, treatments }, parsed, clinical, expert.join("\n")
+    );
+  }
+
+  if(lastValidTx && lastVDRL && lastVDRL.date >= lastValidTx.date){
+    const ref = [...vdrlSeries].filter(s => s.date < lastValidTx.date).slice(-1)[0];
+    if(ref){
+      const diff = dilutionDiff(lastVDRL.vdrl, ref.vdrl);
+      const compareText = `${ref.dateStr} (VDRL ${ref.vdrl}) → ${lastVDRL.dateStr} (VDRL ${lastVDRL.vdrl})`;
+      expert.push(`Comparaison VDRL: diff=${diff}`);
+      if(diff !== null && diff <= -2 && absDays(lastVDRL.date, ref.date) < 90){
+        const category = "scar";
+        const recommended_treatment = "Suivi VDRL tous les 3 mois jusqu’à négativation";
+        const conclusion = "Probable cicatrice / bonne réponse post-traitement ; suivi trimestriel.";
+        expert.push("Règle déclenchée: baisse >= 2 dilutions en < 3 mois => bonne réponse post-traitement");
+        return await setResult(
+`${badge("success", tr("goodResponse"))}
+Baisse du VDRL d’au moins 2 dilutions en moins de 3 mois après traitement.
+
+→ Probable cicatrice / bonne réponse post-traitement
+→ Suivi VDRL tous les 3 mois jusqu’à négativation`,
+          compareText,
+          txText,
+          confidence("Élevée","baisse nette post-traitement"),
+          finalWhy([...why,"traitement valide","baisse > 2 dilutions < 3 mois"]),
+          { identifier, analysisDate:document.getElementById("analysisDate").value, conclusion, category, recommended_treatment, compare:compareText, tx:txText, why:finalWhy([...why,"traitement valide","baisse > 2 dilutions < 3 mois"]), serologies, treatments }, parsed, clinical, expert.join("\n")
+        );
+      }
+    }
+  }
+
+  if(vdrlSeries.length >= 2){
+    const prev = vdrlSeries[vdrlSeries.length-2];
+    const diff = dilutionDiff(last.vdrl, prev.vdrl);
+    const compareText = `${prev.dateStr} (VDRL ${prev.vdrl}) → ${last.dateStr} (VDRL ${last.vdrl})`;
+    expert.push(`Comparaison simple multi-VDRL: diff=${diff}`);
+    if(diff !== null && diff >= 2){
+      const category = "early";
+      const recommended_treatment = standardEarlyTreatment();
+      const conclusion = "Recontamination.";
+      expert.push("Règle déclenchée: augmentation >= 2 dilutions => recontamination");
+      return await setResult(
+`${badge("warning","Recontamination")}
+Augmentation du VDRL ≥ 2 dilutions
+
+→ Compatible avec réinfection ou nouvelle contamination
+→ Traiter comme syphilis précoce
+
+${recommended_treatment}`,
+        compareText,
+        txText,
+        confidence("Élevée","augmentation ≥ 2 dilutions"),
+        finalWhy([...why,"augmentation ≥ 2 dilutions"]),
+        { identifier, analysisDate:document.getElementById("analysisDate").value, conclusion, category, recommended_treatment, compare:compareText, tx:txText, why:finalWhy([...why,"augmentation ≥ 2 dilutions"]), serologies, treatments }, parsed, clinical, expert.join("\n")
+      );
+    }
+    if(diff !== null && diff < 2){
+      const category = "scar";
+      const recommended_treatment = "Recontrôle à 6 semaines ou 3 mois si suspicion clinique ou contage";
+      const conclusion = "Variation faible, probable cicatriciel.";
+      expert.push("Règle déclenchée: augmentation < 2 dilutions => cicatriciel probable");
+      return await setResult(
+`${badge("info","Probable cicatriciel")}
+Augmentation du VDRL < 2 dilutions.
+
+→ Variation non significative
+→ Probable cicatriciel
+→ Recontrôle à 6 semaines ou 3 mois si suspicion clinique ou contage`,
+        compareText,
+        txText,
+        confidence("Modérée","augmentation < 2 dilutions"),
+        finalWhy([...why,"augmentation < 2 dilutions"]),
+        { identifier, analysisDate:document.getElementById("analysisDate").value, conclusion, category, recommended_treatment, compare:compareText, tx:txText, why:finalWhy([...why,"augmentation < 2 dilutions"]), serologies, treatments }, parsed, clinical, expert.join("\n")
+      );
+    }
+  }
+
+  const category = "late";
+  const recommended_treatment = standardLateTreatment();
+  const conclusion = "Traiter comme syphilis tardive par sécurité.";
+  expert.push("Règle déclenchée: fallback de sécurité => tardive");
+  return await setResult(
+`${badge("violet", tr("lateSafety"))}
+Situation restant indatable ou historique insuffisant.
+
+${recommended_treatment}`,
+    `Dernière sérologie du ${last.dateStr}`,
+    txText,
+    confidence("Faible","situation indatable mais CAT fournie"),
+    finalWhy([...why,"situation indatable","CAT de sécurité"]),
+    { identifier, analysisDate:document.getElementById("analysisDate").value, conclusion, category, recommended_treatment, compare:`Dernière sérologie du ${last.dateStr}`, tx:txText, why:finalWhy([...why,"situation indatable","CAT de sécurité"]), serologies, treatments }, parsed, clinical, expert.join("\n")
+  );
+}
+function exportPdf(){
+  if(!lastAnalysisPayload){ alert("Lance d'abord une analyse."); return; }
+  const p = lastAnalysisPayload; const { jsPDF } = window.jspdf; const doc = new jsPDF(); let y = 14;
+  function line(text,size=11,gap=7){ doc.setFontSize(size); const lines = doc.splitTextToSize(text,180); doc.text(lines,14,y); y += lines.length*gap; if(y>275){doc.addPage(); y=14;} }
+  function block(title,text){ doc.setFillColor(245,248,253); doc.roundedRect(10,y-4,190,12,3,3,'F'); doc.setFontSize(13); doc.text(title,14,y+4); y += 12; line(text,11,6); y += 4; }
+  doc.setFontSize(18); doc.text("Résumé clinique syphilis",14,y); y += 10;
+  line(`Identifiant : ${p.identifier || ""}`); line(`Date de l'analyse : ${p.analysisDate || ""}`);
+  block("Conclusion",p.conclusion || ""); block("VDRL de référence retenu",p.compare || ""); block("Traitement antérieur retenu",p.tx || ""); block("Pourquoi cette conclusion",p.why || "");
+  try{ const img = document.getElementById("chart").toDataURL("image/png",1.0); if(y>170){doc.addPage(); y=14;} doc.setFontSize(13); doc.text("Graphique sérologique",14,y); y += 6; doc.addImage(img,"PNG",14,y,180,95); y += 103; }catch(e){}
+  block("Chronologie des sérologies",(p.serologies || []).map(s => `${s.dateStr} | EIA: ${s.eia || "—"} | TPHA: ${s.tpha || "—"} | VDRL: ${s.vdrl ?? "—"}`).join("\n"));
+  block("Chronologie des traitements",(p.treatments || []).length ? (p.treatments || []).map(t => `${t.dateStr} | ${TREATMENTS[t.type]?.label || t.type}`).join("\n") : "Aucun traitement saisi");
+  doc.save(`resume_syphilis_${p.identifier || 'sans_identifiant'}_${p.analysisDate || 'date'}.pdf`);
+}
+
+function resetAll(){
+  document.getElementById("seroList").innerHTML = "";
+  document.getElementById("treatmentList").innerHTML = "";
+  document.getElementById("patientId").value = "";
+  if(document.getElementById("chancreTypical")) document.getElementById("chancreTypical").checked = false;
+  if(document.getElementById("chancreDoubtful")) document.getElementById("chancreDoubtful").checked = false;
+  document.getElementById("contact").checked = false;
+  document.getElementById("neuro").checked = false;
+  document.getElementById("cutaneous").checked = false;
+  document.getElementById("scarKnown").checked = false;
+  document.getElementById("csfTpha").value = "";
+  document.getElementById("csfVdrl").value = "";
+  document.getElementById("csfPanel").classList.add("hidden");
+  document.getElementById("feedbackStatus").textContent = "Aucune évaluation envoyée.";
+  document.getElementById("problemStatus").textContent = "Aucun signalement envoyé.";
+  document.getElementById("problematicCaseText").value = "";
+  document.getElementById("supabaseStatus").textContent = "Supabase prêt.";
+  setToday();
+  createSerologyRow();
+  setBoxes("—","—","—","—");
+  document.getElementById("resultBox").innerHTML = '<span class="empty">Remplis les données puis clique sur « Analyser ».</span>';
+  if(chart) chart.destroy();
+  chart = null;
+  lastAnalysisPayload = null;
+  lastSavedAnalysisEventId = null;
+  const ec=document.getElementById("expertContent"); if(ec) ec.textContent="";
+}
+
+
+function enforceExclusiveChancre(choice){
+  const typical = document.getElementById("chancreTypical");
+  const doubtful = document.getElementById("chancreDoubtful");
+  if(choice === "typical" && typical.checked) doubtful.checked = false;
+  if(choice === "doubtful" && doubtful.checked) typical.checked = false;
+}
+
+function openBigChart(){
+  if(!chart){
+    alert("Lance d'abord une analyse.");
+    return;
+  }
+  const img = document.getElementById("chart").toDataURL("image/png", 1.0);
+  const win = window.open("", "_blank");
+  if(!win) return;
+  win.document.write(`
+    <html><head><title>Graphique VDRL</title>
+    <style>
+      body{font-family:Arial;margin:20px;background:#f8fbff;color:#17324d}
+      h1{font-size:22px}
+      img{max-width:100%;height:auto;border:1px solid #d6e2ef;border-radius:16px;background:#fff}
+      .note{margin-top:12px;font-size:14px;color:#5f738d}
+    </style></head>
+    <body>
+      <h1>Graphique VDRL</h1>
+      <img src="${img}" alt="Graphique VDRL">
+      <div class="note">Ouvre cette page depuis l’outil après une analyse pour afficher le graphique en grand.</div>
+    </body></html>
+  `);
+  win.document.close();
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  initSupabase();
+  applyTranslations("fr");
+  document.querySelectorAll(".lang-btn").forEach(btn => btn.addEventListener("click", () => applyTranslations(btn.dataset.lang)));
+  setToday();
+  createSerologyRow();
+  renderHistory();
+  document.getElementById("btnAddSero").addEventListener("click", () => createSerologyRow());
+  document.getElementById("chancreTypical").addEventListener("change", () => enforceExclusiveChancre("typical"));
+  document.getElementById("chancreDoubtful").addEventListener("change", () => enforceExclusiveChancre("doubtful"));
+  document.getElementById("btnAddTx").addEventListener("click", () => createTreatmentRow());
+  document.getElementById("btnAnalyse").addEventListener("click", () => analyse());
+  document.getElementById("btnReset").addEventListener("click", () => resetAll());
+  document.getElementById("btnPdf").addEventListener("click", () => exportPdf());
+  document.getElementById("btnBigChart").addEventListener("click", () => openBigChart());
+  document.getElementById("btnProblem").addEventListener("click", () => sendProblematicCase());
+  document.getElementById("btnHistoryExcel").addEventListener("click", () => downloadHistoryExcel());
+  document.getElementById("btnHistoryRefresh").addEventListener("click", () => renderHistory());
+  document.getElementById("btnHistoryReset").addEventListener("click", () => resetHistory());
+  document.querySelectorAll("[data-rating]").forEach(btn => btn.addEventListener("click", () => sendFeedback(Number(btn.dataset.rating))));
+  const btnExpertEl = document.getElementById("btnExpert");
+  if(btnExpertEl) btnExpertEl.addEventListener("click", () => {
+    document.getElementById("expertBox").classList.toggle("hidden");
+    applyTranslations(currentLang);
+  });
+});
+</script>
+</body>
+</html>
