@@ -34,7 +34,7 @@ input,select,textarea{width:100%;padding:12px 13px;border:1px solid #cfd9e6;bord
 .b-red{background:#fff1f2;color:var(--red)} .b-green{background:#ecfdf5;color:var(--green)} .b-orange{background:#fff7ed;color:var(--orange)} .b-blue{background:#eff6ff;color:var(--primary)} .b-violet{background:#f4efff;color:var(--violet)}
 .note{font-size:13px;color:var(--muted)} .mini{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}.mini .box{border:1px solid var(--line);border-radius:16px;padding:12px;background:#fff}
 @media (max-width:760px){.mini{grid-template-columns:1fr}}
-canvas{margin-top:14px;background:#fff;border:1px solid var(--line);border-radius:18px;padding:8px;height:250px!important}
+canvas{margin-top:14px;background:#fff;border:1px solid var(--line);border-radius:18px;padding:8px;height:220px!important;max-height:220px}
 .empty{color:var(--muted);font-style:italic}.small{font-size:12px;color:var(--muted)}.hidden{display:none!important}
 .ratingbar{display:flex;gap:8px;flex-wrap:wrap}.ratingbar button{min-width:46px}.status{font-size:12px;color:var(--muted)}
 table{width:100%;border-collapse:collapse;font-size:14px} th,td{padding:10px;border-bottom:1px solid #eef2f7;text-align:left;vertical-align:top}
@@ -56,8 +56,8 @@ table{width:100%;border-collapse:collapse;font-size:14px} th,td{padding:10px;bor
       <button class="btn-soft lang-btn" type="button" data-lang="ja">🇯🇵 日本語</button>
     </div>
 </div>
-    <h1 id="i18nTitle">Outil pratique syphilis</h1>
-    <div class="sub" id="i18nSubtitle">Renseignez les données cliniques, sérologiques et thérapeutiques pour obtenir une interprétation structurée, un suivi chronologique, un graphique VDRL lisible et des exports utiles en pratique clinique.</div>
+    <h1 id="i18nTitle">Outil d’interprétation clinico-biologique de la syphilis</h1>
+    <div class="sub" id="i18nSubtitle">Renseignez les données cliniques, sérologiques et thérapeutiques pour obtenir une interprétation structurée, un suivi chronologique et un graphique VDRL exploitable en pratique clinique.</div>
   </div>
 
   <div class="grid">
@@ -167,14 +167,14 @@ table{width:100%;border-collapse:collapse;font-size:14px} th,td{padding:10px;bor
         </div>
 
         <div class="rowbox" style="margin-top:14px">
-          <div class="section-title">Souhaitez-vous signaler un cas problématique ?</div>
-          <div class="help" style="margin:8px 0 12px">Le commentaire sera envoyé avec les données cliniques et biologiques de cette analyse, sans identifiant patient.</div>
+          <div class="section-title" id="i18nReportTitle">Souhaitez-vous signaler un cas problématique ?</div>
+          <div class="help" id="i18nReportDesc" style="margin:8px 0 12px">Le commentaire sera envoyé avec les données cliniques et biologiques de cette analyse, sans identifiant patient.</div>
           <div class="field">
-            <label>Commentaire</label>
-            <textarea id="problematicCaseText" rows="5" placeholder="Décris le problème observé, l’erreur supposée, ou la nuance clinique manquante."></textarea>
+            <label id="i18nCommentLabel">Commentaire</label>
+            <textarea id="problematicCaseText" rows="5" placeholder="Décris le problème observé, l’erreur supposée, ou la nuance clinique manquante." id="problematicCaseTextPlaceholder"></textarea>
           </div>
           <div class="toolbar" style="margin-top:12px">
-            <button class="btn-orange" type="button" id="btnProblem">Envoyer le cas problématique</button>
+            <button class="btn-orange" type="button" id="btnProblem" id="i18nReportButton">Envoyer le cas problématique</button>
           </div>
           <div id="problemStatus" class="status" style="margin-top:10px">Aucun signalement envoyé.</div>
           <div id="supabaseStatus" class="status" style="margin-top:10px">Supabase prêt.</div>
@@ -321,6 +321,556 @@ function applyTranslations(lang){
 }
 
 
+
+currentLang = "fr";
+
+function dynT(key){
+  const pack = DYNAMIC_I18N[currentLang] || DYNAMIC_I18N.fr;
+  return pack[key] || DYNAMIC_I18N.fr[key] || key;
+}
+
+const DYNAMIC_I18N = {
+  fr: {
+    moderate: "Modérée", high: "Élevée", low: "Faible",
+    early_treatment_title: "Traitement proposé :",
+    early_1: "1re intention : Extencilline 2,4 MUI dose unique",
+    early_2: "2e intention : Doxycycline 2 semaines",
+    early_3: "3e intention : Ceftriaxone 1 g/j pendant 7 jours",
+    late_treatment_title: "Traitement proposé :",
+    late_1: "Extencilline 2,4 MUI 1 fois/semaine pendant 3 semaines",
+    late_2: "Doxycycline 4 semaines",
+    neuro_treatment_title: "Traitement de neurosyphilis :",
+    neuro_1: "Pénicilline G IV 14 jours",
+    neuro_2: "Ceftriaxone 2 g/j pendant 14 jours",
+
+    reinfection_badge: "Recontamination",
+    reinfection_text: "Augmentation du VDRL ≥ 2 dilutions.",
+    reinfection_text2: "→ Compatible avec réinfection ou nouvelle contamination",
+    reinfection_text3: "→ Traiter comme syphilis précoce",
+    reinfection_conclusion: "Recontamination probable",
+    reinfection_confidence: "augmentation ≥ 2 dilutions",
+    reinfection_why: "augmentation ≥ 2 dilutions",
+
+    kinetic_badge: "Cinétique VDRL à interprétation fine",
+    kinetic_conclusion: "Augmentation du VDRL après traitement tardif compatible avec une cinétique sérologique en cloche.",
+    kinetic_text_1: "Traitement administré tardivement après la sérologie précédente, avec VDRL suivant plus élevé.",
+    kinetic_text_2: "→ Possible pic sérologique non capté avant traitement",
+    kinetic_text_3: "→ Possible décroissance lente secondaire",
+    kinetic_text_4: "→ Mais une recontamination ne peut pas être exclue",
+    kinetic_management_title: "Conduite à tenir :",
+    kinetic_followup: "Recontrôle sérologique rapproché (6 semaines)",
+    kinetic_if_worse: "Si poursuite de l’augmentation ou nouveau contexte d’exposition : traiter comme recontamination / syphilis précoce",
+    kinetic_confidence: "hausse post-traitement tardif compatible avec une cinétique en cloche, sans exclure une recontamination",
+    kinetic_why: "traitement > 7 jours après sérologie | augmentation post-traitement | interprétation cinétique fine",
+
+    lp_badge: "Ponction lombaire indiquée",
+    lp_text1: "Signes neurologiques / ORL / ophtalmologiques avec TPHA ou EIA positif et VDRL positif.",
+    lp_text2: "→ Indication de ponction lombaire",
+    lp_text3: "→ Suspicion de neurosyphilis",
+    lcr_module: "Module LCR interactif : renseigner TPHA LCR et VDRL LCR puis relancer l’analyse.",
+    lcr_neg_neg: "TPHA LCR négatif / VDRL LCR négatif",
+    lcr_neg_neg_text: "→ Neurosyphilis non confirmée ; possible forme très précoce ou atteinte ORL/ophtalmologique ; compléter par FO / audiométrie / avis spécialisé ; possibilité de traiter comme syphilis tardive",
+    lcr_pos_neg: "TPHA LCR positif / VDRL LCR négatif",
+    lcr_pos_neg_text: "→ Possible neurosyphilis ; traiter comme neurosyphilis",
+    lcr_pos_pos: "TPHA LCR positif / VDRL LCR positif",
+    lcr_pos_pos_text: "→ Neurosyphilis confirmée ; traitement de neurosyphilis",
+
+    scar_badge: "Probable cicatriciel",
+    scar_text1: "Augmentation du VDRL < 2 dilutions.",
+    scar_text2: "→ Variation non significative",
+    scar_text3: "→ Probable cicatriciel",
+    scar_text4: "→ Recontrôle à 6 semaines ou 3 mois si suspicion clinique ou contage",
+    scar_conclusion: "Variation faible, probable cicatriciel.",
+    scar_confidence: "augmentation < 2 dilutions",
+    scar_why: "augmentation < 2 dilutions"
+  },
+  en: {
+    moderate: "Moderate", high: "High", low: "Low",
+    early_treatment_title: "Recommended treatment:",
+    early_1: "1st line: Benzathine penicillin 2.4 MU single dose",
+    early_2: "2nd line: Doxycycline for 2 weeks",
+    early_3: "3rd line: Ceftriaxone 1 g/day for 7 days",
+    late_treatment_title: "Recommended treatment:",
+    late_1: "Benzathine penicillin 2.4 MU once weekly for 3 weeks",
+    late_2: "Doxycycline for 4 weeks",
+    neuro_treatment_title: "Neurosyphilis treatment:",
+    neuro_1: "Penicillin G IV for 14 days",
+    neuro_2: "Ceftriaxone 2 g/day for 14 days",
+
+    reinfection_badge: "Reinfection",
+    reinfection_text: "VDRL increase ≥ 2 dilutions.",
+    reinfection_text2: "→ Compatible with reinfection or new contamination",
+    reinfection_text3: "→ Treat as early syphilis",
+    reinfection_conclusion: "Probable reinfection",
+    reinfection_confidence: "increase ≥ 2 dilutions",
+    reinfection_why: "increase ≥ 2 dilutions",
+
+    kinetic_badge: "Advanced VDRL kinetics",
+    kinetic_conclusion: "VDRL rise after delayed treatment compatible with bell-shaped serologic kinetics.",
+    kinetic_text_1: "Treatment was administered late after the previous serology, with a higher subsequent VDRL.",
+    kinetic_text_2: "→ Possible missed serologic peak before treatment",
+    kinetic_text_3: "→ Possible slow subsequent decline",
+    kinetic_text_4: "→ But reinfection cannot be excluded",
+    kinetic_management_title: "Management:",
+    kinetic_followup: "Repeat serology at 6 weeks",
+    kinetic_if_worse: "If the increase persists or there is new exposure: treat as reinfection / early syphilis",
+    kinetic_confidence: "post-treatment rise compatible with bell-shaped kinetics, without excluding reinfection",
+    kinetic_why: "treatment > 7 days after serology | post-treatment increase | refined kinetic interpretation",
+
+    lp_badge: "Lumbar puncture indicated",
+    lp_text1: "Neurological / ENT / ophthalmologic signs with TPHA or EIA positive and VDRL positive.",
+    lp_text2: "→ Lumbar puncture indicated",
+    lp_text3: "→ Suspicion of neurosyphilis",
+    lcr_module: "Interactive CSF module: enter CSF TPHA and CSF VDRL then rerun the analysis.",
+    lcr_neg_neg: "CSF TPHA negative / CSF VDRL negative",
+    lcr_neg_neg_text: "→ Neurosyphilis not confirmed; possible very early form or ENT/ophthalmologic involvement; complete with fundoscopy / audiometry / specialist review; late syphilis treatment may be considered",
+    lcr_pos_neg: "CSF TPHA positive / CSF VDRL negative",
+    lcr_pos_neg_text: "→ Possible neurosyphilis; treat as neurosyphilis",
+    lcr_pos_pos: "CSF TPHA positive / CSF VDRL positive",
+    lcr_pos_pos_text: "→ Confirmed neurosyphilis; neurosyphilis treatment",
+
+    scar_badge: "Probably serofast",
+    scar_text1: "VDRL increase < 2 dilutions.",
+    scar_text2: "→ Non-significant variation",
+    scar_text3: "→ Probably serofast",
+    scar_text4: "→ Repeat at 6 weeks or 3 months if clinical suspicion or exposure",
+    scar_conclusion: "Minor variation, probably serofast.",
+    scar_confidence: "increase < 2 dilutions",
+    scar_why: "increase < 2 dilutions"
+  },
+  es: {
+    moderate: "Moderada", high: "Alta", low: "Baja",
+    early_treatment_title: "Tratamiento recomendado:",
+    early_1: "1ª línea: Benzatina penicilina 2,4 MU dosis única",
+    early_2: "2ª línea: Doxiciclina durante 2 semanas",
+    early_3: "3ª línea: Ceftriaxona 1 g/día durante 7 días",
+    late_treatment_title: "Tratamiento recomendado:",
+    late_1: "Benzatina penicilina 2,4 MU una vez por semana durante 3 semanas",
+    late_2: "Doxiciclina durante 4 semanas",
+    neuro_treatment_title: "Tratamiento de neurosífilis:",
+    neuro_1: "Penicilina G IV durante 14 días",
+    neuro_2: "Ceftriaxona 2 g/día durante 14 días",
+
+    reinfection_badge: "Reinfección",
+    reinfection_text: "Aumento del VDRL ≥ 2 diluciones.",
+    reinfection_text2: "→ Compatible con reinfección o nueva contaminación",
+    reinfection_text3: "→ Tratar como sífilis precoz",
+    reinfection_conclusion: "Reinfección probable",
+    reinfection_confidence: "aumento ≥ 2 diluciones",
+    reinfection_why: "aumento ≥ 2 diluciones",
+
+    kinetic_badge: "Cinética avanzada del VDRL",
+    kinetic_conclusion: "El aumento del VDRL tras tratamiento tardío es compatible con una cinética serológica en campana.",
+    kinetic_text_1: "El tratamiento se administró tardíamente después de la serología previa, con VDRL posterior más alto.",
+    kinetic_text_2: "→ Posible pico serológico no detectado antes del tratamiento",
+    kinetic_text_3: "→ Posible descenso lento posterior",
+    kinetic_text_4: "→ Pero no puede excluirse reinfección",
+    kinetic_management_title: "Conducta:",
+    kinetic_followup: "Control serológico a las 6 semanas",
+    kinetic_if_worse: "Si el aumento persiste o hay nueva exposición: tratar como reinfección / sífilis precoz",
+    kinetic_confidence: "ascenso pos-tratamiento compatible con cinética en campana sin excluir reinfección",
+    kinetic_why: "tratamiento > 7 días después de serología | aumento post-tratamiento | interpretación cinética fina",
+
+    lp_badge: "Punción lumbar indicada",
+    lp_text1: "Signos neurológicos / ORL / oftalmológicos con TPHA o EIA positivo y VDRL positivo.",
+    lp_text2: "→ Indicación de punción lumbar",
+    lp_text3: "→ Sospecha de neurosífilis",
+    lcr_module: "Módulo interactivo de LCR: complete TPHA LCR y VDRL LCR y vuelva a analizar.",
+    lcr_neg_neg: "TPHA LCR negativo / VDRL LCR negativo",
+    lcr_neg_neg_text: "→ Neurosífilis no confirmada; posible forma muy precoz o afectación ORL/oftalmológica; completar con fondo de ojo / audiometría / evaluación especializada; puede considerarse tratamiento como sífilis tardía",
+    lcr_pos_neg: "TPHA LCR positivo / VDRL LCR negativo",
+    lcr_pos_neg_text: "→ Posible neurosífilis; tratar como neurosífilis",
+    lcr_pos_pos: "TPHA LCR positivo / VDRL LCR positivo",
+    lcr_pos_pos_text: "→ Neurosífilis confirmada; tratamiento de neurosífilis",
+
+    scar_badge: "Probable cicatriz serológica",
+    scar_text1: "Aumento del VDRL < 2 diluciones.",
+    scar_text2: "→ Variación no significativa",
+    scar_text3: "→ Probable cicatriz serológica",
+    scar_text4: "→ Recontrol a 6 semanas o 3 meses si hay sospecha clínica o exposición",
+    scar_conclusion: "Variación leve, probablemente cicatricial.",
+    scar_confidence: "aumento < 2 diluciones",
+    scar_why: "aumento < 2 diluciones"
+  },
+  pt: {
+    moderate: "Moderada", high: "Alta", low: "Baixa",
+    early_treatment_title: "Tratamento recomendado:",
+    early_1: "1ª linha: Benzatina penicilina 2,4 MU dose única",
+    early_2: "2ª linha: Doxiciclina por 2 semanas",
+    early_3: "3ª linha: Ceftriaxona 1 g/dia por 7 dias",
+    late_treatment_title: "Tratamento recomendado:",
+    late_1: "Benzatina penicilina 2,4 MU uma vez por semana durante 3 semanas",
+    late_2: "Doxiciclina por 4 semanas",
+    neuro_treatment_title: "Tratamento da neurossífilis:",
+    neuro_1: "Penicilina G IV por 14 dias",
+    neuro_2: "Ceftriaxona 2 g/dia por 14 dias",
+
+    reinfection_badge: "Reinfecção",
+    reinfection_text: "Aumento do VDRL ≥ 2 diluições.",
+    reinfection_text2: "→ Compatível com reinfecção ou nova contaminação",
+    reinfection_text3: "→ Tratar como sífilis precoce",
+    reinfection_conclusion: "Reinfecção provável",
+    reinfection_confidence: "aumento ≥ 2 diluições",
+    reinfection_why: "aumento ≥ 2 diluições",
+
+    kinetic_badge: "Cinética avançada do VDRL",
+    kinetic_conclusion: "Elevação do VDRL após tratamento tardio compatível com cinética serológica em sino.",
+    kinetic_text_1: "O tratamento foi administrado tardiamente após a sorologia anterior, com VDRL subsequente mais elevado.",
+    kinetic_text_2: "→ Possível pico serológico não captado antes do tratamento",
+    kinetic_text_3: "→ Possível queda lenta subsequente",
+    kinetic_text_4: "→ Mas reinfecção não pode ser excluída",
+    kinetic_management_title: "Conduta:",
+    kinetic_followup: "Controle sorológico em 6 semanas",
+    kinetic_if_worse: "Se a elevação persistir ou houver nova exposição: tratar como reinfecção / sífilis precoce",
+    kinetic_confidence: "subida pós-tratamento compatível com cinética em sino sem excluir reinfecção",
+    kinetic_why: "tratamento > 7 dias após sorologia | aumento pós-tratamento | interpretação cinética refinada",
+
+    lp_badge: "Punção lombar indicada",
+    lp_text1: "Sinais neurológicos / ORL / oftalmológicos com TPHA ou EIA positivo e VDRL positivo.",
+    lp_text2: "→ Indicação de punção lombar",
+    lp_text3: "→ Suspeita de neurossífilis",
+    lcr_module: "Módulo interativo do LCR: preencha TPHA do LCR e VDRL do LCR e repita a análise.",
+    lcr_neg_neg: "TPHA do LCR negativo / VDRL do LCR negativo",
+    lcr_neg_neg_text: "→ Neurossífilis não confirmada; possível forma muito precoce ou acometimento ORL/oftalmológico; completar com fundoscopia / audiometria / avaliação especializada; pode-se considerar tratamento como sífilis tardia",
+    lcr_pos_neg: "TPHA do LCR positivo / VDRL do LCR negativo",
+    lcr_pos_neg_text: "→ Possível neurossífilis; tratar como neurossífilis",
+    lcr_pos_pos: "TPHA do LCR positivo / VDRL do LCR positivo",
+    lcr_pos_pos_text: "→ Neurossífilis confirmada; tratamento da neurossífilis",
+
+    scar_badge: "Provável cicatriz sorológica",
+    scar_text1: "Aumento do VDRL < 2 diluições.",
+    scar_text2: "→ Variação não significativa",
+    scar_text3: "→ Provável cicatriz sorológica",
+    scar_text4: "→ Recontrole em 6 semanas ou 3 meses se suspeita clínica ou exposição",
+    scar_conclusion: "Variação pequena, provavelmente cicatricial.",
+    scar_confidence: "aumento < 2 diluições",
+    scar_why: "aumento < 2 diluições"
+  },
+  de: {
+    moderate: "Moderat", high: "Hoch", low: "Niedrig",
+    early_treatment_title: "Empfohlene Behandlung:",
+    early_1: "1. Wahl: Benzathin-Penicillin 2,4 Mio. IE Einzeldosis",
+    early_2: "2. Wahl: Doxycyclin für 2 Wochen",
+    early_3: "3. Wahl: Ceftriaxon 1 g/Tag für 7 Tage",
+    late_treatment_title: "Empfohlene Behandlung:",
+    late_1: "Benzathin-Penicillin 2,4 Mio. IE einmal wöchentlich für 3 Wochen",
+    late_2: "Doxycyclin für 4 Wochen",
+    neuro_treatment_title: "Behandlung der Neurosyphilis:",
+    neuro_1: "Penicillin G i.v. für 14 Tage",
+    neuro_2: "Ceftriaxon 2 g/Tag für 14 Tage",
+
+    reinfection_badge: "Reinfektion",
+    reinfection_text: "VDRL-Anstieg ≥ 2 Verdünnungsstufen.",
+    reinfection_text2: "→ Vereinbar mit Reinfektion oder neuer Kontamination",
+    reinfection_text3: "→ Als frühe Syphilis behandeln",
+    reinfection_conclusion: "Wahrscheinliche Reinfektion",
+    reinfection_confidence: "Anstieg ≥ 2 Verdünnungsstufen",
+    reinfection_why: "Anstieg ≥ 2 Verdünnungsstufen",
+
+    kinetic_badge: "Feine VDRL-Kinetik",
+    kinetic_conclusion: "Ein VDRL-Anstieg nach verspäteter Behandlung ist mit glockenförmiger serologischer Kinetik vereinbar.",
+    kinetic_text_1: "Die Behandlung erfolgte verspätet nach der vorherigen Serologie, bei anschließend höherem VDRL.",
+    kinetic_text_2: "→ Möglicher vor der Behandlung nicht erfasster Serologie-Gipfel",
+    kinetic_text_3: "→ Möglicher nachfolgend langsamer Abfall",
+    kinetic_text_4: "→ Eine Reinfektion kann jedoch nicht ausgeschlossen werden",
+    kinetic_management_title: "Vorgehen:",
+    kinetic_followup: "Serologische Kontrolle nach 6 Wochen",
+    kinetic_if_worse: "Bei anhaltendem Anstieg oder neuer Exposition: als Reinfektion / frühe Syphilis behandeln",
+    kinetic_confidence: "posttherapeutischer Anstieg vereinbar mit glockenförmiger Kinetik ohne Ausschluss einer Reinfektion",
+    kinetic_why: "Behandlung > 7 Tage nach Serologie | Anstieg nach Behandlung | verfeinerte Kinetik-Interpretation",
+
+    lp_badge: "Lumbalpunktion indiziert",
+    lp_text1: "Neurologische / HNO- / ophthalmologische Zeichen bei positivem TPHA oder EIA und positivem VDRL.",
+    lp_text2: "→ Lumbalpunktion indiziert",
+    lp_text3: "→ Verdacht auf Neurosyphilis",
+    lcr_module: "Interaktives Liquor-Modul: Liquor-TPHA und Liquor-VDRL eingeben und Analyse erneut starten.",
+    lcr_neg_neg: "Liquor-TPHA negativ / Liquor-VDRL negativ",
+    lcr_neg_neg_text: "→ Neurosyphilis nicht bestätigt; mögliche sehr frühe Form oder HNO-/Augenbeteiligung; Fundoskopie / Audiometrie / fachärztliche Beurteilung ergänzen; Behandlung wie späte Syphilis möglich",
+    lcr_pos_neg: "Liquor-TPHA positiv / Liquor-VDRL negativ",
+    lcr_pos_neg_text: "→ Mögliche Neurosyphilis; als Neurosyphilis behandeln",
+    lcr_pos_pos: "Liquor-TPHA positiv / Liquor-VDRL positiv",
+    lcr_pos_pos_text: "→ Bestätigte Neurosyphilis; Behandlung der Neurosyphilis",
+
+    scar_badge: "Wahrscheinlich serologische Narbe",
+    scar_text1: "VDRL-Anstieg < 2 Verdünnungsstufen.",
+    scar_text2: "→ Nicht signifikante Variation",
+    scar_text3: "→ Wahrscheinlich serologische Narbe",
+    scar_text4: "→ Kontrolle nach 6 Wochen oder 3 Monaten bei klinischem Verdacht oder Exposition",
+    scar_conclusion: "Geringe Variation, wahrscheinlich serologische Narbe.",
+    scar_confidence: "Anstieg < 2 Verdünnungsstufen",
+    scar_why: "Anstieg < 2 Verdünnungsstufen"
+  },
+  pl: {
+    moderate: "Umiarkowana", high: "Wysoka", low: "Niska",
+    early_treatment_title: "Zalecane leczenie:",
+    early_1: "1. wybór: benzatynowa penicylina 2,4 mln j. jednorazowo",
+    early_2: "2. wybór: doksycyklina przez 2 tygodnie",
+    early_3: "3. wybór: ceftriakson 1 g/dobę przez 7 dni",
+    late_treatment_title: "Zalecane leczenie:",
+    late_1: "Benzatynowa penicylina 2,4 mln j. raz w tygodniu przez 3 tygodnie",
+    late_2: "Doksycyklina przez 4 tygodnie",
+    neuro_treatment_title: "Leczenie neurosyfilisu:",
+    neuro_1: "Penicylina G IV przez 14 dni",
+    neuro_2: "Ceftriakson 2 g/dobę przez 14 dni",
+
+    reinfection_badge: "Reinfekcja",
+    reinfection_text: "Wzrost VDRL ≥ 2 rozcieńczenia.",
+    reinfection_text2: "→ Zgodne z reinfekcją lub nowym zakażeniem",
+    reinfection_text3: "→ Leczyć jak kiłę wczesną",
+    reinfection_conclusion: "Prawdopodobna reinfekcja",
+    reinfection_confidence: "wzrost ≥ 2 rozcieńczenia",
+    reinfection_why: "wzrost ≥ 2 rozcieńczenia",
+
+    kinetic_badge: "Zaawansowana kinetyka VDRL",
+    kinetic_conclusion: "Wzrost VDRL po opóźnionym leczeniu jest zgodny z dzwonowatą kinetyką serologiczną.",
+    kinetic_text_1: "Leczenie podano późno po poprzednim badaniu serologicznym, a kolejne VDRL było wyższe.",
+    kinetic_text_2: "→ Możliwy nieuchwycony szczyt serologiczny przed leczeniem",
+    kinetic_text_3: "→ Możliwy późniejszy powolny spadek",
+    kinetic_text_4: "→ Ale nie można wykluczyć reinfekcji",
+    kinetic_management_title: "Postępowanie:",
+    kinetic_followup: "Kontrola serologiczna za 6 tygodni",
+    kinetic_if_worse: "Jeśli wzrost się utrzymuje lub jest nowe narażenie: leczyć jak reinfekcję / kiłę wczesną",
+    kinetic_confidence: "wzrost po leczeniu zgodny z kinetyką dzwonowatą bez wykluczenia reinfekcji",
+    kinetic_why: "leczenie > 7 dni po serologii | wzrost po leczeniu | zaawansowana interpretacja kinetyczna",
+
+    lp_badge: "Nakłucie lędźwiowe wskazane",
+    lp_text1: "Objawy neurologiczne / laryngologiczne / okulistyczne przy dodatnim TPHA lub EIA oraz dodatnim VDRL.",
+    lp_text2: "→ Wskazanie do nakłucia lędźwiowego",
+    lp_text3: "→ Podejrzenie neurosyfilisu",
+    lcr_module: "Interaktywny moduł PMR: wpisz TPHA PMR i VDRL PMR, a następnie ponownie uruchom analizę.",
+    lcr_neg_neg: "TPHA PMR ujemny / VDRL PMR ujemny",
+    lcr_neg_neg_text: "→ Neurosyfilis niepotwierdzony; możliwa bardzo wczesna postać lub zajęcie laryngologiczne/okulistyczne; uzupełnić o badanie dna oka / audiometrię / konsultację specjalistyczną; można rozważyć leczenie jak kiłę późną",
+    lcr_pos_neg: "TPHA PMR dodatni / VDRL PMR ujemny",
+    lcr_pos_neg_text: "→ Możliwy neurosyfilis; leczyć jak neurosyfilis",
+    lcr_pos_pos: "TPHA PMR dodatni / VDRL PMR dodatni",
+    lcr_pos_pos_text: "→ Potwierdzony neurosyfilis; leczenie neurosyfilisu",
+
+    scar_badge: "Prawdopodobnie blizna serologiczna",
+    scar_text1: "Wzrost VDRL < 2 rozcieńczenia.",
+    scar_text2: "→ Zmiana nieistotna",
+    scar_text3: "→ Prawdopodobnie blizna serologiczna",
+    scar_text4: "→ Kontrola za 6 tygodni lub 3 miesiące przy podejrzeniu klinicznym lub narażeniu",
+    scar_conclusion: "Niewielka zmiana, prawdopodobnie blizna serologiczna.",
+    scar_confidence: "wzrost < 2 rozcieńczenia",
+    scar_why: "wzrost < 2 rozcieńczenia"
+  },
+  it: {
+    moderate: "Moderata", high: "Alta", low: "Bassa",
+    early_treatment_title: "Trattamento raccomandato:",
+    early_1: "1ª linea: benzatina penicillina 2,4 MUI dose unica",
+    early_2: "2ª linea: doxiciclina per 2 settimane",
+    early_3: "3ª linea: ceftriaxone 1 g/die per 7 giorni",
+    late_treatment_title: "Trattamento raccomandato:",
+    late_1: "Benzatina penicillina 2,4 MUI una volta a settimana per 3 settimane",
+    late_2: "Doxiciclina per 4 settimane",
+    neuro_treatment_title: "Trattamento della neurosifilide:",
+    neuro_1: "Penicillina G EV per 14 giorni",
+    neuro_2: "Ceftriaxone 2 g/die per 14 giorni",
+
+    reinfection_badge: "Reinfezione",
+    reinfection_text: "Aumento del VDRL ≥ 2 diluizioni.",
+    reinfection_text2: "→ Compatibile con reinfezione o nuova contaminazione",
+    reinfection_text3: "→ Trattare come sifilide precoce",
+    reinfection_conclusion: "Reinfezione probabile",
+    reinfection_confidence: "aumento ≥ 2 diluizioni",
+    reinfection_why: "aumento ≥ 2 diluizioni",
+
+    kinetic_badge: "Cinetica avanzata del VDRL",
+    kinetic_conclusion: "L’aumento del VDRL dopo trattamento tardivo è compatibile con una cinetica sierologica a campana.",
+    kinetic_text_1: "Il trattamento è stato somministrato tardivamente dopo la sierologia precedente, con VDRL successivo più elevato.",
+    kinetic_text_2: "→ Possibile picco sierologico non intercettato prima del trattamento",
+    kinetic_text_3: "→ Possibile lenta riduzione successiva",
+    kinetic_text_4: "→ Ma non si può escludere una reinfezione",
+    kinetic_management_title: "Condotta:",
+    kinetic_followup: "Controllo sierologico a 6 settimane",
+    kinetic_if_worse: "Se l’aumento persiste o vi è nuova esposizione: trattare come reinfezione / sifilide precoce",
+    kinetic_confidence: "incremento post-trattamento compatibile con cinetica a campana senza escludere reinfezione",
+    kinetic_why: "trattamento > 7 giorni dopo sierologia | aumento post-trattamento | interpretazione cinetica raffinata",
+
+    lp_badge: "Puntura lombare indicata",
+    lp_text1: "Segni neurologici / ORL / oftalmologici con TPHA o EIA positivo e VDRL positivo.",
+    lp_text2: "→ Indicazione alla puntura lombare",
+    lp_text3: "→ Sospetto di neurosifilide",
+    lcr_module: "Modulo interattivo del liquor: inserire TPHA liquor e VDRL liquor e ripetere l’analisi.",
+    lcr_neg_neg: "TPHA liquor negativo / VDRL liquor negativo",
+    lcr_neg_neg_text: "→ Neurosifilide non confermata; possibile forma molto precoce o interessamento ORL/oftalmologico; completare con fundus / audiometria / valutazione specialistica; si può considerare trattamento come sifilide tardiva",
+    lcr_pos_neg: "TPHA liquor positivo / VDRL liquor negativo",
+    lcr_pos_neg_text: "→ Possibile neurosifilide; trattare come neurosifilide",
+    lcr_pos_pos: "TPHA liquor positivo / VDRL liquor positivo",
+    lcr_pos_pos_text: "→ Neurosifilide confermata; trattamento della neurosifilide",
+
+    scar_badge: "Probabile cicatrice sierologica",
+    scar_text1: "Aumento del VDRL < 2 diluizioni.",
+    scar_text2: "→ Variazione non significativa",
+    scar_text3: "→ Probabile cicatrice sierologica",
+    scar_text4: "→ Ricontrollo a 6 settimane o 3 mesi se sospetto clinico o esposizione",
+    scar_conclusion: "Variazione lieve, probabilmente cicatriziale.",
+    scar_confidence: "aumento < 2 diluizioni",
+    scar_why: "aumento < 2 diluizioni"
+  },
+  ar: {
+    moderate: "متوسطة", high: "مرتفعة", low: "منخفضة",
+    early_treatment_title: "العلاج الموصى به:",
+    early_1: "الخيار الأول: بنزاثين بنسلين 2.4 مليون وحدة جرعة واحدة",
+    early_2: "الخيار الثاني: دوكسيسيكلين لمدة أسبوعين",
+    early_3: "الخيار الثالث: سيفترياكسون 1 غ/يوم لمدة 7 أيام",
+    late_treatment_title: "العلاج الموصى به:",
+    late_1: "بنزاثين بنسلين 2.4 مليون وحدة مرة أسبوعياً لمدة 3 أسابيع",
+    late_2: "دوكسيسيكلين لمدة 4 أسابيع",
+    neuro_treatment_title: "علاج الزهري العصبي:",
+    neuro_1: "بنسلين G وريدي لمدة 14 يوماً",
+    neuro_2: "سيفترياكسون 2 غ/يوم لمدة 14 يوماً",
+
+    reinfection_badge: "إعادة عدوى",
+    reinfection_text: "ارتفاع VDRL بمقدار ≥ درجتي تمديد.",
+    reinfection_text2: "→ يتوافق مع إعادة عدوى أو تلوث جديد",
+    reinfection_text3: "→ يُعالج كزهري مبكر",
+    reinfection_conclusion: "إعادة عدوى مرجحة",
+    reinfection_confidence: "ارتفاع ≥ درجتي تمديد",
+    reinfection_why: "ارتفاع ≥ درجتي تمديد",
+
+    kinetic_badge: "حركية VDRL متقدمة",
+    kinetic_conclusion: "ارتفاع VDRL بعد علاج متأخر قد يتوافق مع حركية مصلية على شكل جرس.",
+    kinetic_text_1: "تم إعطاء العلاج متأخراً بعد الفحص المصلي السابق مع ارتفاع لاحق في VDRL.",
+    kinetic_text_2: "→ احتمال وجود ذروة مصلية لم تُلتقط قبل العلاج",
+    kinetic_text_3: "→ احتمال انخفاض بطيء لاحق",
+    kinetic_text_4: "→ لكن لا يمكن استبعاد إعادة العدوى",
+    kinetic_management_title: "التوصيات:",
+    kinetic_followup: "إعادة الفحص المصلي بعد 6 أسابيع",
+    kinetic_if_worse: "إذا استمر الارتفاع أو وُجد تعرض جديد: يُعالج كإعادة عدوى / زهري مبكر",
+    kinetic_confidence: "ارتفاع بعد العلاج قد يتوافق مع حركية جرسية دون استبعاد إعادة العدوى",
+    kinetic_why: "العلاج بعد >7 أيام من المصلية | ارتفاع بعد العلاج | تفسير حركي دقيق",
+
+    lp_badge: "البزل القطني مُوصى به",
+    lp_text1: "علامات عصبية / أنف أذن حنجرة / عينية مع TPHA أو EIA إيجابي وVDRL إيجابي.",
+    lp_text2: "→ توجد استطبابات للبزل القطني",
+    lp_text3: "→ اشتباه الزهري العصبي",
+    lcr_module: "وحدة CSF التفاعلية: أدخل TPHA وVDRL في السائل الدماغي الشوكي ثم أعد التحليل.",
+    lcr_neg_neg: "TPHA في السائل سلبي / VDRL في السائل سلبي",
+    lcr_neg_neg_text: "→ الزهري العصبي غير مؤكد؛ قد تكون حالة مبكرة جداً أو إصابة أنف أذن حنجرة / عينية؛ استكمل بفحص قاع العين / قياس السمع / تقييم متخصص؛ ويمكن التفكير بعلاج الزهري المتأخر",
+    lcr_pos_neg: "TPHA في السائل إيجابي / VDRL في السائل سلبي",
+    lcr_pos_neg_text: "→ احتمال زهري عصبي؛ يُعالج كزهري عصبي",
+    lcr_pos_pos: "TPHA في السائل إيجابي / VDRL في السائل إيجابي",
+    lcr_pos_pos_text: "→ زهري عصبي مؤكد؛ علاج الزهري العصبي",
+
+    scar_badge: "ندبة مصلية محتملة",
+    scar_text1: "ارتفاع VDRL أقل من درجتي تمديد.",
+    scar_text2: "→ تغير غير مهم",
+    scar_text3: "→ على الأرجح ندبة مصلية",
+    scar_text4: "→ إعادة الفحص بعد 6 أسابيع أو 3 أشهر عند الشك السريري أو التعرض",
+    scar_conclusion: "تغير طفيف، ويرجح أنه ندبة مصلية.",
+    scar_confidence: "ارتفاع أقل من درجتي تمديد",
+    scar_why: "ارتفاع أقل من درجتي تمديد"
+  },
+  zh: {
+    moderate: "中等", high: "高", low: "低",
+    early_treatment_title: "推荐治疗：",
+    early_1: "首选：苄星青霉素 2.4 MU 单次",
+    early_2: "二线：多西环素 2 周",
+    early_3: "三线：头孢曲松 1 g/天，共 7 天",
+    late_treatment_title: "推荐治疗：",
+    late_1: "苄星青霉素 2.4 MU 每周一次，共 3 周",
+    late_2: "多西环素 4 周",
+    neuro_treatment_title: "神经梅毒治疗：",
+    neuro_1: "青霉素 G 静脉注射 14 天",
+    neuro_2: "头孢曲松 2 g/天，共 14 天",
+
+    reinfection_badge: "再感染",
+    reinfection_text: "VDRL 升高 ≥ 2 个稀释度。",
+    reinfection_text2: "→ 与再感染或新暴露相符",
+    reinfection_text3: "→ 按早期梅毒处理",
+    reinfection_conclusion: "可能再感染",
+    reinfection_confidence: "升高 ≥ 2 个稀释度",
+    reinfection_why: "升高 ≥ 2 个稀释度",
+
+    kinetic_badge: "VDRL 高级动力学解释",
+    kinetic_conclusion: "治疗延迟后 VDRL 升高，符合钟形血清学动力学的可能。",
+    kinetic_text_1: "治疗在前一次血清学检查后较晚实施，随后 VDRL 更高。",
+    kinetic_text_2: "→ 可能在治疗前漏掉了血清学峰值",
+    kinetic_text_3: "→ 可能随后缓慢下降",
+    kinetic_text_4: "→ 但不能排除再感染",
+    kinetic_management_title: "处理建议：",
+    kinetic_followup: "6 周后复查血清学",
+    kinetic_if_worse: "若继续升高或有新的暴露：按再感染 / 早期梅毒处理",
+    kinetic_confidence: "治疗后升高符合钟形动力学但不能排除再感染",
+    kinetic_why: "治疗晚于血清学 >7 天 | 治疗后升高 | 精细动力学解释",
+
+    lp_badge: "建议腰穿",
+    lp_text1: "存在神经 / 耳鼻喉 / 眼部症状，且 TPHA 或 EIA 阳性并伴 VDRL 阳性。",
+    lp_text2: "→ 建议行腰椎穿刺",
+    lp_text3: "→ 怀疑神经梅毒",
+    lcr_module: "交互式脑脊液模块：填写脑脊液 TPHA 和 VDRL 后重新分析。",
+    lcr_neg_neg: "脑脊液 TPHA 阴性 / 脑脊液 VDRL 阴性",
+    lcr_neg_neg_text: "→ 神经梅毒未证实；可能为极早期形式或耳鼻喉/眼部受累；建议补充眼底检查 / 听力检查 / 专科评估；可考虑按晚期梅毒处理",
+    lcr_pos_neg: "脑脊液 TPHA 阳性 / 脑脊液 VDRL 阴性",
+    lcr_pos_neg_text: "→ 可能神经梅毒；按神经梅毒处理",
+    lcr_pos_pos: "脑脊液 TPHA 阳性 / 脑脊液 VDRL 阳性",
+    lcr_pos_pos_text: "→ 神经梅毒确诊；按神经梅毒治疗",
+
+    scar_badge: "可能为血清学瘢痕",
+    scar_text1: "VDRL 升高 < 2 个稀释度。",
+    scar_text2: "→ 变化无显著意义",
+    scar_text3: "→ 可能为血清学瘢痕",
+    scar_text4: "→ 如有临床怀疑或暴露，6 周或 3 个月复查",
+    scar_conclusion: "变化较小，可能为血清学瘢痕。",
+    scar_confidence: "升高 < 2 个稀释度",
+    scar_why: "升高 < 2 个稀释度"
+  },
+  ja: {
+    moderate: "中等", high: "高い", low: "低い",
+    early_treatment_title: "推奨治療：",
+    early_1: "第一選択：ベンザチンペニシリン 2.4 MU 単回",
+    early_2: "第二選択：ドキシサイクリン 2 週間",
+    early_3: "第三選択：セフトリアキソン 1 g/日を 7 日間",
+    late_treatment_title: "推奨治療：",
+    late_1: "ベンザチンペニシリン 2.4 MU を週 1 回、3 週間",
+    late_2: "ドキシサイクリン 4 週間",
+    neuro_treatment_title: "神経梅毒の治療：",
+    neuro_1: "ペニシリン G 静注 14 日間",
+    neuro_2: "セフトリアキソン 2 g/日を 14 日間",
+
+    reinfection_badge: "再感染",
+    reinfection_text: "VDRL が 2 希釈以上上昇。",
+    reinfection_text2: "→ 再感染または新たな曝露と整合",
+    reinfection_text3: "→ 早期梅毒として治療",
+    reinfection_conclusion: "再感染の可能性が高い",
+    reinfection_confidence: "2 希釈以上の上昇",
+    reinfection_why: "2 希釈以上の上昇",
+
+    kinetic_badge: "VDRL 高度動態解釈",
+    kinetic_conclusion: "治療遅延後の VDRL 上昇はベル型の血清学的動態と整合します。",
+    kinetic_text_1: "前回の血清学検査後に治療が遅れて行われ、その後の VDRL がより高値でした。",
+    kinetic_text_2: "→ 治療前の血清学ピークを捉え損ねた可能性",
+    kinetic_text_3: "→ その後ゆっくり低下している可能性",
+    kinetic_text_4: "→ ただし再感染は除外できません",
+    kinetic_management_title: "対応：",
+    kinetic_followup: "6 週間後に血清学を再検",
+    kinetic_if_worse: "上昇が持続する、または新たな曝露がある場合：再感染 / 早期梅毒として治療",
+    kinetic_confidence: "治療後上昇はベル型動態と整合するが再感染は除外できない",
+    kinetic_why: "血清学から >7 日後の治療 | 治療後上昇 | 精密な動態解釈",
+
+    lp_badge: "腰椎穿刺が適応",
+    lp_text1: "神経 / 耳鼻咽喉 / 眼症状があり、TPHA または EIA 陽性かつ VDRL 陽性。",
+    lp_text2: "→ 腰椎穿刺が適応",
+    lp_text3: "→ 神経梅毒が疑われる",
+    lcr_module: "髄液インタラクティブモジュール：髄液 TPHA と髄液 VDRL を入力して再解析してください。",
+    lcr_neg_neg: "髄液 TPHA 陰性 / 髄液 VDRL 陰性",
+    lcr_neg_neg_text: "→ 神経梅毒は確認されない；ごく早期や耳鼻咽喉/眼病変の可能性；眼底検査 / 聴力検査 / 専門評価を追加し、晩期梅毒としての治療を考慮可能",
+    lcr_pos_neg: "髄液 TPHA 陽性 / 髄液 VDRL 陰性",
+    lcr_pos_neg_text: "→ 神経梅毒の可能性；神経梅毒として治療",
+    lcr_pos_pos: "髄液 TPHA 陽性 / 髄液 VDRL 陽性",
+    lcr_pos_pos_text: "→ 神経梅毒確定；神経梅毒の治療",
+
+    scar_badge: "血清学的瘢痕の可能性",
+    scar_text1: "VDRL 上昇 < 2 希釈。",
+    scar_text2: "→ 有意な変化ではない",
+    scar_text3: "→ 血清学的瘢痕の可能性",
+    scar_text4: "→ 臨床的疑いまたは曝露があれば 6 週間または 3 か月で再検",
+    scar_conclusion: "軽微な変動で、血清学的瘢痕の可能性があります。",
+    scar_confidence: "< 2 希釈の上昇",
+    scar_why: "< 2 希釈の上昇"
+  }
+};
 function initSupabase(){
   try{
     supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
@@ -372,29 +922,193 @@ function createTreatmentRow(v={}){
   document.getElementById("treatmentList").appendChild(row);
 }
 
-function translateResultText(text){
+function translatePlainText(text){
   if(currentLang === "fr" || !text) return text;
-  const dict = {
-    "Ponction lombaire indiquée":"Lumbar puncture indicated",
-    "Syphilis précoce certaine":"Certain early syphilis",
-    "Syphilis précoce probable":"Probable early syphilis",
-    "Traitement post-exposition / primaire très précoce":"Post-exposure / very early primary treatment",
-    "Sérologie considérée négative":"Serology considered negative",
-    "Sérologie cicatricielle probable":"Probable serologic scar",
-    "Possible cicatrice / infection récente":"Possible scar / recent infection",
-    "Syphilis tardive par défaut":"Late syphilis by default",
-    "Épisode considéré bien traité":"Episode considered adequately treated",
-    "Probable cicatrice post-traitement":"Probable post-treatment scar",
-    "Traiter comme syphilis tardive par sécurité":"Treat as late syphilis for safety",
-    "Dernière sérologie":"Last serology",
-    "Aucun traitement valide retenu":"No valid previous treatment retained"
+  const maps = {
+    en: {
+      "Ponction lombaire indiquée":"Lumbar puncture indicated",
+      "Interprétation du LCR :":"CSF interpretation:",
+      "Signes neurologiques / ORL / ophtalmologiques avec TPHA ou EIA positif et VDRL positif.":"Neurological / ENT / ophthalmologic signs with positive TPHA or EIA and positive VDRL.",
+      "→ Indication de ponction lombaire":"→ Lumbar puncture indicated",
+      "→ Suspicion de neurosyphilis":"→ Suspicion of neurosyphilis",
+      "Traitement de neurosyphilis :":"Neurosyphilis treatment:",
+      "Pénicilline G IV 14 jours":"Penicillin G IV for 14 days",
+      "Ceftriaxone 2 g/j pendant 14 jours":"Ceftriaxone 2 g/day for 14 days",
+      "TPHA LCR positif / VDRL LCR positif":"CSF TPHA positive / CSF VDRL positive",
+      "→ Neurosyphilis confirmée":"→ Confirmed neurosyphilis",
+      "→ Traitement de neurosyphilis":"→ Neurosyphilis treatment",
+      "TPHA LCR négatif / VDRL LCR négatif":"CSF TPHA negative / CSF VDRL negative",
+      "TPHA LCR positif / VDRL LCR négatif":"CSF TPHA positive / CSF VDRL negative",
+      "Aucun traitement valide retenu":"No valid previous treatment retained",
+      "Dernière sérologie positive du ":"Last positive serology on ",
+      "Dernière sérologie du ":"Last serology on ",
+      "PL indiquée":"LP indicated"
+    },
+    es: {
+      "Ponction lombaire indiquée":"Punción lumbar indicada",
+      "Interprétation du LCR :":"Interpretación del LCR:",
+      "Signes neurologiques / ORL / ophtalmologiques avec TPHA ou EIA positif et VDRL positif.":"Signos neurológicos / ORL / oftalmológicos con TPHA o EIA positivo y VDRL positivo.",
+      "→ Indication de ponction lombaire":"→ Indicación de punción lumbar",
+      "→ Suspicion de neurosyphilis":"→ Sospecha de neurosífilis",
+      "Traitement de neurosyphilis :":"Tratamiento de neurosífilis:",
+      "Pénicilline G IV 14 jours":"Penicilina G IV durante 14 días",
+      "Ceftriaxone 2 g/j pendant 14 jours":"Ceftriaxona 2 g/día durante 14 días",
+      "TPHA LCR positif / VDRL LCR positif":"TPHA LCR positivo / VDRL LCR positivo",
+      "→ Neurosyphilis confirmée":"→ Neurosífilis confirmada",
+      "→ Traitement de neurosyphilis":"→ Tratamiento de neurosífilis",
+      "TPHA LCR négatif / VDRL LCR négatif":"TPHA LCR negativo / VDRL LCR negativo",
+      "TPHA LCR positif / VDRL LCR négatif":"TPHA LCR positivo / VDRL LCR negativo",
+      "Aucun traitement valide retenu":"Ningún tratamiento válido retenido",
+      "Dernière sérologie positive du ":"Última serología positiva del ",
+      "Dernière sérologie du ":"Última serología del ",
+      "PL indiquée":"PL indicada"
+    },
+    pt: {
+      "Ponction lombaire indiquée":"Punção lombar indicada",
+      "Interprétation du LCR :":"Interpretação do LCR:",
+      "Signes neurologiques / ORL / ophtalmologiques avec TPHA ou EIA positif et VDRL positif.":"Sinais neurológicos / ORL / oftalmológicos com TPHA ou EIA positivo e VDRL positivo.",
+      "→ Indication de ponction lombaire":"→ Indicação de punção lombar",
+      "→ Suspicion de neurosyphilis":"→ Suspeita de neurossífilis",
+      "Traitement de neurosyphilis :":"Tratamento da neurossífilis:",
+      "Pénicilline G IV 14 jours":"Penicilina G IV por 14 dias",
+      "Ceftriaxone 2 g/j pendant 14 jours":"Ceftriaxona 2 g/dia por 14 dias",
+      "TPHA LCR positif / VDRL LCR positif":"TPHA do LCR positivo / VDRL do LCR positivo",
+      "→ Neurosyphilis confirmée":"→ Neurossífilis confirmada",
+      "→ Traitement de neurosyphilis":"→ Tratamento da neurossífilis",
+      "TPHA LCR négatif / VDRL LCR négatif":"TPHA do LCR negativo / VDRL do LCR negativo",
+      "TPHA LCR positif / VDRL LCR négatif":"TPHA do LCR positivo / VDRL do LCR negativo",
+      "Aucun traitement valide retenu":"Nenhum tratamento válido retido",
+      "Dernière sérologie positive du ":"Última sorologia positiva de ",
+      "Dernière sérologie du ":"Última sorologia de ",
+      "PL indiquée":"PL indicada"
+    },
+    de: {
+      "Ponction lombaire indiquée":"Lumbalpunktion indiziert",
+      "Interprétation du LCR :":"Liquor-Interpretation:",
+      "Signes neurologiques / ORL / ophtalmologiques avec TPHA ou EIA positif et VDRL positif.":"Neurologische / HNO- / ophthalmologische Zeichen mit positivem TPHA oder EIA und positivem VDRL.",
+      "→ Indication de ponction lombaire":"→ Lumbalpunktion indiziert",
+      "→ Suspicion de neurosyphilis":"→ Verdacht auf Neurosyphilis",
+      "Traitement de neurosyphilis :":"Behandlung der Neurosyphilis:",
+      "Pénicilline G IV 14 jours":"Penicillin G i.v. für 14 Tage",
+      "Ceftriaxone 2 g/j pendant 14 jours":"Ceftriaxon 2 g/Tag für 14 Tage",
+      "TPHA LCR positif / VDRL LCR positif":"Liquor-TPHA positiv / Liquor-VDRL positiv",
+      "→ Neurosyphilis confirmée":"→ Bestätigte Neurosyphilis",
+      "→ Traitement de neurosyphilis":"→ Behandlung der Neurosyphilis",
+      "TPHA LCR négatif / VDRL LCR négatif":"Liquor-TPHA negativ / Liquor-VDRL negativ",
+      "TPHA LCR positif / VDRL LCR négatif":"Liquor-TPHA positiv / Liquor-VDRL negativ",
+      "Aucun traitement valide retenu":"Keine gültige Vorbehandlung berücksichtigt",
+      "Dernière sérologie positive du ":"Letzte positive Serologie vom ",
+      "Dernière sérologie du ":"Letzte Serologie vom ",
+      "PL indiquée":"LP indiziert"
+    },
+    pl: {
+      "Ponction lombaire indiquée":"Wskazana punkcja lędźwiowa",
+      "Interprétation du LCR :":"Interpretacja PMR:",
+      "Signes neurologiques / ORL / ophtalmologiques avec TPHA ou EIA positif et VDRL positif.":"Objawy neurologiczne / laryngologiczne / okulistyczne przy dodatnim TPHA lub EIA oraz dodatnim VDRL.",
+      "→ Indication de ponction lombaire":"→ Wskazanie do nakłucia lędźwiowego",
+      "→ Suspicion de neurosyphilis":"→ Podejrzenie neurosyfilisu",
+      "Traitement de neurosyphilis :":"Leczenie neurosyfilisu:",
+      "Pénicilline G IV 14 jours":"Penicylina G IV przez 14 dni",
+      "Ceftriaxone 2 g/j pendant 14 jours":"Ceftriakson 2 g/dobę przez 14 dni",
+      "TPHA LCR positif / VDRL LCR positif":"TPHA PMR dodatni / VDRL PMR dodatni",
+      "→ Neurosyphilis confirmée":"→ Potwierdzony neurosyfilis",
+      "→ Traitement de neurosyphilis":"→ Leczenie neurosyfilisu",
+      "TPHA LCR négatif / VDRL LCR négatif":"TPHA PMR ujemny / VDRL PMR ujemny",
+      "TPHA LCR positif / VDRL LCR négatif":"TPHA PMR dodatni / VDRL PMR ujemny",
+      "Aucun traitement valide retenu":"Nie uwzględniono żadnego ważnego leczenia",
+      "Dernière sérologie positive du ":"Ostatnia dodatnia serologia z ",
+      "Dernière sérologie du ":"Ostatnia serologia z ",
+      "PL indiquée":"PL wskazana"
+    },
+    it: {
+      "Ponction lombaire indiquée":"Puntura lombare indicata",
+      "Interprétation du LCR :":"Interpretazione del liquor:",
+      "Signes neurologiques / ORL / ophtalmologiques avec TPHA ou EIA positif et VDRL positif.":"Segni neurologici / ORL / oftalmologici con TPHA o EIA positivo e VDRL positivo.",
+      "→ Indication de ponction lombaire":"→ Indicazione alla puntura lombare",
+      "→ Suspicion de neurosyphilis":"→ Sospetto di neurosifilide",
+      "Traitement de neurosyphilis :":"Trattamento della neurosifilide:",
+      "Pénicilline G IV 14 jours":"Penicillina G EV per 14 giorni",
+      "Ceftriaxone 2 g/j pendant 14 jours":"Ceftriaxone 2 g/die per 14 giorni",
+      "TPHA LCR positif / VDRL LCR positif":"TPHA liquor positivo / VDRL liquor positivo",
+      "→ Neurosyphilis confirmée":"→ Neurosifilide confermata",
+      "→ Traitement de neurosyphilis":"→ Trattamento della neurosifilide",
+      "TPHA LCR négatif / VDRL LCR négatif":"TPHA liquor negativo / VDRL liquor negativo",
+      "TPHA LCR positif / VDRL LCR négatif":"TPHA liquor positivo / VDRL liquor negativo",
+      "Aucun traitement valide retenu":"Nessun trattamento valido considerato",
+      "Dernière sérologie positive du ":"Ultima sierologia positiva del ",
+      "Dernière sérologie du ":"Ultima sierologia del ",
+      "PL indiquée":"PL indicata"
+    },
+    ar: {
+      "Ponction lombaire indiquée":"البزل القطني مُوصى به",
+      "Interprétation du LCR :":"تفسير السائل الدماغي الشوكي:",
+      "Signes neurologiques / ORL / ophtalmologiques avec TPHA ou EIA positif et VDRL positif.":"علامات عصبية / أنف أذن حنجرة / عينية مع TPHA أو EIA إيجابي وVDRL إيجابي.",
+      "→ Indication de ponction lombaire":"→ توجد استطبابات للبزل القطني",
+      "→ Suspicion de neurosyphilis":"→ اشتباه الزهري العصبي",
+      "Traitement de neurosyphilis :":"علاج الزهري العصبي:",
+      "Pénicilline G IV 14 jours":"بنسلين G وريدي لمدة 14 يوماً",
+      "Ceftriaxone 2 g/j pendant 14 jours":"سيفترياكسون 2 غ/يوم لمدة 14 يوماً",
+      "TPHA LCR positif / VDRL LCR positif":"TPHA في السائل إيجابي / VDRL في السائل إيجابي",
+      "→ Neurosyphilis confirmée":"→ زهري عصبي مؤكد",
+      "→ Traitement de neurosyphilis":"→ علاج الزهري العصبي",
+      "TPHA LCR négatif / VDRL LCR négatif":"TPHA في السائل سلبي / VDRL في السائل سلبي",
+      "TPHA LCR positif / VDRL LCR négatif":"TPHA في السائل إيجابي / VDRL في السائل سلبي",
+      "Aucun traitement valide retenu":"لم يتم اعتماد أي علاج سابق صالح",
+      "Dernière sérologie positive du ":"آخر مصلية إيجابية بتاريخ ",
+      "Dernière sérologie du ":"آخر مصلية بتاريخ ",
+      "PL indiquée":"البزل القطني مُوصى به"
+    },
+    zh: {
+      "Ponction lombaire indiquée":"建议腰椎穿刺",
+      "Interprétation du LCR :":"脑脊液解释：",
+      "Signes neurologiques / ORL / ophtalmologiques avec TPHA ou EIA positif et VDRL positif.":"存在神经 / 耳鼻喉 / 眼部症状，且 TPHA 或 EIA 阳性并伴 VDRL 阳性。",
+      "→ Indication de ponction lombaire":"→ 建议行腰椎穿刺",
+      "→ Suspicion de neurosyphilis":"→ 怀疑神经梅毒",
+      "Traitement de neurosyphilis :":"神经梅毒治疗：",
+      "Pénicilline G IV 14 jours":"青霉素 G 静脉注射 14 天",
+      "Ceftriaxone 2 g/j pendant 14 jours":"头孢曲松 2 g/天，共 14 天",
+      "TPHA LCR positif / VDRL LCR positif":"脑脊液 TPHA 阳性 / 脑脊液 VDRL 阳性",
+      "→ Neurosyphilis confirmée":"→ 神经梅毒确诊",
+      "→ Traitement de neurosyphilis":"→ 按神经梅毒治疗",
+      "TPHA LCR négatif / VDRL LCR négatif":"脑脊液 TPHA 阴性 / 脑脊液 VDRL 阴性",
+      "TPHA LCR positif / VDRL LCR négatif":"脑脊液 TPHA 阳性 / 脑脊液 VDRL 阴性",
+      "Aucun traitement valide retenu":"未保留有效既往治疗",
+      "Dernière sérologie positive du ":"最近一次阳性血清学日期：",
+      "Dernière sérologie du ":"最近一次血清学日期：",
+      "PL indiquée":"已提示腰穿"
+    },
+    ja: {
+      "Ponction lombaire indiquée":"腰椎穿刺が適応",
+      "Interprétation du LCR :":"髄液の解釈：",
+      "Signes neurologiques / ORL / ophtalmologiques avec TPHA ou EIA positif et VDRL positif.":"神経 / 耳鼻咽喉 / 眼症状があり、TPHA または EIA 陽性かつ VDRL 陽性。",
+      "→ Indication de ponction lombaire":"→ 腰椎穿刺が適応",
+      "→ Suspicion de neurosyphilis":"→ 神経梅毒が疑われる",
+      "Traitement de neurosyphilis :":"神経梅毒の治療：",
+      "Pénicilline G IV 14 jours":"ペニシリン G 静注 14 日間",
+      "Ceftriaxone 2 g/j pendant 14 jours":"セフトリアキソン 2 g/日を 14 日間",
+      "TPHA LCR positif / VDRL LCR positif":"髄液 TPHA 陽性 / 髄液 VDRL 陽性",
+      "→ Neurosyphilis confirmée":"→ 神経梅毒確定",
+      "→ Traitement de neurosyphilis":"→ 神経梅毒の治療",
+      "TPHA LCR négatif / VDRL LCR négatif":"髄液 TPHA 陰性 / 髄液 VDRL 陰性",
+      "TPHA LCR positif / VDRL LCR négatif":"髄液 TPHA 陽性 / 髄液 VDRL 陰性",
+      "Aucun traitement valide retenu":"有効な既往治療は保持されていません",
+      "Dernière sérologie positive du ":"直近の陽性血清学：",
+      "Dernière sérologie du ":"直近の血清学：",
+      "PL indiquée":"腰椎穿刺適応"
+    }
   };
   let out = text;
-  for(const [fr,en] of Object.entries(dict)){
-    out = out.split(fr).join(en);
+  const dict = maps[currentLang] || {};
+  for(const [fr, loc] of Object.entries(dict)){
+    out = out.split(fr).join(loc);
   }
   return out;
 }
+
+function translateResultText(text){
+  return translatePlainText(text);
+}
+
 
 function setBoxes(compare, tx, conf, why){
   document.getElementById("compareInfo").textContent = compare;
@@ -402,6 +1116,14 @@ function setBoxes(compare, tx, conf, why){
   document.getElementById("confidenceInfo").textContent = conf;
   document.getElementById("whyInfo").textContent = why;
 }
+
+function setBoxes(compare, tx, conf, why){
+  document.getElementById("compareInfo").textContent = translatePlainText(compare);
+  document.getElementById("txInfo").textContent = translatePlainText(tx);
+  document.getElementById("confidenceInfo").textContent = translatePlainText(conf);
+  document.getElementById("whyInfo").textContent = translatePlainText(why);
+}
+
 function parseDate(s){ return new Date(s + "T00:00:00"); }
 function daysDiff(a,b){ return Math.round((a - b)/(1000*60*60*24)); }
 function absDays(a,b){ return Math.abs(daysDiff(a,b)); }
@@ -432,30 +1154,128 @@ function hasBiologicalData(serologies){
 }
 
 function renderChart(serologies, treatments){
-  const labels = serologies.map(s => s.dateStr);
-  const values = serologies.map(s => s.vdrl);
-  const pointLabels = serologies.map(s => {
+  const ctx = document.getElementById("chart");
+  if(!ctx) return;
+
+  const allDates = [...new Set([
+    ...serologies.map(s => s.dateStr),
+    ...treatments.map(t => t.dateStr)
+  ])].sort();
+
+  function plotValue(v, eia, tpha){
+    if((v === null || v === undefined) && (eia === "neg" || tpha === "neg")) return 0;
+    if(v === null || v === undefined) return null;
+    if(v === 0) return 0;
+    if(v > 0) return Math.log2(v) + 1;
+    return null;
+  }
+
+  const serologyByDate = new Map(serologies.map(s => [s.dateStr, s]));
+  const treatmentsByDate = new Map();
+  treatments.forEach(t => {
+    if(!treatmentsByDate.has(t.dateStr)) treatmentsByDate.set(t.dateStr, []);
+    treatmentsByDate.get(t.dateStr).push(TREATMENTS[t.type]?.label || t.type);
+  });
+
+  const vdrlValues = allDates.map(dateStr => {
+    const s = serologyByDate.get(dateStr);
+    return s ? plotValue(s.vdrl, s.eia, s.tpha) : null;
+  });
+
+  const pointLabels = allDates.map(dateStr => {
+    const s = serologyByDate.get(dateStr);
+    if(!s) return "";
     const parts = [];
     if(s.eia) parts.push("EIA " + (s.eia==="pos"?"+":s.eia==="neg"?"-":"ind"));
     if(s.tpha) parts.push("TPHA " + (s.tpha==="pos"?"+":s.tpha==="neg"?"-":"ind"));
+    parts.push("VDRL " + (s.vdrl === null ? "—" : s.vdrl));
     return parts.join(" | ");
   });
+
+  const treatmentPoints = allDates.map(dateStr => treatmentsByDate.has(dateStr) ? 1 : null);
+  const treatmentLabels = allDates.map(dateStr => (treatmentsByDate.get(dateStr) || []).join(" ; "));
+
   if(chart) chart.destroy();
-  chart = new Chart(document.getElementById("chart"), {
-    type:"line",
-    data:{labels,datasets:[
-      {label:"VDRL",data:values,tension:0.25,borderWidth:2,pointRadius:4,spanGaps:true},
-      {label:"Repères traitement",data:labels.map(l => treatments.some(t => t.dateStr===l)?0:null),pointRadius:7,showLine:false}
-    ]},
-    options:{
-      responsive:true, maintainAspectRatio:false,
-      plugins:{legend:{display:true}, tooltip:{callbacks:{afterLabel:function(context){
-        if(context.datasetIndex===0) return pointLabels[context.dataIndex] || "";
-        const d = labels[context.dataIndex];
-        const txs = treatments.filter(t=>t.dateStr===d).map(t=>TREATMENTS[t.type]?.label || t.type);
-        return txs.length ? "Traitement : " + txs.join(" ; ") : "";
-      }}}},
-      scales:{y:{beginAtZero:true,ticks:{precision:0}}}
+
+  chart = new Chart(ctx, {
+    data: {
+      labels: allDates,
+      datasets: [
+        {
+          type: "line",
+          label: "VDRL",
+          data: vdrlValues,
+          tension: 0.2,
+          borderWidth: 2,
+          pointRadius: 4,
+          pointHoverRadius: 5,
+          spanGaps: true,
+          yAxisID: "y"
+        },
+        {
+          type: "bar",
+          label: "Traitement reçu",
+          data: treatmentPoints,
+          yAxisID: "yTx",
+          barThickness: 10
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      layout: {
+        padding: { top: 8, right: 10, bottom: 8, left: 8 }
+      },
+      plugins: {
+        legend: { display: true },
+        tooltip: {
+          callbacks: {
+            afterLabel: function(context){
+              if(context.datasetIndex === 0){
+                return pointLabels[context.dataIndex] || "";
+              }
+              if(context.datasetIndex === 1){
+                return treatmentLabels[context.dataIndex] ? ("Traitement : " + treatmentLabels[context.dataIndex]) : "";
+              }
+              return "";
+            }
+          }
+        }
+      },
+      scales: {
+        y: {
+          min: 0,
+          max: 16,
+          ticks: {
+            callback: function(value){
+              const map = {
+                0:"0", 1:"1", 2:"2", 3:"4", 4:"8", 5:"16", 6:"32", 7:"64",
+                8:"128", 9:"256", 10:"512", 11:"1024", 12:"2048", 13:"4096",
+                14:"8192", 15:"16384", 16:"32768"
+              };
+              return map[value] ?? "";
+            }
+          },
+          title: {
+            display: true,
+            text: "VDRL / Dilutions"
+          }
+        },
+        yTx: {
+          position: "right",
+          min: 0,
+          max: 1.4,
+          display: false,
+          grid: { display: false }
+        },
+        x: {
+          ticks: {
+            maxRotation: 0,
+            autoSkip: true
+          }
+        }
+      }
     }
   });
 }
@@ -474,9 +1294,24 @@ function isValidVDRL(v){
 }
 
 function confidence(level, reason){ return `${level} — ${reason}`; }
-function standardLateTreatment(){ return `Traitement proposé :\n• Extencilline 2,4 MUI 1 fois/semaine pendant 3 semaines\nou\n• Doxycycline 4 semaines`; }
-function standardEarlyTreatment(){ return `Traitement proposé :\n• 1re intention : Extencilline 2,4 MUI dose unique\n• 2e intention : Doxycycline 2 semaines\n• 3e intention : Ceftriaxone 1 g/j pendant 7 jours`; }
-function standardNeuroTreatment(){ return `Traitement de neurosyphilis :\n• Pénicilline G IV 14 jours\nou\n• Ceftriaxone 2 g/j pendant 14 jours`; }
+function standardLateTreatment(){
+  return `${dynT("late_treatment_title")}
+• ${dynT("late_1")}
+ou
+• ${dynT("late_2")}`;
+}
+function standardEarlyTreatment(){
+  return `${dynT("early_treatment_title")}
+• ${dynT("early_1")}
+• ${dynT("early_2")}
+• ${dynT("early_3")}`;
+}
+function standardNeuroTreatment(){
+  return `${dynT("neuro_treatment_title")}
+• ${dynT("neuro_1")}
+ou
+• ${dynT("neuro_2")}`;
+}
 function treatmentValidForCategory(type, category){
   if(!type || type==="unknown") return false;
   const group = TREATMENTS[type]?.group;
@@ -663,83 +1498,105 @@ async function analyse(){
   const { identifier, analysisDate, serologies, treatments } = parsed;
   const clinical = currentClinical();
 
-  for(const s of serologies){
-    if(s.vdrl !== null && !isValidVDRL(s.vdrl)){
-      alert("VDRL non valide : valeurs attendues 0, 1, 2, 4, 8, 16, ... jusqu’à 32 768.");
-      return;
-    }
-  }
-
   if(!analysisDate) setToday();
 
-  if((clinical.chancreTypical || clinical.chancreDoubtful) && serologies.length === 0){
-    const category = "early";
-    const recommended_treatment = standardEarlyTreatment();
-    const conclusion = "Chancre sans biologie : traiter comme syphilis précoce et faire une sérologie de confirmation.";
-    expert = [];
-    expert.push("Règle déclenchée: chancre sans résultat biologique => traitement précoce + sérologie de confirmation");
-    await setResult(
-`${badge("warning", tr("earlyCertain"))}
-Chancre sans résultat biologique.
+  const todayRef = document.getElementById("analysisDate").value || new Date().toISOString().slice(0,10);
+  const txTextEmpty = treatments.length ? "Traitement(s) saisi(s) sans biologie exploitable" : "Aucun traitement valide retenu";
+  const bioEntered = hasBiologicalData(serologies);
 
-→ Traiter comme un stade précoce
+  // CAT clinique possible même sans aucune sérologie datée ou sans biologie exploitable
+  if(!serologies.length || !bioEntered){
+
+    if(clinical.chancreTypical || clinical.chancreDoubtful){
+      const conclusion = clinical.chancreTypical
+        ? "Traitement comme syphilis précoce sur tableau clinique ; confirmer par sérologie."
+        : "Traitement comme syphilis précoce probable sur tableau clinique ; confirmer par sérologie et garder une forme tardive en réserve si doute clinique.";
+      const whyTxt = clinical.chancreTypical ? "chancre typique sans biologie" : "chancre douteux sans biologie";
+      const confTxt = clinical.chancreTypical
+        ? confidence("Modérée","tableau clinique évocateur sans biologie")
+        : confidence("Faible","tableau clinique compatible mais non confirmé biologiquement");
+      const body = clinical.chancreTypical
+        ? `${badge("warning","Traitement précoce sur clinique")}
+Chancre typique sans résultat biologique saisi.
+
+→ Traiter comme syphilis précoce
 → Faire une sérologie de confirmation
-→ Adapter secondairement le traitement selon les résultats`,
-      "—",
-      "Aucun traitement retenu",
-      confidence("Modérée","clinique sans biologie"),
-      "chancre sans biologie",
-      { identifier, analysisDate:document.getElementById("analysisDate").value, conclusion, category, recommended_treatment, compare:"—", tx:"Aucun traitement retenu", why:"chancre sans biologie", serologies, treatments },
-      parsed, clinical, expert.join("\n")
-    );
-    return;
-  }
+→ Adapter secondairement le traitement si besoin
 
-  if(clinical.contact && serologies.length === 0){
-    const category = "early";
-    const recommended_treatment = standardEarlyTreatment();
-    const conclusion = "Contage < 6 semaines sans test biologique : traitement post-exposition.";
-    expert = [];
-    expert.push("Règle déclenchée: contage < 6 semaines sans biologie => traitement post-exposition");
+${standardEarlyTreatment()}`
+        : `${badge("warning","Traitement précoce probable")}
+Chancre douteux sans résultat biologique saisi.
+
+→ Traiter comme syphilis précoce
+→ Faire une sérologie de confirmation
+→ Si la clinique devient moins convaincante ou atypique, garder l’hypothèse d’une syphilis tardive
+
+${standardEarlyTreatment()}`;
+      await setResult(
+        body,
+        `Référence clinique du ${todayRef}`,
+        txTextEmpty,
+        confTxt,
+        whyTxt,
+        { identifier, analysisDate:document.getElementById("analysisDate").value, conclusion, category:"early", recommended_treatment:standardEarlyTreatment(), compare:`Référence clinique du ${todayRef}`, tx:txTextEmpty, why:whyTxt, serologies, treatments },
+        parsed, clinical
+      );
+      return;
+    }
+
+    if(clinical.contact){
+      const conclusion = "Contage récent sans biologie : traitement post-exposition / stade précoce à confirmer secondairement.";
+      await setResult(
+        `${badge("warning","Post-exposition")}
+Contage < 6 semaines sans résultat biologique saisi.
+
+→ Traiter comme post-exposition / syphilis précoce
+→ Faire une sérologie de contrôle / confirmation
+
+${standardEarlyTreatment()}`,
+        `Référence clinique du ${todayRef}`,
+        txTextEmpty,
+        confidence("Modérée","contage récent sans biologie"),
+        "contage récent sans biologie",
+        { identifier, analysisDate:document.getElementById("analysisDate").value, conclusion, category:"early", recommended_treatment:standardEarlyTreatment(), compare:`Référence clinique du ${todayRef}`, tx:txTextEmpty, why:"contage récent sans biologie", serologies, treatments },
+        parsed, clinical
+      );
+      return;
+    }
+
+    if(clinical.cutaneous){
+      const conclusion = "Tableau cutané isolé sans biologie : si exanthème évocateur, traiter comme syphilis tardive si indatable et confirmer biologiquement.";
+      await setResult(
+        `${badge("violet","CAT clinique sans biologie")}
+Autres signes cutanés sans résultat biologique saisi.
+
+→ Si tableau évocateur de syphilis secondaire (exanthème maculo-papuleux, atteinte palmo-plantaire), traiter comme syphilis tardive si la situation est indatable
+→ Faire une sérologie de confirmation
+
+${standardLateTreatment()}`,
+        `Référence clinique du ${todayRef}`,
+        txTextEmpty,
+        confidence("Faible","tableau clinique isolé sans biologie"),
+        "signes cutanés isolés sans biologie",
+        { identifier, analysisDate:document.getElementById("analysisDate").value, conclusion, category:"late", recommended_treatment:standardLateTreatment(), compare:`Référence clinique du ${todayRef}`, tx:txTextEmpty, why:"signes cutanés isolés sans biologie", serologies, treatments },
+        parsed, clinical
+      );
+      return;
+    }
+
     await setResult(
-`${badge("warning", tr("postexp"))}
-Contage < 6 semaines sans test biologique.
+      `${badge("info","Biologie non renseignée")}
+Aucun résultat sérologique exploitable n’a été saisi, ou aucune sérologie datée n’a été renseignée.
 
-→ Traitement post-exposition
-→ Identique au traitement d’un stade précoce / inoculation`,
-      "—",
-      "Aucun traitement retenu",
-      confidence("Modérée","contage sans biologie"),
-      "contage sans biologie",
-      { identifier, analysisDate:document.getElementById("analysisDate").value, conclusion, category, recommended_treatment, compare:"—", tx:"Aucun traitement retenu", why:"contage sans biologie", serologies, treatments },
-      parsed, clinical, expert.join("\n")
+→ Un tableau clinique seul peut orienter une conduite à tenir
+→ En l’absence d’argument clinique saisi, faire une sérologie avant interprétation`,
+      `Référence clinique du ${todayRef}`,
+      txTextEmpty,
+      confidence("Faible","absence de biologie exploitable"),
+      "aucune biologie exploitable ou sérologie datée saisie",
+      { identifier, analysisDate:document.getElementById("analysisDate").value, conclusion:"Pas de biologie saisie", category:"recontrol", recommended_treatment:"Faire sérologie", compare:`Référence clinique du ${todayRef}`, tx:txTextEmpty, why:"aucune biologie exploitable ou sérologie datée saisie", serologies, treatments },
+      parsed, clinical
     );
-    return;
-  }
-
-  if(clinical.cutaneous && !clinical.chancre && serologies.length === 0){
-    const category = "late";
-    const recommended_treatment = standardLateTreatment();
-    const conclusion = "Autres signes cutanés isolés sans sérologie : traiter comme syphilis tardive si le tableau est évocateur et indatable.";
-    expert = [];
-    expert.push("Règle déclenchée: autre signe cutané isolé sans biologie => tardive par sécurité si tableau évocateur");
-    await setResult(
-`${badge("violet", tr("lateSafety"))}
-Autres signes cutanés isolés sans sérologie.
-
-→ Si tableau d’exanthème maculo-papuleux syphilitique ou syphilide palmo-plantaire
-→ Traiter comme syphilis tardive si indatable`,
-      "—",
-      "Aucun traitement retenu",
-      confidence("Faible","clinique cutanée sans biologie"),
-      "autres signes cutanés sans biologie",
-      { identifier, analysisDate:document.getElementById("analysisDate").value, conclusion, category, recommended_treatment, compare:"—", tx:"Aucun traitement retenu", why:"cutané sans biologie", serologies, treatments },
-      parsed, clinical, expert.join("\n")
-    );
-    return;
-  }
-  if(!serologies.length){
-    await setResult('<span class="empty">Ajoute au moins une sérologie datée.</span>', "—", "—", "—", "—", null, null, null, "");
     return;
   }
 
@@ -792,7 +1649,62 @@ ${standardEarlyTreatment()}`,
   if(clinical.neuro && trepPositive(last) && vdrlPositive(last.vdrl)){
     const category = "neuro";
     const recommended_treatment = standardNeuroTreatment();
-    const conclusion = "Ponction lombaire indiquée ; suspicion de neurosyphilis.";
+    const csfTpha = document.getElementById("csfTpha")?.value || "";
+    const csfVdrl = document.getElementById("csfVdrl")?.value || "";
+
+    document.getElementById("csfPanel").classList.remove("hidden");
+
+    let lcrText = "";
+    let lcrWhy = "PL indiquée";
+    let lcrConclusion = "Ponction lombaire indiquée ; suspicion de neurosyphilis.";
+
+    if(csfTpha === "neg" && csfVdrl === "neg"){
+      lcrConclusion = "LCR non confirmatoire ; neurosyphilis non confirmée, forme très précoce ou atteinte ORL/ophtalmologique possible.";
+      lcrText = `
+--- 
+
+🔬 Interprétation du LCR :
+
+• TPHA LCR négatif / VDRL LCR négatif  
+→ Neurosyphilis non confirmée  
+→ Possible forme très précoce ou atteinte ORL/ophtalmologique  
+→ Compléter par FO / audiométrie / avis spécialisé  
+→ Possibilité de traiter comme syphilis tardive`;
+      lcrWhy = "PL indiquée | LCR TPHA- VDRL-";
+      expert.push("Interprétation LCR: TPHA- / VDRL- => neurosyphilis non confirmée");
+    } else if(csfTpha === "pos" && csfVdrl === "neg"){
+      lcrConclusion = "LCR compatible avec possible neurosyphilis ; traiter comme neurosyphilis.";
+      lcrText = `
+--- 
+
+🔬 Interprétation du LCR :
+
+• TPHA LCR positif / VDRL LCR négatif  
+→ Possible neurosyphilis (passage passif des anticorps possible)  
+→ Traiter comme neurosyphilis`;
+      lcrWhy = "PL indiquée | LCR TPHA+ VDRL-";
+      expert.push("Interprétation LCR: TPHA+ / VDRL- => possible neurosyphilis");
+    } else if(csfTpha === "pos" && csfVdrl === "pos"){
+      lcrConclusion = "LCR confirmant une neurosyphilis.";
+      lcrText = `
+--- 
+
+🔬 Interprétation du LCR :
+
+• TPHA LCR positif / VDRL LCR positif  
+→ Neurosyphilis confirmée  
+→ Traitement de neurosyphilis`;
+      lcrWhy = "PL indiquée | LCR TPHA+ VDRL+";
+      expert.push("Interprétation LCR: TPHA+ / VDRL+ => neurosyphilis confirmée");
+    } else {
+      lcrText = `
+--- 
+
+🔬 Module LCR interactif :
+Renseigne TPHA LCR et VDRL LCR puis relance l’analyse pour obtenir l’interprétation du LCR.`;
+      expert.push("Module LCR affiché, résultats non encore saisis");
+    }
+
     expert.push("Règle déclenchée: neuro + tréponémique positif + VDRL positif => neurosyphilis suspectée");
     return await setResult(
 `${badge("danger","Ponction lombaire indiquée")}
@@ -801,12 +1713,12 @@ Signes neurologiques / ORL / ophtalmologiques avec TPHA ou EIA positif et VDRL p
 → Indication de ponction lombaire
 → Suspicion de neurosyphilis
 
-${recommended_treatment}`,
+${recommended_treatment}${lcrText}`,
       `Dernière sérologie positive du ${last.dateStr} (VDRL ${last.vdrl})`,
       txText,
       confidence("Élevée","clinique neuro/ORL/oph + sérologie positive"),
-      finalWhy([...why,"PL indiquée"]),
-      { identifier, analysisDate:document.getElementById("analysisDate").value, conclusion, category, recommended_treatment, compare:`Dernière sérologie positive du ${last.dateStr} (VDRL ${last.vdrl})`, tx:txText, why:finalWhy([...why,"PL indiquée"]), serologies, treatments },
+      finalWhy([...why,lcrWhy]),
+      { identifier, analysisDate:document.getElementById("analysisDate").value, conclusion:lcrConclusion, category, recommended_treatment, compare:`Dernière sérologie positive du ${last.dateStr} (VDRL ${last.vdrl})`, tx:txText, why:finalWhy([...why,lcrWhy]), serologies, treatments },
       parsed, clinical, expert.join("\n")
     );
   }
@@ -1080,46 +1992,80 @@ Baisse du VDRL d’au moins 2 dilutions en moins de 3 mois après traitement.
 
   if(vdrlSeries.length >= 2){
     const prev = vdrlSeries[vdrlSeries.length-2];
-    const diff = dilutionDiff(last.vdrl, prev.vdrl);
-    const compareText = `${prev.dateStr} (VDRL ${prev.vdrl}) → ${last.dateStr} (VDRL ${last.vdrl})`;
+    const current = vdrlSeries[vdrlSeries.length-1];
+    const diff = dilutionDiff(current.vdrl, prev.vdrl);
+    const compareText = `${prev.dateStr} (VDRL ${prev.vdrl}) → ${current.dateStr} (VDRL ${current.vdrl})`;
     expert.push(`Comparaison simple multi-VDRL: diff=${diff}`);
+
+    // Priorité : interprétation fine si traitement administré tardivement entre les deux sérologies
+    const txBetween = treatments.find(t => t.date > prev.date && t.date < current.date);
+    if(txBetween && diff !== null && diff >= 2){
+      const delayAfterPrev = daysDiff(txBetween.date, prev.date);
+      if(delayAfterPrev > 7){
+        const category = "early";
+        const recommended_treatment = standardEarlyTreatment();
+        const conclusion = dynT("kinetic_conclusion");
+        expert.push("Règle déclenchée: traitement tardif entre deux sérologies + augmentation >= 2 dilutions => cinétique fine prioritaire");
+        return await setResult(
+`${badge("warning", dynT("kinetic_badge"))}
+${dynT("kinetic_text_1")}
+
+${dynT("kinetic_text_2")}
+${dynT("kinetic_text_3")}
+${dynT("kinetic_text_4")}
+
+${dynT("kinetic_management_title")}
+• ${dynT("kinetic_followup")}
+• ${dynT("kinetic_if_worse")}
+
+${recommended_treatment}`,
+          `${prev.dateStr} (VDRL ${prev.vdrl}) → traitement ${txBetween.dateStr} → ${current.dateStr} (VDRL ${current.vdrl})`,
+          txText,
+          confidence(dynT("moderate"), dynT("kinetic_confidence")),
+          finalWhy([...why,dynT("kinetic_why")]),
+          { identifier, analysisDate:document.getElementById("analysisDate").value, conclusion, category, recommended_treatment, compare:`${prev.dateStr} (VDRL ${prev.vdrl}) → traitement ${txBetween.dateStr} → ${current.dateStr} (VDRL ${current.vdrl})`, tx:txText, why:finalWhy([...why,dynT("kinetic_why")]), serologies, treatments },
+          parsed, clinical, expert.join("\n")
+        );
+      }
+    }
+
     if(diff !== null && diff >= 2){
       const category = "early";
       const recommended_treatment = standardEarlyTreatment();
-      const conclusion = "Recontamination.";
+      const conclusion = dynT("reinfection_conclusion");
       expert.push("Règle déclenchée: augmentation >= 2 dilutions => recontamination");
       return await setResult(
-`${badge("warning","Recontamination")}
-Augmentation du VDRL ≥ 2 dilutions
+`${badge("warning", dynT("reinfection_badge"))}
+${dynT("reinfection_text")}
 
-→ Compatible avec réinfection ou nouvelle contamination
-→ Traiter comme syphilis précoce
+${dynT("reinfection_text2")}
+${dynT("reinfection_text3")}
 
 ${recommended_treatment}`,
         compareText,
         txText,
-        confidence("Élevée","augmentation ≥ 2 dilutions"),
-        finalWhy([...why,"augmentation ≥ 2 dilutions"]),
-        { identifier, analysisDate:document.getElementById("analysisDate").value, conclusion, category, recommended_treatment, compare:compareText, tx:txText, why:finalWhy([...why,"augmentation ≥ 2 dilutions"]), serologies, treatments }, parsed, clinical, expert.join("\n")
+        confidence(dynT("high"), dynT("reinfection_confidence")),
+        finalWhy([...why,dynT("reinfection_why")]),
+        { identifier, analysisDate:document.getElementById("analysisDate").value, conclusion, category, recommended_treatment, compare:compareText, tx:txText, why:finalWhy([...why,dynT("reinfection_why")]), serologies, treatments }, parsed, clinical, expert.join("\n")
       );
     }
     if(diff !== null && diff < 2){
       const category = "scar";
       const recommended_treatment = "Recontrôle à 6 semaines ou 3 mois si suspicion clinique ou contage";
-      const conclusion = "Variation faible, probable cicatriciel.";
+      const conclusion = dynT("scar_conclusion");
       expert.push("Règle déclenchée: augmentation < 2 dilutions => cicatriciel probable");
       return await setResult(
-`${badge("info","Probable cicatriciel")}
-Augmentation du VDRL < 2 dilutions.
+`${badge("info", dynT("scar_badge"))}
+${dynT("scar_text1")}
 
-→ Variation non significative
-→ Probable cicatriciel
-→ Recontrôle à 6 semaines ou 3 mois si suspicion clinique ou contage`,
+${dynT("scar_text2")}
+${dynT("scar_text3")}
+${dynT("scar_text4")}`,
         compareText,
         txText,
-        confidence("Modérée","augmentation < 2 dilutions"),
-        finalWhy([...why,"augmentation < 2 dilutions"]),
-        { identifier, analysisDate:document.getElementById("analysisDate").value, conclusion, category, recommended_treatment, compare:compareText, tx:txText, why:finalWhy([...why,"augmentation < 2 dilutions"]), serologies, treatments }, parsed, clinical, expert.join("\n")
+        confidence(dynT("moderate"), dynT("scar_confidence")),
+        finalWhy([...why,dynT("scar_why")]),
+        { identifier, analysisDate:document.getElementById("analysisDate").value, conclusion, category, recommended_treatment, compare:compareText, tx:txText, why:finalWhy([...why,dynT("scar_why")]), serologies, treatments }, parsed, clinical, expert.join("\n")
       );
     }
   }
@@ -1143,14 +2089,19 @@ ${recommended_treatment}`,
 function exportPdf(){
   if(!lastAnalysisPayload){ alert("Lance d'abord une analyse."); return; }
   const p = lastAnalysisPayload; const { jsPDF } = window.jspdf; const doc = new jsPDF(); let y = 14;
+  const formatLcr = (v) => { if(v === "neg") return "négatif (-)"; if(v === "pos") return "positif (+)"; return "non renseigné"; };
   function line(text,size=11,gap=7){ doc.setFontSize(size); const lines = doc.splitTextToSize(text,180); doc.text(lines,14,y); y += lines.length*gap; if(y>275){doc.addPage(); y=14;} }
   function block(title,text){ doc.setFillColor(245,248,253); doc.roundedRect(10,y-4,190,12,3,3,'F'); doc.setFontSize(13); doc.text(title,14,y+4); y += 12; line(text,11,6); y += 4; }
   doc.setFontSize(18); doc.text("Résumé clinique syphilis",14,y); y += 10;
   line(`Identifiant : ${p.identifier || ""}`); line(`Date de l'analyse : ${p.analysisDate || ""}`);
   block("Conclusion",p.conclusion || ""); block("VDRL de référence retenu",p.compare || ""); block("Traitement antérieur retenu",p.tx || ""); block("Pourquoi cette conclusion",p.why || "");
-  try{ const img = document.getElementById("chart").toDataURL("image/png",1.0); if(y>170){doc.addPage(); y=14;} doc.setFontSize(13); doc.text("Graphique sérologique",14,y); y += 6; doc.addImage(img,"PNG",14,y,180,95); y += 103; }catch(e){}
+  try{ const img = document.getElementById("chart").toDataURL("image/png",1.0); if(y>170){doc.addPage(); y=14;} doc.setFontSize(13); doc.text("Graphique sérologique",14,y); y += 6; doc.addImage(img,"PNG",14,y,180,80); y += 88; }catch(e){}
   block("Chronologie des sérologies",(p.serologies || []).map(s => `${s.dateStr} | EIA: ${s.eia || "—"} | TPHA: ${s.tpha || "—"} | VDRL: ${s.vdrl ?? "—"}`).join("\n"));
   block("Chronologie des traitements",(p.treatments || []).length ? (p.treatments || []).map(t => `${t.dateStr} | ${TREATMENTS[t.type]?.label || t.type}`).join("\n") : "Aucun traitement saisi");
+  const csfData = p.csf || { tpha: document.getElementById("csfTpha")?.value || "", vdrl: document.getElementById("csfVdrl")?.value || "" };
+  if(csfData.tpha || csfData.vdrl){
+    block("Ponction lombaire / LCR", `TPHA LCR : ${formatLcr(csfData.tpha)}\nVDRL LCR : ${formatLcr(csfData.vdrl)}`);
+  }
   doc.save(`resume_syphilis_${p.identifier || 'sans_identifiant'}_${p.analysisDate || 'date'}.pdf`);
 }
 
@@ -1191,26 +2142,115 @@ function enforceExclusiveChancre(choice){
 }
 
 function openBigChart(){
-  if(!chart){
+  const serologies = parseData().serologies;
+  const treatments = parseData().treatments;
+  if(!serologies.length && !treatments.length){
     alert("Lance d'abord une analyse.");
     return;
   }
-  const img = document.getElementById("chart").toDataURL("image/png", 1.0);
   const win = window.open("", "_blank");
   if(!win) return;
+
+  function plotValue(v, eia, tpha){
+    if((v === null || v === undefined) && (eia === "neg" || tpha === "neg")) return 0;
+    if(v === null || v === undefined) return null;
+    if(v === 0) return 0;
+    if(v > 0) return Math.log2(v) + 1;
+    return null;
+  }
+
+  const allDates = [...new Set([
+    ...serologies.map(s => s.dateStr),
+    ...treatments.map(t => t.dateStr)
+  ])].sort();
+
+  const serologyByDate = Object.fromEntries(serologies.map(s => [s.dateStr, s]));
+  const treatmentsByDate = {};
+  treatments.forEach(t => {
+    if(!treatmentsByDate[t.dateStr]) treatmentsByDate[t.dateStr] = [];
+    treatmentsByDate[t.dateStr].push(TREATMENTS[t.type]?.label || t.type);
+  });
+
+  const chartData = {
+    labels: allDates,
+    vdrl: allDates.map(dateStr => {
+      const s = serologyByDate[dateStr];
+      return s ? plotValue(s.vdrl, s.eia, s.tpha) : null;
+    }),
+    txBars: allDates.map(dateStr => treatmentsByDate[dateStr] ? 1 : null),
+    txLabels: allDates.map(dateStr => (treatmentsByDate[dateStr] || []).join(" ; ")),
+    pointLabels: allDates.map(dateStr => {
+      const s = serologyByDate[dateStr];
+      if(!s) return "";
+      const parts = [];
+      if(s.eia) parts.push("EIA " + (s.eia==="pos"?"+":s.eia==="neg"?"-":"ind"));
+      if(s.tpha) parts.push("TPHA " + (s.tpha==="pos"?"+":s.tpha==="neg"?"-":"ind"));
+      const vdrlDisplay = (s.vdrl === null && (s.eia==="neg" || s.tpha==="neg")) ? 0 : (s.vdrl === null ? "—" : s.vdrl);
+      parts.push("VDRL " + vdrlDisplay);
+      return parts.join(" | ");
+    })
+  };
+
   win.document.write(`
-    <html><head><title>Graphique VDRL</title>
-    <style>
-      body{font-family:Arial;margin:20px;background:#f8fbff;color:#17324d}
-      h1{font-size:22px}
-      img{max-width:100%;height:auto;border:1px solid #d6e2ef;border-radius:16px;background:#fff}
-      .note{margin-top:12px;font-size:14px;color:#5f738d}
-    </style></head>
+    <html>
+    <head>
+      <title>Graphique VDRL</title>
+      <script src="https://cdn.jsdelivr.net/npm/chart.js"><\/script>
+      <style>
+        body{font-family:Arial;margin:12px;background:#f8fbff;color:#17324d}
+        h1{font-size:20px;margin:0 0 10px}
+        .box{height:78vh;max-height:78vh;background:#fff;border:1px solid #d6e2ef;border-radius:16px;padding:10px}
+        .note{margin-top:10px;font-size:13px;color:#5f738d}
+      </style>
+    </head>
     <body>
       <h1>Graphique VDRL</h1>
-      <img src="${img}" alt="Graphique VDRL">
-      <div class="note">Ouvre cette page depuis l’outil après une analyse pour afficher le graphique en grand.</div>
-    </body></html>
+      <div class="box"><canvas id="bigChart"></canvas></div>
+      <div class="note">Les traitements reçus apparaissent comme barres rouges sur leur date, avec détail au survol.</div>
+      <script>
+        const d = ${JSON.stringify(chartData)};
+        new Chart(document.getElementById('bigChart'), {
+          data: {
+            labels: d.labels,
+            datasets: [
+              { type:'line', label:'VDRL', data:d.vdrl, tension:0.2, borderWidth:2, pointRadius:4, pointHoverRadius:5, spanGaps:true, yAxisID:'y' },
+              { type:'bar', label:'Traitement reçu', data:d.txBars, yAxisID:'yTx', barThickness:14 }
+            ]
+          },
+          options: {
+            responsive:true,
+            maintainAspectRatio:false,
+            plugins:{
+              legend:{display:true},
+              tooltip:{
+                callbacks:{
+                  afterLabel:(context)=>{
+                    if(context.datasetIndex===0) return d.pointLabels[context.dataIndex] || '';
+                    return d.txLabels[context.dataIndex] ? ('Traitement : ' + d.txLabels[context.dataIndex]) : '';
+                  }
+                }
+              }
+            },
+            scales:{
+              y:{
+                min:0,
+                max:16,
+                ticks:{
+                  callback:(value)=>{
+                    const map={0:'0',1:'1',2:'2',3:'4',4:'8',5:'16',6:'32',7:'64',8:'128',9:'256',10:'512',11:'1024',12:'2048',13:'4096',14:'8192',15:'16384',16:'32768'};
+                    return map[value] ?? '';
+                  }
+                },
+                title:{display:true,text:'VDRL / Dilutions'}
+              },
+              yTx:{position:'right',min:0,max:1.4,display:false,grid:{display:false}},
+              x:{ticks:{maxRotation:0,autoSkip:true}}
+            }
+          }
+        });
+      <\/script>
+    </body>
+    </html>
   `);
   win.document.close();
 }
@@ -1218,7 +2258,8 @@ function openBigChart(){
 document.addEventListener("DOMContentLoaded", () => {
   initSupabase();
   applyTranslations("fr");
-  document.querySelectorAll(".lang-btn").forEach(btn => btn.addEventListener("click", () => applyTranslations(btn.dataset.lang)));
+  currentLang = "fr";
+  document.querySelectorAll(".lang-btn").forEach(btn => btn.addEventListener("click", () => { currentLang = btn.dataset.lang; applyTranslations(btn.dataset.lang); if(lastAnalysisPayload){ analyse(); } }));
   setToday();
   createSerologyRow();
   renderHistory();
