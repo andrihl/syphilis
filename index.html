@@ -56,8 +56,8 @@ table{width:100%;border-collapse:collapse;font-size:14px} th,td{padding:10px;bor
       <button class="btn-soft lang-btn" type="button" data-lang="ja">🇯🇵 日本語</button>
     </div>
 </div>
-    <h1 id="i18nTitle">Outil d’interprétation clinico-biologique de la syphilis</h1>
-    <div class="sub" id="i18nSubtitle">Renseignez les données cliniques, sérologiques et thérapeutiques pour obtenir une interprétation structurée, un suivi chronologique et un graphique VDRL exploitable en pratique clinique.</div>
+    <h1 id="i18nTitle"></h1>
+    <div class="sub" id="i18nSubtitle"></div>
   </div>
 
   <div class="grid">
@@ -71,7 +71,7 @@ table{width:100%;border-collapse:collapse;font-size:14px} th,td{padding:10px;bor
           <div class="rowbox">
             <div class="row idrow">
               <div class="field">
-                <label style="font-size:12px">Identifiant patient / dossier</label>
+                <label style="font-size:12px"><span id="i18nMemoryIdentifier">Identifiant</span> patient / dossier</label>
                 <input id="patientId" type="text" placeholder="ex : AB12-2026-045">
               </div>
             </div>
@@ -143,8 +143,8 @@ table{width:100%;border-collapse:collapse;font-size:14px} th,td{padding:10px;bor
         <div class="toolbar" style="margin-top:10px"><button class="btn-soft" type="button" id="btnExpert">Mode expert</button></div>
         <div id="expertBox" class="rowbox hidden" style="margin-top:10px"><pre id="expertContent" style="white-space:pre-wrap;margin:0;font-family:inherit;font-size:13px"></pre></div>
         <div class="mini">
-          <div class="box"><div class="section-title">VDRL de référence retenu</div><div id="compareInfo" class="note" style="margin-top:8px">—</div></div>
-          <div class="box"><div class="section-title">Traitement antérieur retenu</div><div id="txInfo" class="note" style="margin-top:8px">—</div></div>
+          <div class="box"><div class="section-title"><span id="i18nMemoryVdrlRef">VDRL de référence</span> retenu</div><div id="compareInfo" class="note" style="margin-top:8px">—</div></div>
+          <div class="box"><div class="section-title"><span id="i18nMemoryTx">Traitement antérieur retenu</span></div><div id="txInfo" class="note" style="margin-top:8px">—</div></div>
         </div>
         <div class="mini">
           <div class="box"><div class="section-title">Score de confiance</div><div id="confidenceInfo" class="note" style="margin-top:8px">—</div></div>
@@ -171,10 +171,10 @@ table{width:100%;border-collapse:collapse;font-size:14px} th,td{padding:10px;bor
           <div class="help" id="i18nReportDesc" style="margin:8px 0 12px">Le commentaire sera envoyé avec les données cliniques et biologiques de cette analyse, sans identifiant patient.</div>
           <div class="field">
             <label id="i18nCommentLabel">Commentaire</label>
-            <textarea id="problematicCaseText" rows="5" placeholder="Décris le problème observé, l’erreur supposée, ou la nuance clinique manquante." id="problematicCaseTextPlaceholder"></textarea>
+            <textarea id="problematicCaseText" rows="5" placeholder="Décris le problème observé, l’erreur supposée, ou la nuance clinique manquante."></textarea>
           </div>
           <div class="toolbar" style="margin-top:12px">
-            <button class="btn-orange" type="button" id="btnProblem" id="i18nReportButton">Envoyer le cas problématique</button>
+            <button class="btn-orange" type="button" id="btnProblem"><span id="i18nReportButton">Envoyer le cas problématique</span></button>
           </div>
           <div id="problemStatus" class="status" style="margin-top:10px">Aucun signalement envoyé.</div>
           <div id="supabaseStatus" class="status" style="margin-top:10px">Supabase prêt.</div>
@@ -185,19 +185,19 @@ table{width:100%;border-collapse:collapse;font-size:14px} th,td{padding:10px;bor
 
   <div class="card" style="margin-top:16px">
     <div class="card-h">
-      <h2>Mémoire des analyses</h2>
-      <div class="help">historique local dans le navigateur</div>
+      <h2><span id="i18nMemoryTitle">Mémoire des analyses</span></h2>
+      <div class="help"><span id="i18nMemorySub">historique local dans le navigateur</span></div>
     </div>
     <div class="card-b">
       <div class="toolbar" style="margin-bottom:12px">
-        <button class="btn-violet" type="button" id="btnHistoryExcel">Télécharger toutes les analyses (Excel)</button>
-        <button class="btn-soft" type="button" id="btnHistoryRefresh">Actualiser</button>
-        <button class="btn-red" type="button" id="btnHistoryReset">Vider la mémoire</button>
+        <button class="btn-violet" type="button" id="btnHistoryExcel"><span id="i18nDownloadAll">Télécharger toutes les analyses (Excel)</span></button>
+        <button class="btn-soft" type="button" id="btnHistoryRefresh"><span id="i18nRefresh">Actualiser</span></button>
+        <button class="btn-red" type="button" id="btnHistoryReset"><span id="i18nClearMemory">Vider la mémoire</span></button>
       </div>
-      <div id="historyInfo" class="note">Aucune analyse mémorisée.</div>
+      <div id="historyInfo" class="note"><span id="i18nNoSaved">Aucune analyse mémorisée.</span></div>
       <div style="overflow:auto; margin-top:12px">
         <table id="historyTable">
-          <thead><tr><th>Date analyse</th><th>Identifiant</th><th>Conclusion</th><th>VDRL de référence</th><th>Traitement antérieur retenu</th></tr></thead>
+          <thead><tr><th><span id="i18nMemoryDate">Date analyse</span></th><th>Identifiant</th><th><span id="i18nMemoryConclusion">Conclusion</span></th><th>VDRL de référence</th><th>Traitement antérieur retenu</th></tr></thead>
           <tbody></tbody>
         </table>
       </div>
@@ -207,7 +207,7 @@ table{width:100%;border-collapse:collapse;font-size:14px} th,td{padding:10px;bor
 
 <script>
 const HISTORY_KEY = "syphilis_analyses_history_v2";
-const TOOL_VERSION = "supabase-v1";
+const TOOL_VERSION = "supabase-v2-maintainable";
 const SUPABASE_URL = "https://atygwhyxysxroknnfrjn.supabase.co";
 const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImF0eWd3aHl4eXN4cm9rbm5mcmpuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQwOTI4NzgsImV4cCI6MjA4OTY2ODg3OH0._xb6K6v9SyGFoQEmW9X-i0xHlHDeUei_ayYmnr3fkwc";
 
@@ -215,6 +215,59 @@ let chart = null;
 let lastAnalysisPayload = null;
 let lastSavedAnalysisEventId = null;
 let supabaseClient = null;
+
+
+/* =============================
+   RULEBOOK CENTRALISE
+   Modifier ici en priorité pour faire évoluer les règles sans casser l'UI.
+   ============================= */
+const CLINICAL_RULEBOOK = {
+  chronology: {
+    contactWindowWeeks: 6,
+    treatmentLinkedWindowDays: 7,
+    goodResponseWindowDays: 90
+  },
+  vdrl: {
+    negativeValue: 0,
+    significantRiseDilutions: 2,
+    nonSignificantRiseDilutions: 1
+  },
+  principles: {
+    onePositiveSerologyWithoutHistoryIsLate: true,
+    afterVdrlZeroConsiderCured: true,
+    ifRecentExposureAndNegativeSerologyTreat: true,
+    nonNeurologicalSkinSignsDoNotDateInfection: true,
+    neuroOrEntOrOphthalmicSignsOverrideClinicalStage: true,
+    primaryTertiaryFormsExist: true
+  },
+  treatments: {
+    early: ['benz1','doxy2','cef7'],
+    late: ['benz3','doxy4'],
+    neuro: ['peniv','cef14']
+  },
+  csf: {
+    proposeLumbarPunctureWhenNeuroSignsAndTreponemalPositive: true,
+    treatTpahPositiveVdrlPositiveAsConfirmedNeuro: true,
+    treatTpahPositiveVdrlNegativeAsPossibleNeuro: true
+  },
+  notes: {
+    neuroPriority: 'Si signes neuro/ORL/ophtalmo, proposer PL même avec chancre typique (formes primo-tertiaires possibles).',
+    lateDefault: 'Si infection indatable avec VDRL positif, traiter comme syphilis tardive sauf argument robuste de forme récente.',
+    scarRule: 'Une augmentation < 2 dilutions est plutôt compatible avec un profil cicatriciel ; recontrôle si doute clinique ou contage.'
+  }
+};
+
+function deepSetRule(path, value){
+  const parts = path.split('.');
+  let obj = CLINICAL_RULEBOOK;
+  while(parts.length > 1){
+    const key = parts.shift();
+    if(!(key in obj) || typeof obj[key] !== 'object') throw new Error('Chemin de règle invalide: ' + path);
+    obj = obj[key];
+  }
+  obj[parts[0]] = value;
+  return CLINICAL_RULEBOOK;
+}
 
 const TREATMENTS = {
   benz1: { label: "Extencilline 2,4 MUI dose unique", group: "early" },
@@ -236,7 +289,7 @@ const I18N = {
   pl:{title:"Praktyczne narzędzie kiły", subtitle:"Uzupełnij narzędzie danymi klinicznymi, biologicznymi i terapeutycznymi, aby uzyskać uporządkowaną interpretację, chronologiczny monitoring i przydatny eksport kliniczny.", clinical:"Dane kliniczne", chancreTypical:"Typowy wrzód twardy", chancreDoubtful:"Wrzód wątpliwy", contact:"Kontakt < 6 tygodni", neuro:"Objawy neuro / laryngologiczne / okulistyczne", cutaneous:"Inne objawy skórne", scar:"Znana blizna serologiczna", cutaneousHelp:"Inne objawy skórne nie pozwalają datować zakażenia.", expert:"Tryb ekspercki", expertOn:"Ukryj tryb ekspercki", noFeedback:"Nie wysłano oceny.", noProblem:"Nie wysłano zgłoszenia."}
 };
 function tr(key){ return (I18N[currentLang] && I18N[currentLang][key]) || I18N.fr[key] || key; }
-function applyTranslations(){
+function applyTranslationsLegacy(){
   document.documentElement.lang = currentLang;
   const set = (id, value) => { const el = document.getElementById(id); if(el) el.textContent = value; };
   set("i18nTitle", tr("title"));
@@ -263,36 +316,65 @@ function applyTranslations(){
 
 
 const UI_I18N = {
-  fr:{title:"Outil pratique syphilis",subtitle:"Renseignez les données cliniques, sérologiques et thérapeutiques pour obtenir une interprétation structurée, un suivi chronologique, un graphique VDRL lisible et des exports utiles en pratique clinique.",data:"Données à remplir",inter:"Interprétation",interSub:"conclusion + CAT + justification",memory:"Mémoire des analyses",memorySub:"historique local dans le navigateur",id:"Identification",pid:"Identifiant patient / dossier",clinical:"Clinique",chancreTypical:"Chancre typique",chancreDoubtful:"Chancre douteux",contact:"Contage < 6 semaines",neuro:"Signes neuro / ORL / ophtalmo",cutaneous:"Autres signes cutanés",scar:"Cicatrice sérologique connue",cutaneousHelp:"Les autres signes cutanés ne permettent pas de dater l’infection.",sero:"+ Sérologie",tx:"+ Traitement",analyze:"Analyser",reset:"Réinitialiser",pdf:"Télécharger PDF",big:"Ouvrir le graphique en grand",expert:"Mode expert",empty:"Remplis les données puis clique sur « Analyser ».",noFeedback:"Aucune évaluation envoyée.",noProblem:"Aucun signalement envoyé."},
-  en:{title:"Practical syphilis tool",subtitle:"Enter clinical, serological and treatment data to obtain a structured interpretation, chronological follow-up, a readable VDRL chart and useful clinical exports.",data:"Data entry",inter:"Interpretation",interSub:"conclusion + management + rationale",memory:"Analysis memory",memorySub:"local browser history",id:"Identification",pid:"Patient / record identifier",clinical:"Clinical",chancreTypical:"Typical chancre",chancreDoubtful:"Doubtful chancre",contact:"Exposure < 6 weeks",neuro:"Neuro / ENT / ophthalmic signs",cutaneous:"Other skin signs",scar:"Known serologic scar",cutaneousHelp:"Other skin signs do not date the infection.",sero:"+ Serology",tx:"+ Treatment",analyze:"Analyze",reset:"Reset",pdf:"Download PDF",big:"Open large chart",expert:"Expert mode",empty:"Fill in the data then click Analyze.",noFeedback:"No rating sent.",noProblem:"No report sent."},
-  es:{title:"Herramienta práctica de sífilis",subtitle:"Introduzca datos clínicos, serológicos y terapéuticos para obtener una interpretación estructurada, seguimiento cronológico, un gráfico VDRL legible y exportaciones útiles en la práctica clínica.",data:"Datos a completar",inter:"Interpretación",interSub:"conclusión + conducta + justificación",memory:"Memoria de análisis",memorySub:"historial local del navegador",id:"Identificación",pid:"Identificador del paciente / expediente",clinical:"Clínica",chancreTypical:"Chancro típico",chancreDoubtful:"Chancro dudoso",contact:"Contacto < 6 semanas",neuro:"Signos neuro / ORL / oftálmicos",cutaneous:"Otros signos cutáneos",scar:"Cicatriz serológica conocida",cutaneousHelp:"Otros signos cutáneos no permiten fechar la infección.",sero:"+ Serología",tx:"+ Tratamiento",analyze:"Analizar",reset:"Reiniciar",pdf:"Descargar PDF",big:"Abrir gráfico grande",expert:"Modo experto",empty:"Complete los datos y pulse Analizar.",noFeedback:"Ninguna evaluación enviada.",noProblem:"Ningún caso enviado."},
-  pt:{title:"Ferramenta prática de sífilis",subtitle:"Preencha dados clínicos, serológicos e terapêuticos para obter uma interpretação estruturada, seguimento cronológico, um gráfico VDRL legível e exportações úteis na prática clínica.",data:"Dados a preencher",inter:"Interpretação",interSub:"conclusão + conduta + justificação",memory:"Memória das análises",memorySub:"histórico local no navegador",id:"Identificação",pid:"Identificador do paciente / processo",clinical:"Clínica",chancreTypical:"Cancro típico",chancreDoubtful:"Cancro duvidoso",contact:"Contato < 6 semanas",neuro:"Sinais neuro / ORL / oftalmológicos",cutaneous:"Outros sinais cutâneos",scar:"Cicatriz sorológica conhecida",cutaneousHelp:"Outros sinais cutâneos não datam a infeção.",sero:"+ Sorologia",tx:"+ Tratamento",analyze:"Analisar",reset:"Reinicializar",pdf:"Descarregar PDF",big:"Abrir gráfico grande",expert:"Modo especialista",empty:"Preencha os dados e clique em Analisar.",noFeedback:"Nenhuma avaliação enviada.",noProblem:"Nenhum caso enviado."},
-  de:{title:"Praktisches Syphilis-Tool",subtitle:"Geben Sie klinische, serologische und therapeutische Daten ein, um eine strukturierte Interpretation, chronologische Verlaufskontrolle, ein lesbares VDRL-Diagramm und nützliche Exporte zu erhalten.",data:"Eingabedaten",inter:"Interpretation",interSub:"Schlussfolgerung + Vorgehen + Begründung",memory:"Analysespeicher",memorySub:"lokaler Verlauf im Browser",id:"Identifikation",pid:"Patienten-/Fallkennung",clinical:"Klinik",chancreTypical:"Typischer Schanker",chancreDoubtful:"Fraglicher Schanker",contact:"Kontakt < 6 Wochen",neuro:"Neuro / HNO / augenärztliche Zeichen",cutaneous:"Andere Hautzeichen",scar:"Bekannte serologische Narbe",cutaneousHelp:"Andere Hautzeichen datieren die Infektion nicht.",sero:"+ Serologie",tx:"+ Behandlung",analyze:"Analysieren",reset:"Zurücksetzen",pdf:"PDF herunterladen",big:"Großes Diagramm öffnen",expert:"Expertenmodus",empty:"Bitte Daten eingeben und dann Analysieren klicken.",noFeedback:"Keine Bewertung gesendet.",noProblem:"Kein Fall gesendet."},
-  pl:{title:"Praktyczne narzędzie kiły",subtitle:"Wprowadź dane kliniczne, serologiczne i dotyczące leczenia, aby uzyskać uporządkowaną interpretację, chronologiczne monitorowanie, czytelny wykres VDRL i przydatne eksporty kliniczne.",data:"Dane do wprowadzenia",inter:"Interpretacja",interSub:"wniosek + postępowanie + uzasadnienie",memory:"Pamięć analiz",memorySub:"lokalna historia w przeglądarce",id:"Identyfikacja",pid:"Identyfikator pacjenta / sprawy",clinical:"Dane kliniczne",chancreTypical:"Typowy wrzód",chancreDoubtful:"Wrzód wątpliwy",contact:"Kontakt < 6 tygodni",neuro:"Objawy neuro / laryngologiczne / okulistyczne",cutaneous:"Inne objawy skórne",scar:"Znana blizna serologiczna",cutaneousHelp:"Inne objawy skórne nie pozwalają datować zakażenia.",sero:"+ Serologia",tx:"+ Leczenie",analyze:"Analizuj",reset:"Resetuj",pdf:"Pobierz PDF",big:"Otwórz duży wykres",expert:"Tryb ekspercki",empty:"Wypełnij dane i kliknij Analizuj.",noFeedback:"Nie wysłano oceny.",noProblem:"Nie wysłano zgłoszenia."},
-  it:{title:"Strumento pratico per la sifilide",subtitle:"Inserisci dati clinici, sierologici e terapeutici per ottenere un’interpretazione strutturata, un follow-up cronologico, un grafico VDRL leggibile ed esportazioni utili nella pratica clinica.",data:"Dati da compilare",inter:"Interpretazione",interSub:"conclusione + condotta + giustificazione",memory:"Memoria delle analisi",memorySub:"storico locale nel browser",id:"Identificazione",pid:"Identificativo paziente / cartella",clinical:"Clinica",chancreTypical:"Sifiloma tipico",chancreDoubtful:"Sifiloma dubbio",contact:"Contatto < 6 settimane",neuro:"Segni neuro / ORL / oftalmologici",cutaneous:"Altri segni cutanei",scar:"Cicatrice sierologica nota",cutaneousHelp:"Altri segni cutanei non permettono di datare l’infezione.",sero:"+ Sierologia",tx:"+ Trattamento",analyze:"Analizza",reset:"Reimposta",pdf:"Scarica PDF",big:"Apri grafico grande",expert:"Modalità esperta",empty:"Compila i dati e clicca su Analizza.",noFeedback:"Nessuna valutazione inviata.",noProblem:"Nessun caso inviato."},
-  ar:{title:"أداة الزهري العملية",subtitle:"أدخل البيانات السريرية والمصلية والعلاجية للحصول على تفسير منظم، ومتابعة زمنية، ومخطط VDRL واضح، وتصديرات مفيدة في الممارسة السريرية.",data:"البيانات المطلوب إدخالها",inter:"التفسير",interSub:"الخلاصة + التدبير + التبرير",memory:"ذاكرة التحاليل",memorySub:"سجل محلي في المتصفح",id:"التعريف",pid:"معرّف المريض / الملف",clinical:"السريريات",chancreTypical:"قرحة نموذجية",chancreDoubtful:"قرحة مشكوك فيها",contact:"تعرّض أقل من 6 أسابيع",neuro:"علامات عصبية / أنف أذن حنجرة / عينية",cutaneous:"علامات جلدية أخرى",scar:"ندبة مصلية معروفة",cutaneousHelp:"العلامات الجلدية الأخرى لا تسمح بتأريخ العدوى.",sero:"+ مصلية",tx:"+ علاج",analyze:"حلّل",reset:"إعادة ضبط",pdf:"تنزيل PDF",big:"فتح الرسم كبيرًا",expert:"وضع الخبير",empty:"املأ البيانات ثم اضغط تحليل.",noFeedback:"لم يتم إرسال تقييم.",noProblem:"لم يتم إرسال بلاغ."},
-  zh:{title:"梅毒实用工具",subtitle:"填写临床、血清学和治疗信息，以获得结构化解释、时间顺序随访、清晰的 VDRL 图表以及临床可用导出。",data:"待填写数据",inter:"解释",interSub:"结论 + 处理 + 理由",memory:"分析记录",memorySub:"浏览器本地历史",id:"身份信息",pid:"患者 / 病历编号",clinical:"临床",chancreTypical:"典型硬下疳",chancreDoubtful:"可疑硬下疳",contact:"接触 < 6 周",neuro:"神经 / 耳鼻喉 / 眼科体征",cutaneous:"其他皮肤体征",scar:"已知血清学瘢痕",cutaneousHelp:"其他皮肤体征不能用于判断感染时间。",sero:"+ 血清学",tx:"+ 治疗",analyze:"分析",reset:"重置",pdf:"下载 PDF",big:"打开大图表",expert:"专家模式",empty:"请填写数据后点击分析。",noFeedback:"尚未发送评分。",noProblem:"尚未发送报告。"},
-  ja:{title:"梅毒 実用ツール",subtitle:"臨床・血清学・治療データを入力すると、構造化された解釈、時系列フォロー、読みやすいVDRLグラフ、臨床で使えるエクスポートが得られます。",data:"入力データ",inter:"解釈",interSub:"結論 + 対応 + 根拠",memory:"解析履歴",memorySub:"ブラウザ内ローカル履歴",id:"識別",pid:"患者 / 症例ID",clinical:"臨床",chancreTypical:"典型的な硬性下疳",chancreDoubtful:"疑わしい硬性下疳",contact:"接触 < 6週間",neuro:"神経 / 耳鼻咽喉 / 眼症状",cutaneous:"その他の皮膚症状",scar:"既知の血清学的瘢痕",cutaneousHelp:"その他の皮膚症状だけでは感染時期は判断できません。",sero:"+ 血清",tx:"+ 治療",analyze:"解析",reset:"リセット",pdf:"PDF をダウンロード",big:"大きなグラフを開く",expert:"エキスパートモード",empty:"データを入力して解析を押してください。",noFeedback:"評価は未送信です。",noProblem:"報告は未送信です。"}
+  fr:{title:"Outil d’interprétation clinico-biologique de la syphilis",subtitle:"Renseignez les données cliniques, sérologiques et thérapeutiques pour obtenir une interprétation structurée, un suivi chronologique et un graphique VDRL exploitable en pratique clinique.",data:"Données à remplir",inter:"Interprétation",interSub:"conclusion + CAT + justification",memory:"Mémoire des analyses",memorySub:"historique local dans le navigateur",id:"Identification",pid:"Identifiant patient / dossier",clinical:"Clinique",chancreTypical:"Chancre typique",chancreDoubtful:"Chancre douteux",contact:"Contage < 6 semaines",neuro:"Signes neuro / ORL / ophtalmo",cutaneous:"Autres signes cutanés",scar:"Cicatrice sérologique connue",cutaneousHelp:"Les autres signes cutanés ne permettent pas de dater l’infection.",serologies:"Sérologies",treatments:"Traitements antérieurs",lcr:"Ponction lombaire / LCR",evaluation:"Évaluation de l’interprétation",sero:"+ Sérologie",tx:"+ Traitement",analyze:"Analyser",reset:"Réinitialiser",pdf:"Télécharger PDF",big:"Ouvrir le graphique en grand",expert:"Mode expert",empty:"Remplis les données puis clique sur « Analyser ».",noFeedback:"Aucune évaluation envoyée.",noProblem:"Aucun cas envoyé.",reportTitle:"Souhaitez-vous signaler un cas problématique ?",reportDesc:"Le commentaire sera envoyé avec les données cliniques et biologiques de cette analyse, sans identifiant patient.",commentLabel:"Commentaire",reportPlaceholder:"Décris le problème observé, l’erreur supposée, ou la nuance clinique manquante.",reportButton:"Envoyer le cas problématique",downloadAll:"Télécharger toutes les analyses (Excel)",refresh:"Actualiser",clearMemory:"Vider la mémoire",memoryDate:"Date analyse",memoryIdentifier:"Identifiant",memoryConclusion:"Conclusion",memoryVdrl:"VDRL de référence",memoryTx:"Traitement antérieur retenu",noSaved:"Aucune analyse mémorisée."},
+  en:{title:"Clinical and biological interpretation tool for syphilis",subtitle:"Enter clinical, serological and treatment data to obtain a structured interpretation, chronological follow-up and a clinically usable VDRL chart.",data:"Data entry",inter:"Interpretation",interSub:"conclusion + management + rationale",memory:"Analysis memory",memorySub:"local browser history",id:"Identification",pid:"Patient / record identifier",clinical:"Clinical",chancreTypical:"Typical chancre",chancreDoubtful:"Doubtful chancre",contact:"Exposure < 6 weeks",neuro:"Neuro / ENT / ophthalmic signs",cutaneous:"Other skin signs",scar:"Known serologic scar",cutaneousHelp:"Other skin signs do not date the infection.",serologies:"Serologies",treatments:"Previous treatments",lcr:"Lumbar puncture / CSF",evaluation:"Interpretation evaluation",sero:"+ Serology",tx:"+ Treatment",analyze:"Analyze",reset:"Reset",pdf:"Download PDF",big:"Open large chart",expert:"Expert mode",empty:"Fill in the data then click Analyze.",noFeedback:"No rating sent.",noProblem:"No report sent.",reportTitle:"Do you want to report a problematic case?",reportDesc:"The comment will be sent with the clinical and biological data from this analysis, without patient identifier.",commentLabel:"Comment",reportPlaceholder:"Describe the observed issue, suspected error, or missing clinical nuance.",reportButton:"Send problematic case",downloadAll:"Download all analyses (Excel)",refresh:"Refresh",clearMemory:"Clear memory",memoryDate:"Analysis date",memoryIdentifier:"Identifier",memoryConclusion:"Conclusion",memoryVdrl:"Reference VDRL",memoryTx:"Previous treatment retained",noSaved:"No saved analysis."},
+  es:{title:"Herramienta de interpretación clínico-biológica de la sífilis",subtitle:"Introduzca datos clínicos, serológicos y terapéuticos para obtener una interpretación estructurada, un seguimiento cronológico y un gráfico VDRL útil en la práctica clínica.",data:"Datos a completar",inter:"Interpretación",interSub:"conclusión + conducta + justificación",memory:"Memoria de análisis",memorySub:"historial local del navegador",id:"Identificación",pid:"Identificador del paciente / expediente",clinical:"Clínica",chancreTypical:"Chancro típico",chancreDoubtful:"Chancro dudoso",contact:"Contacto < 6 semanas",neuro:"Signos neuro / ORL / oftálmicos",cutaneous:"Otros signos cutáneos",scar:"Cicatriz serológica conocida",cutaneousHelp:"Otros signos cutáneos no permiten fechar la infección.",serologies:"Serologías",treatments:"Tratamientos previos",lcr:"Punción lumbar / LCR",evaluation:"Evaluación de la interpretación",sero:"+ Serología",tx:"+ Tratamiento",analyze:"Analizar",reset:"Reiniciar",pdf:"Descargar PDF",big:"Abrir gráfico grande",expert:"Modo experto",empty:"Complete los datos y pulse Analizar.",noFeedback:"Ninguna evaluación enviada.",noProblem:"Ningún caso enviado.",reportTitle:"¿Desea reportar un caso problemático?",reportDesc:"El comentario se enviará con los datos clínicos y biológicos de este análisis, sin identificador del paciente.",commentLabel:"Comentario",reportPlaceholder:"Describa el problema observado, el error supuesto o el matiz clínico faltante.",reportButton:"Enviar caso problemático",downloadAll:"Descargar todos los análisis (Excel)",refresh:"Actualizar",clearMemory:"Vaciar memoria",memoryDate:"Fecha del análisis",memoryIdentifier:"Identificador",memoryConclusion:"Conclusión",memoryVdrl:"VDRL de referencia",memoryTx:"Tratamiento previo retenido",noSaved:"Ningún análisis guardado."},
+  pt:{title:"Ferramenta de interpretação clínico-biológica da sífilis",subtitle:"Insira dados clínicos, sorológicos e terapêuticos para obter uma interpretação estruturada, seguimento cronológico e gráfico VDRL útil na prática clínica.",data:"Dados a preencher",inter:"Interpretação",interSub:"conclusão + conduta + justificação",memory:"Memória das análises",memorySub:"histórico local no navegador",id:"Identificação",pid:"Identificador do paciente / processo",clinical:"Clínica",chancreTypical:"Cancro típico",chancreDoubtful:"Cancro duvidoso",contact:"Contato < 6 semanas",neuro:"Sinais neuro / ORL / oftalmológicos",cutaneous:"Outros sinais cutâneos",scar:"Cicatriz sorológica conhecida",cutaneousHelp:"Outros sinais cutâneos não datam a infeção.",serologies:"Sorologias",treatments:"Tratamentos prévios",lcr:"Punção lombar / LCR",evaluation:"Avaliação da interpretação",sero:"+ Sorologia",tx:"+ Tratamento",analyze:"Analisar",reset:"Reinicializar",pdf:"Descarregar PDF",big:"Abrir gráfico grande",expert:"Modo especialista",empty:"Preencha os dados e clique em Analisar.",noFeedback:"Nenhuma avaliação enviada.",noProblem:"Nenhum caso enviado.",reportTitle:"Deseja reportar um caso problemático?",reportDesc:"O comentário será enviado com os dados clínicos e biológicos desta análise, sem identificador do paciente.",commentLabel:"Comentário",reportPlaceholder:"Descreva o problema observado, erro suspeito ou nuance clínica ausente.",reportButton:"Enviar caso problemático",downloadAll:"Descarregar todas as análises (Excel)",refresh:"Atualizar",clearMemory:"Limpar memória",memoryDate:"Data da análise",memoryIdentifier:"Identificador",memoryConclusion:"Conclusão",memoryVdrl:"VDRL de referência",memoryTx:"Tratamento prévio retido",noSaved:"Nenhuma análise guardada."},
+  de:{title:"Klinisch-biologisches Interpretationswerkzeug für Syphilis",subtitle:"Geben Sie klinische, serologische und therapeutische Daten ein, um eine strukturierte Interpretation, einen chronologischen Verlauf und ein klinisch nutzbares VDRL-Diagramm zu erhalten.",data:"Eingabedaten",inter:"Interpretation",interSub:"Schlussfolgerung + Vorgehen + Begründung",memory:"Analysespeicher",memorySub:"lokaler Verlauf im Browser",id:"Identifikation",pid:"Patienten-/Fallkennung",clinical:"Klinik",chancreTypical:"Typischer Schanker",chancreDoubtful:"Fraglicher Schanker",contact:"Kontakt < 6 Wochen",neuro:"Neuro / HNO / augenärztliche Zeichen",cutaneous:"Andere Hautzeichen",scar:"Bekannte serologische Narbe",cutaneousHelp:"Andere Hautzeichen datieren die Infektion nicht.",serologies:"Serologien",treatments:"Vorbehandlungen",lcr:"Lumbalpunktion / Liquor",evaluation:"Bewertung der Interpretation",sero:"+ Serologie",tx:"+ Behandlung",analyze:"Analysieren",reset:"Zurücksetzen",pdf:"PDF herunterladen",big:"Großes Diagramm öffnen",expert:"Expertenmodus",empty:"Bitte Daten eingeben und dann Analysieren klicken.",noFeedback:"Keine Bewertung gesendet.",noProblem:"Kein Fall gesendet.",reportTitle:"Möchten Sie einen problematischen Fall melden?",reportDesc:"Der Kommentar wird zusammen mit den klinischen und biologischen Daten dieser Analyse ohne Patientenidentifikation gesendet.",commentLabel:"Kommentar",reportPlaceholder:"Beschreiben Sie das beobachtete Problem, den vermuteten Fehler oder die fehlende klinische Nuance.",reportButton:"Problematischen Fall senden",downloadAll:"Alle Analysen herunterladen (Excel)",refresh:"Aktualisieren",clearMemory:"Speicher leeren",memoryDate:"Analysedatum",memoryIdentifier:"Kennung",memoryConclusion:"Schlussfolgerung",memoryVdrl:"Referenz-VDRL",memoryTx:"Berücksichtigte Vorbehandlung",noSaved:"Keine Analyse gespeichert."},
+  pl:{title:"Narzędzie do interpretacji kliniczno-biologicznej kiły",subtitle:"Wprowadź dane kliniczne, serologiczne i terapeutyczne, aby uzyskać uporządkowaną interpretację, przebieg w czasie oraz wykres VDRL przydatny klinicznie.",data:"Dane do wprowadzenia",inter:"Interpretacja",interSub:"wniosek + postępowanie + uzasadnienie",memory:"Pamięć analiz",memorySub:"lokalna historia w przeglądarce",id:"Identyfikacja",pid:"Identyfikator pacjenta / sprawy",clinical:"Dane kliniczne",chancreTypical:"Typowy wrzód",chancreDoubtful:"Wrzód wątpliwy",contact:"Kontakt < 6 tygodni",neuro:"Objawy neuro / laryngologiczne / okulistyczne",cutaneous:"Inne objawy skórne",scar:"Znana blizna serologiczna",cutaneousHelp:"Inne objawy skórne nie pozwalają datować zakażenia.",serologies:"Serologia",treatments:"Leczenie wcześniejsze",lcr:"Punkcja lędźwiowa / PMR",evaluation:"Ocena interpretacji",sero:"+ Serologia",tx:"+ Leczenie",analyze:"Analizuj",reset:"Resetuj",pdf:"Pobierz PDF",big:"Otwórz duży wykres",expert:"Tryb ekspercki",empty:"Wypełnij dane i kliknij Analizuj.",noFeedback:"Nie wysłano oceny.",noProblem:"Nie wysłano zgłoszenia.",reportTitle:"Czy chcesz zgłosić problematyczny przypadek?",reportDesc:"Komentarz zostanie wysłany wraz z danymi klinicznymi i biologicznymi tej analizy, bez identyfikatora pacjenta.",commentLabel:"Komentarz",reportPlaceholder:"Opisz zaobserwowany problem, przypuszczalny błąd lub brakujący niuans kliniczny.",reportButton:"Wyślij problematyczny przypadek",downloadAll:"Pobierz wszystkie analizy (Excel)",refresh:"Odśwież",clearMemory:"Wyczyść pamięć",memoryDate:"Data analizy",memoryIdentifier:"Identyfikator",memoryConclusion:"Wniosek",memoryVdrl:"Referencyjny VDRL",memoryTx:"Uwzględnione wcześniejsze leczenie",noSaved:"Brak zapisanych analiz."},
+  it:{title:"Strumento di interpretazione clinico-biologica della sifilide",subtitle:"Inserisci dati clinici, sierologici e terapeutici per ottenere un’interpretazione strutturata, un follow-up cronologico e un grafico VDRL utile nella pratica clinica.",data:"Dati da compilare",inter:"Interpretazione",interSub:"conclusione + condotta + giustificazione",memory:"Memoria delle analisi",memorySub:"storico locale nel browser",id:"Identificazione",pid:"Identificativo paziente / cartella",clinical:"Clinica",chancreTypical:"Sifiloma tipico",chancreDoubtful:"Sifiloma dubbio",contact:"Contatto < 6 settimane",neuro:"Segni neuro / ORL / oftalmologici",cutaneous:"Altri segni cutanei",scar:"Cicatrice sierologica nota",cutaneousHelp:"Altri segni cutanei non permettono di datare l’infezione.",serologies:"Sierologie",treatments:"Trattamenti precedenti",lcr:"Puntura lombare / liquor",evaluation:"Valutazione dell’interpretazione",sero:"+ Sierologia",tx:"+ Trattamento",analyze:"Analizza",reset:"Reimposta",pdf:"Scarica PDF",big:"Apri grafico grande",expert:"Modalità esperta",empty:"Compila i dati e clicca su Analizza.",noFeedback:"Nessuna valutazione inviata.",noProblem:"Nessun caso inviato.",reportTitle:"Vuoi segnalare un caso problematico?",reportDesc:"Il commento sarà inviato con i dati clinici e biologici di questa analisi, senza identificativo del paziente.",commentLabel:"Commento",reportPlaceholder:"Descrivi il problema osservato, l’errore ipotizzato o la sfumatura clinica mancante.",reportButton:"Invia caso problematico",downloadAll:"Scarica tutte le analisi (Excel)",refresh:"Aggiorna",clearMemory:"Svuota memoria",memoryDate:"Data analisi",memoryIdentifier:"Identificativo",memoryConclusion:"Conclusione",memoryVdrl:"VDRL di riferimento",memoryTx:"Trattamento precedente considerato",noSaved:"Nessuna analisi salvata."},
+  ar:{title:"أداة تفسير سريري-بيولوجي لمرض الزهري",subtitle:"أدخل البيانات السريرية والمصلية والعلاجية للحصول على تفسير منظم ومتابعة زمنية ورسم VDRL قابل للاستخدام سريريًا.",data:"البيانات المطلوب إدخالها",inter:"التفسير",interSub:"الخلاصة + التدبير + التبرير",memory:"ذاكرة التحاليل",memorySub:"سجل محلي في المتصفح",id:"التعريف",pid:"معرّف المريض / الملف",clinical:"السريريات",chancreTypical:"قرحة نموذجية",chancreDoubtful:"قرحة مشكوك فيها",contact:"تعرّض أقل من 6 أسابيع",neuro:"علامات عصبية / أنف أذن حنجرة / عينية",cutaneous:"علامات جلدية أخرى",scar:"ندبة مصلية معروفة",cutaneousHelp:"العلامات الجلدية الأخرى لا تسمح بتأريخ العدوى.",serologies:"التحاليل المصلية",treatments:"العلاجات السابقة",lcr:"البزل القطني / السائل الدماغي الشوكي",evaluation:"تقييم التفسير",sero:"+ مصلية",tx:"+ علاج",analyze:"حلّل",reset:"إعادة ضبط",pdf:"تنزيل PDF",big:"فتح الرسم كبيرًا",expert:"وضع الخبير",empty:"املأ البيانات ثم اضغط تحليل.",noFeedback:"لم يتم إرسال تقييم.",noProblem:"لم يتم إرسال بلاغ.",reportTitle:"هل ترغب في الإبلاغ عن حالة إشكالية؟",reportDesc:"سيتم إرسال التعليق مع البيانات السريرية والبيولوجية لهذه التحاليل دون هوية المريض.",commentLabel:"تعليق",reportPlaceholder:"صف المشكلة أو الخطأ المفترض أو العنصر السريري الناقص.",reportButton:"إرسال الحالة الإشكالية",downloadAll:"تنزيل جميع التحاليل (Excel)",refresh:"تحديث",clearMemory:"مسح الذاكرة",memoryDate:"تاريخ التحليل",memoryIdentifier:"المعرّف",memoryConclusion:"الخلاصة",memoryVdrl:"VDRL المرجعي",memoryTx:"العلاج السابق المعتمد",noSaved:"لا توجد تحاليل محفوظة."},
+  zh:{title:"梅毒临床与生物学解释工具",subtitle:"输入临床、血清学和治疗数据，以获得结构化解释、时间随访及临床可用的 VDRL 图表。",data:"待填写数据",inter:"解释",interSub:"结论 + 处理 + 理由",memory:"分析记录",memorySub:"浏览器本地历史",id:"身份信息",pid:"患者 / 病历编号",clinical:"临床",chancreTypical:"典型硬下疳",chancreDoubtful:"可疑硬下疳",contact:"接触 < 6 周",neuro:"神经 / 耳鼻喉 / 眼科体征",cutaneous:"其他皮肤体征",scar:"已知血清学瘢痕",cutaneousHelp:"其他皮肤体征不能用于判断感染时间。",serologies:"血清学",treatments:"既往治疗",lcr:"腰椎穿刺 / 脑脊液",evaluation:"解释评估",sero:"+ 血清学",tx:"+ 治疗",analyze:"分析",reset:"重置",pdf:"下载 PDF",big:"打开大图表",expert:"专家模式",empty:"请填写数据后点击分析。",noFeedback:"尚未发送评分。",noProblem:"尚未发送报告。",reportTitle:"是否要报告一个问题病例？",reportDesc:"评论将与本次分析的临床和生物数据一起发送，不包含患者身份信息。",commentLabel:"评论",reportPlaceholder:"请描述观察到的问题、可能的错误或缺失的临床细节。",reportButton:"发送问题病例",downloadAll:"下载所有分析（Excel）",refresh:"刷新",clearMemory:"清空记录",memoryDate:"分析日期",memoryIdentifier:"标识符",memoryConclusion:"结论",memoryVdrl:"参考 VDRL",memoryTx:"保留的既往治疗",noSaved:"没有已保存的分析。"},
+  ja:{title:"梅毒の臨床・生物学的解釈ツール",subtitle:"臨床・血清学・治療データを入力すると、構造化された解釈、時系列フォロー、臨床で使える VDRL グラフが得られます。",data:"入力データ",inter:"解釈",interSub:"結論 + 対応 + 根拠",memory:"解析履歴",memorySub:"ブラウザ内ローカル履歴",id:"識別",pid:"患者 / 症例ID",clinical:"臨床",chancreTypical:"典型的な硬性下疳",chancreDoubtful:"疑わしい硬性下疳",contact:"接触 < 6週間",neuro:"神経 / 耳鼻咽喉 / 眼症状",cutaneous:"その他の皮膚症状",scar:"既知の血清学的瘢痕",cutaneousHelp:"その他の皮膚症状だけでは感染時期は判断できません。",serologies:"血清検査",treatments:"既往治療",lcr:"腰椎穿刺 / 髄液",evaluation:"解釈の評価",sero:"+ 血清",tx:"+ 治療",analyze:"解析",reset:"リセット",pdf:"PDF をダウンロード",big:"大きなグラフを開く",expert:"エキスパートモード",empty:"データを入力して解析を押してください。",noFeedback:"評価は未送信です。",noProblem:"報告は未送信です。",reportTitle:"問題のある症例を報告しますか？",reportDesc:"コメントは患者識別情報なしで、この解析の臨床・検査データとともに送信されます。",commentLabel:"コメント",reportPlaceholder:"観察された問題点、想定されるエラー、または不足している臨床的ニュアンスを記載してください。",reportButton:"問題症例を送信",downloadAll:"すべての解析をダウンロード (Excel)",refresh:"更新",clearMemory:"履歴を消去",memoryDate:"解析日",memoryIdentifier:"識別子",memoryConclusion:"結論",memoryVdrl:"参照 VDRL",memoryTx:"保持された既往治療",noSaved:"保存された解析はありません。"}
 };
+
 
 
 
 function applyTranslations(lang){
   currentLang = lang || currentLang || "fr";
   const d = UI_I18N[currentLang] || UI_I18N.fr;
-  const heroTitle = document.querySelector('.hero h1');
-  const heroSub = document.querySelector('.hero .sub');
+
+  const setText = (id, value) => {
+    const el = document.getElementById(id);
+    if(el) el.textContent = value;
+  };
+
+  setText("i18nTitle", d.title);
+  setText("i18nSubtitle", d.subtitle);
+  setText("i18nSerologies", d.serologies);
+  setText("i18nTreatments", d.treatments);
+  setText("i18nLCR", d.lcr);
+  setText("i18nEvaluationTitle", d.evaluation);
+  setText("i18nMemoryTitle", d.memory);
+  setText("i18nMemorySub", d.memorySub);
+  setText("i18nReportTitle", d.reportTitle);
+  setText("i18nReportDesc", d.reportDesc);
+  setText("i18nCommentLabel", d.commentLabel);
+  setText("i18nReportButton", d.reportButton);
+  setText("i18nNoSaved", d.noSaved);
+  setText("i18nDownloadAll", d.downloadAll);
+  setText("i18nRefresh", d.refresh);
+  setText("i18nClearMemory", d.clearMemory);
+  setText("i18nMemoryDate", d.memoryDate);
+  setText("i18nMemoryIdentifier", d.memoryIdentifier);
+  setText("i18nMemoryConclusion", d.memoryConclusion);
+  setText("i18nMemoryVdrlRef", d.memoryVdrl);
+  setText("i18nMemoryTx", d.memoryTx);
+
   const cardHeads = document.querySelectorAll('.card-h h2');
-  const sectionTitles = document.querySelectorAll('.section-title');
-  if(heroTitle) heroTitle.textContent = d.title;
-  if(heroSub) heroSub.textContent = d.subtitle;
   if(cardHeads[0]) cardHeads[0].textContent = d.data;
   if(cardHeads[1]) cardHeads[1].textContent = d.inter;
-  if(cardHeads[2]) cardHeads[2].textContent = d.memory;
+  const helps = document.querySelectorAll('.card-h .help');
+  if(helps[0]) helps[0].textContent = d.interSub;
+
+  const sectionTitles = document.querySelectorAll('.section-title');
   if(sectionTitles[0]) sectionTitles[0].textContent = d.id;
-  const pidLabel = document.querySelector('#patientId').previousElementSibling;
-  if(pidLabel) pidLabel.textContent = d.pid;
   if(sectionTitles[1]) sectionTitles[1].textContent = d.clinical;
+
+  const pidLabel = document.querySelector('#patientId')?.previousElementSibling;
+  if(pidLabel) pidLabel.textContent = d.pid;
+
   const labels = document.querySelectorAll('.pillbar label.check');
   if(labels[0]) labels[0].lastChild.textContent = d.chancreTypical;
   if(labels[1]) labels[1].lastChild.textContent = d.chancreDoubtful;
@@ -300,577 +382,88 @@ function applyTranslations(lang){
   if(labels[3]) labels[3].lastChild.textContent = d.neuro;
   if(labels[4]) labels[4].lastChild.textContent = d.cutaneous;
   if(labels[5]) labels[5].lastChild.textContent = d.scar;
+
   const smalls = document.querySelectorAll('.small');
-  if(smalls[0]) smalls[0].textContent = d.cutanousHelp || d.cutenousHelp || d.cutaneousHelp || UI_I18N.fr.cutaneousHelp;
-  if(document.getElementById('btnAddSero')) document.getElementById('btnAddSero').textContent = d.sero;
-  if(document.getElementById('btnAddTx')) document.getElementById('btnAddTx').textContent = d.tx;
-  if(document.getElementById('btnAnalyse')) document.getElementById('btnAnalyse').textContent = d.analyze;
-  if(document.getElementById('btnReset')) document.getElementById('btnReset').textContent = d.reset;
-  if(document.getElementById('btnPdf')) document.getElementById('btnPdf').textContent = d.pdf;
-  if(document.getElementById('btnBigChart')) document.getElementById('btnBigChart').textContent = d.big;
-  if(document.getElementById('btnExpert')) document.getElementById('btnExpert').textContent = d.expert;
-  const helpInterp = document.querySelectorAll('.card-h .help');
-  if(helpInterp[0]) helpInterp[0].textContent = d.interSub || "conclusion + CAT + justification";
-  if(helpInterp[1]) helpInterp[1].textContent = d.memorySub || "historique local dans le navigateur";
+  if(smalls[0]) smalls[0].textContent = d.cutaneousHelp;
+
+  setText("btnAddSero", d.sero);
+  setText("btnAddTx", d.tx);
+  setText("btnAnalyse", d.analyze);
+  setText("btnReset", d.reset);
+  setText("btnPdf", d.pdf);
+  setText("btnBigChart", d.big);
+  setText("btnExpert", d.expert);
+
+  const feedbackStatus = document.getElementById('feedbackStatus');
+  const problemStatus = document.getElementById('problemStatus');
+  if(feedbackStatus && (!feedbackStatus.textContent || /Aucune|No |Ning|Nenhuma|Keine|尚未|評価/.test(feedbackStatus.textContent))) feedbackStatus.textContent = d.noFeedback;
+  if(problemStatus && (!problemStatus.textContent || /Aucun|No |Ning|Nenhum|Kein|尚未|報告/.test(problemStatus.textContent))) problemStatus.textContent = d.noProblem;
+
+  const problemBox = document.getElementById('problematicCaseText');
+  if(problemBox) problemBox.placeholder = d.reportPlaceholder;
+
   const resultEmpty = document.querySelector('#resultBox .empty');
-  if(resultEmpty) resultEmpty.textContent = d.empty || "Remplis les données puis clique sur « Analyser ».";
-  const stat1 = document.getElementById('feedbackStatus');
-  const stat2 = document.getElementById('problemStatus');
-  if(stat1 && (!stat1.textContent || stat1.textContent.includes('Aucune') || stat1.textContent.includes('No ') || stat1.textContent.includes('Ning'))) stat1.textContent = d.noFeedback;
-  if(stat2 && (!stat2.textContent || stat2.textContent.includes('Aucun') || stat2.textContent.includes('No ') || stat2.textContent.includes('Ning'))) stat2.textContent = d.noProblem;
+  if(resultEmpty) resultEmpty.textContent = d.empty;
+  const resultBox = document.getElementById('resultBox');
+  if(resultBox && resultBox.innerHTML) resultBox.innerHTML = translateResultText(resultBox.innerHTML);
+
+  const compareInfo = document.getElementById('compareInfo');
+  const txInfo = document.getElementById('txInfo');
+  const confInfo = document.getElementById('confidenceInfo');
+  const whyInfo = document.getElementById('whyInfo');
+  if(compareInfo) compareInfo.textContent = translatePlainText(compareInfo.textContent);
+  if(txInfo) txInfo.textContent = translatePlainText(txInfo.textContent);
+  if(confInfo) confInfo.textContent = translatePlainText(confInfo.textContent);
+  if(whyInfo) whyInfo.textContent = translatePlainText(whyInfo.textContent);
 }
 
-
-
-currentLang = "fr";
-
-function dynT(key){
-  const pack = DYNAMIC_I18N[currentLang] || DYNAMIC_I18N.fr;
-  return pack[key] || DYNAMIC_I18N.fr[key] || key;
-}
-
-const DYNAMIC_I18N = {
+const DYN_I18N = {
   fr: {
-    moderate: "Modérée", high: "Élevée", low: "Faible",
-    early_treatment_title: "Traitement proposé :",
-    early_1: "1re intention : Extencilline 2,4 MUI dose unique",
-    early_2: "2e intention : Doxycycline 2 semaines",
-    early_3: "3e intention : Ceftriaxone 1 g/j pendant 7 jours",
-    late_treatment_title: "Traitement proposé :",
-    late_1: "Extencilline 2,4 MUI 1 fois/semaine pendant 3 semaines",
-    late_2: "Doxycycline 4 semaines",
-    neuro_treatment_title: "Traitement de neurosyphilis :",
-    neuro_1: "Pénicilline G IV 14 jours",
-    neuro_2: "Ceftriaxone 2 g/j pendant 14 jours",
-
-    reinfection_badge: "Recontamination",
-    reinfection_text: "Augmentation du VDRL ≥ 2 dilutions.",
-    reinfection_text2: "→ Compatible avec réinfection ou nouvelle contamination",
-    reinfection_text3: "→ Traiter comme syphilis précoce",
-    reinfection_conclusion: "Recontamination probable",
-    reinfection_confidence: "augmentation ≥ 2 dilutions",
-    reinfection_why: "augmentation ≥ 2 dilutions",
-
-    kinetic_badge: "Cinétique VDRL à interprétation fine",
-    kinetic_conclusion: "Augmentation du VDRL après traitement tardif compatible avec une cinétique sérologique en cloche.",
-    kinetic_text_1: "Traitement administré tardivement après la sérologie précédente, avec VDRL suivant plus élevé.",
-    kinetic_text_2: "→ Possible pic sérologique non capté avant traitement",
-    kinetic_text_3: "→ Possible décroissance lente secondaire",
-    kinetic_text_4: "→ Mais une recontamination ne peut pas être exclue",
-    kinetic_management_title: "Conduite à tenir :",
-    kinetic_followup: "Recontrôle sérologique rapproché (6 semaines)",
-    kinetic_if_worse: "Si poursuite de l’augmentation ou nouveau contexte d’exposition : traiter comme recontamination / syphilis précoce",
-    kinetic_confidence: "hausse post-traitement tardif compatible avec une cinétique en cloche, sans exclure une recontamination",
-    kinetic_why: "traitement > 7 jours après sérologie | augmentation post-traitement | interprétation cinétique fine",
-
-    lp_badge: "Ponction lombaire indiquée",
-    lp_text1: "Signes neurologiques / ORL / ophtalmologiques avec TPHA ou EIA positif et VDRL positif.",
-    lp_text2: "→ Indication de ponction lombaire",
-    lp_text3: "→ Suspicion de neurosyphilis",
-    lcr_module: "Module LCR interactif : renseigner TPHA LCR et VDRL LCR puis relancer l’analyse.",
-    lcr_neg_neg: "TPHA LCR négatif / VDRL LCR négatif",
-    lcr_neg_neg_text: "→ Neurosyphilis non confirmée ; possible forme très précoce ou atteinte ORL/ophtalmologique ; compléter par FO / audiométrie / avis spécialisé ; possibilité de traiter comme syphilis tardive",
-    lcr_pos_neg: "TPHA LCR positif / VDRL LCR négatif",
-    lcr_pos_neg_text: "→ Possible neurosyphilis ; traiter comme neurosyphilis",
-    lcr_pos_pos: "TPHA LCR positif / VDRL LCR positif",
-    lcr_pos_pos_text: "→ Neurosyphilis confirmée ; traitement de neurosyphilis",
-
-    scar_badge: "Probable cicatriciel",
-    scar_text1: "Augmentation du VDRL < 2 dilutions.",
-    scar_text2: "→ Variation non significative",
-    scar_text3: "→ Probable cicatriciel",
-    scar_text4: "→ Recontrôle à 6 semaines ou 3 mois si suspicion clinique ou contage",
-    scar_conclusion: "Variation faible, probable cicatriciel.",
-    scar_confidence: "augmentation < 2 dilutions",
-    scar_why: "augmentation < 2 dilutions"
-  },
-  en: {
-    moderate: "Moderate", high: "High", low: "Low",
-    early_treatment_title: "Recommended treatment:",
-    early_1: "1st line: Benzathine penicillin 2.4 MU single dose",
-    early_2: "2nd line: Doxycycline for 2 weeks",
-    early_3: "3rd line: Ceftriaxone 1 g/day for 7 days",
-    late_treatment_title: "Recommended treatment:",
-    late_1: "Benzathine penicillin 2.4 MU once weekly for 3 weeks",
-    late_2: "Doxycycline for 4 weeks",
-    neuro_treatment_title: "Neurosyphilis treatment:",
-    neuro_1: "Penicillin G IV for 14 days",
-    neuro_2: "Ceftriaxone 2 g/day for 14 days",
-
-    reinfection_badge: "Reinfection",
-    reinfection_text: "VDRL increase ≥ 2 dilutions.",
-    reinfection_text2: "→ Compatible with reinfection or new contamination",
-    reinfection_text3: "→ Treat as early syphilis",
-    reinfection_conclusion: "Probable reinfection",
-    reinfection_confidence: "increase ≥ 2 dilutions",
-    reinfection_why: "increase ≥ 2 dilutions",
-
-    kinetic_badge: "Advanced VDRL kinetics",
-    kinetic_conclusion: "VDRL rise after delayed treatment compatible with bell-shaped serologic kinetics.",
-    kinetic_text_1: "Treatment was administered late after the previous serology, with a higher subsequent VDRL.",
-    kinetic_text_2: "→ Possible missed serologic peak before treatment",
-    kinetic_text_3: "→ Possible slow subsequent decline",
-    kinetic_text_4: "→ But reinfection cannot be excluded",
-    kinetic_management_title: "Management:",
-    kinetic_followup: "Repeat serology at 6 weeks",
-    kinetic_if_worse: "If the increase persists or there is new exposure: treat as reinfection / early syphilis",
-    kinetic_confidence: "post-treatment rise compatible with bell-shaped kinetics, without excluding reinfection",
-    kinetic_why: "treatment > 7 days after serology | post-treatment increase | refined kinetic interpretation",
-
-    lp_badge: "Lumbar puncture indicated",
-    lp_text1: "Neurological / ENT / ophthalmologic signs with TPHA or EIA positive and VDRL positive.",
-    lp_text2: "→ Lumbar puncture indicated",
-    lp_text3: "→ Suspicion of neurosyphilis",
-    lcr_module: "Interactive CSF module: enter CSF TPHA and CSF VDRL then rerun the analysis.",
-    lcr_neg_neg: "CSF TPHA negative / CSF VDRL negative",
-    lcr_neg_neg_text: "→ Neurosyphilis not confirmed; possible very early form or ENT/ophthalmologic involvement; complete with fundoscopy / audiometry / specialist review; late syphilis treatment may be considered",
-    lcr_pos_neg: "CSF TPHA positive / CSF VDRL negative",
-    lcr_pos_neg_text: "→ Possible neurosyphilis; treat as neurosyphilis",
-    lcr_pos_pos: "CSF TPHA positive / CSF VDRL positive",
-    lcr_pos_pos_text: "→ Confirmed neurosyphilis; neurosyphilis treatment",
-
-    scar_badge: "Probably serofast",
-    scar_text1: "VDRL increase < 2 dilutions.",
-    scar_text2: "→ Non-significant variation",
-    scar_text3: "→ Probably serofast",
-    scar_text4: "→ Repeat at 6 weeks or 3 months if clinical suspicion or exposure",
-    scar_conclusion: "Minor variation, probably serofast.",
-    scar_confidence: "increase < 2 dilutions",
-    scar_why: "increase < 2 dilutions"
-  },
-  es: {
-    moderate: "Moderada", high: "Alta", low: "Baja",
-    early_treatment_title: "Tratamiento recomendado:",
-    early_1: "1ª línea: Benzatina penicilina 2,4 MU dosis única",
-    early_2: "2ª línea: Doxiciclina durante 2 semanas",
-    early_3: "3ª línea: Ceftriaxona 1 g/día durante 7 días",
-    late_treatment_title: "Tratamiento recomendado:",
-    late_1: "Benzatina penicilina 2,4 MU una vez por semana durante 3 semanas",
-    late_2: "Doxiciclina durante 4 semanas",
-    neuro_treatment_title: "Tratamiento de neurosífilis:",
-    neuro_1: "Penicilina G IV durante 14 días",
-    neuro_2: "Ceftriaxona 2 g/día durante 14 días",
-
-    reinfection_badge: "Reinfección",
-    reinfection_text: "Aumento del VDRL ≥ 2 diluciones.",
-    reinfection_text2: "→ Compatible con reinfección o nueva contaminación",
-    reinfection_text3: "→ Tratar como sífilis precoz",
-    reinfection_conclusion: "Reinfección probable",
-    reinfection_confidence: "aumento ≥ 2 diluciones",
-    reinfection_why: "aumento ≥ 2 diluciones",
-
-    kinetic_badge: "Cinética avanzada del VDRL",
-    kinetic_conclusion: "El aumento del VDRL tras tratamiento tardío es compatible con una cinética serológica en campana.",
-    kinetic_text_1: "El tratamiento se administró tardíamente después de la serología previa, con VDRL posterior más alto.",
-    kinetic_text_2: "→ Posible pico serológico no detectado antes del tratamiento",
-    kinetic_text_3: "→ Posible descenso lento posterior",
-    kinetic_text_4: "→ Pero no puede excluirse reinfección",
-    kinetic_management_title: "Conducta:",
-    kinetic_followup: "Control serológico a las 6 semanas",
-    kinetic_if_worse: "Si el aumento persiste o hay nueva exposición: tratar como reinfección / sífilis precoz",
-    kinetic_confidence: "ascenso pos-tratamiento compatible con cinética en campana sin excluir reinfección",
-    kinetic_why: "tratamiento > 7 días después de serología | aumento post-tratamiento | interpretación cinética fina",
-
-    lp_badge: "Punción lumbar indicada",
-    lp_text1: "Signos neurológicos / ORL / oftalmológicos con TPHA o EIA positivo y VDRL positivo.",
-    lp_text2: "→ Indicación de punción lumbar",
-    lp_text3: "→ Sospecha de neurosífilis",
-    lcr_module: "Módulo interactivo de LCR: complete TPHA LCR y VDRL LCR y vuelva a analizar.",
-    lcr_neg_neg: "TPHA LCR negativo / VDRL LCR negativo",
-    lcr_neg_neg_text: "→ Neurosífilis no confirmada; posible forma muy precoz o afectación ORL/oftalmológica; completar con fondo de ojo / audiometría / evaluación especializada; puede considerarse tratamiento como sífilis tardía",
-    lcr_pos_neg: "TPHA LCR positivo / VDRL LCR negativo",
-    lcr_pos_neg_text: "→ Posible neurosífilis; tratar como neurosífilis",
-    lcr_pos_pos: "TPHA LCR positivo / VDRL LCR positivo",
-    lcr_pos_pos_text: "→ Neurosífilis confirmada; tratamiento de neurosífilis",
-
-    scar_badge: "Probable cicatriz serológica",
-    scar_text1: "Aumento del VDRL < 2 diluciones.",
-    scar_text2: "→ Variación no significativa",
-    scar_text3: "→ Probable cicatriz serológica",
-    scar_text4: "→ Recontrol a 6 semanas o 3 meses si hay sospecha clínica o exposición",
-    scar_conclusion: "Variación leve, probablemente cicatricial.",
-    scar_confidence: "aumento < 2 diluciones",
-    scar_why: "aumento < 2 diluciones"
-  },
-  pt: {
-    moderate: "Moderada", high: "Alta", low: "Baixa",
-    early_treatment_title: "Tratamento recomendado:",
-    early_1: "1ª linha: Benzatina penicilina 2,4 MU dose única",
-    early_2: "2ª linha: Doxiciclina por 2 semanas",
-    early_3: "3ª linha: Ceftriaxona 1 g/dia por 7 dias",
-    late_treatment_title: "Tratamento recomendado:",
-    late_1: "Benzatina penicilina 2,4 MU uma vez por semana durante 3 semanas",
-    late_2: "Doxiciclina por 4 semanas",
-    neuro_treatment_title: "Tratamento da neurossífilis:",
-    neuro_1: "Penicilina G IV por 14 dias",
-    neuro_2: "Ceftriaxona 2 g/dia por 14 dias",
-
-    reinfection_badge: "Reinfecção",
-    reinfection_text: "Aumento do VDRL ≥ 2 diluições.",
-    reinfection_text2: "→ Compatível com reinfecção ou nova contaminação",
-    reinfection_text3: "→ Tratar como sífilis precoce",
-    reinfection_conclusion: "Reinfecção provável",
-    reinfection_confidence: "aumento ≥ 2 diluições",
-    reinfection_why: "aumento ≥ 2 diluições",
-
-    kinetic_badge: "Cinética avançada do VDRL",
-    kinetic_conclusion: "Elevação do VDRL após tratamento tardio compatível com cinética serológica em sino.",
-    kinetic_text_1: "O tratamento foi administrado tardiamente após a sorologia anterior, com VDRL subsequente mais elevado.",
-    kinetic_text_2: "→ Possível pico serológico não captado antes do tratamento",
-    kinetic_text_3: "→ Possível queda lenta subsequente",
-    kinetic_text_4: "→ Mas reinfecção não pode ser excluída",
-    kinetic_management_title: "Conduta:",
-    kinetic_followup: "Controle sorológico em 6 semanas",
-    kinetic_if_worse: "Se a elevação persistir ou houver nova exposição: tratar como reinfecção / sífilis precoce",
-    kinetic_confidence: "subida pós-tratamento compatível com cinética em sino sem excluir reinfecção",
-    kinetic_why: "tratamento > 7 dias após sorologia | aumento pós-tratamento | interpretação cinética refinada",
-
-    lp_badge: "Punção lombar indicada",
-    lp_text1: "Sinais neurológicos / ORL / oftalmológicos com TPHA ou EIA positivo e VDRL positivo.",
-    lp_text2: "→ Indicação de punção lombar",
-    lp_text3: "→ Suspeita de neurossífilis",
-    lcr_module: "Módulo interativo do LCR: preencha TPHA do LCR e VDRL do LCR e repita a análise.",
-    lcr_neg_neg: "TPHA do LCR negativo / VDRL do LCR negativo",
-    lcr_neg_neg_text: "→ Neurossífilis não confirmada; possível forma muito precoce ou acometimento ORL/oftalmológico; completar com fundoscopia / audiometria / avaliação especializada; pode-se considerar tratamento como sífilis tardia",
-    lcr_pos_neg: "TPHA do LCR positivo / VDRL do LCR negativo",
-    lcr_pos_neg_text: "→ Possível neurossífilis; tratar como neurossífilis",
-    lcr_pos_pos: "TPHA do LCR positivo / VDRL do LCR positivo",
-    lcr_pos_pos_text: "→ Neurossífilis confirmada; tratamento da neurossífilis",
-
-    scar_badge: "Provável cicatriz sorológica",
-    scar_text1: "Aumento do VDRL < 2 diluições.",
-    scar_text2: "→ Variação não significativa",
-    scar_text3: "→ Provável cicatriz sorológica",
-    scar_text4: "→ Recontrole em 6 semanas ou 3 meses se suspeita clínica ou exposição",
-    scar_conclusion: "Variação pequena, provavelmente cicatricial.",
-    scar_confidence: "aumento < 2 diluições",
-    scar_why: "aumento < 2 diluições"
-  },
-  de: {
-    moderate: "Moderat", high: "Hoch", low: "Niedrig",
-    early_treatment_title: "Empfohlene Behandlung:",
-    early_1: "1. Wahl: Benzathin-Penicillin 2,4 Mio. IE Einzeldosis",
-    early_2: "2. Wahl: Doxycyclin für 2 Wochen",
-    early_3: "3. Wahl: Ceftriaxon 1 g/Tag für 7 Tage",
-    late_treatment_title: "Empfohlene Behandlung:",
-    late_1: "Benzathin-Penicillin 2,4 Mio. IE einmal wöchentlich für 3 Wochen",
-    late_2: "Doxycyclin für 4 Wochen",
-    neuro_treatment_title: "Behandlung der Neurosyphilis:",
-    neuro_1: "Penicillin G i.v. für 14 Tage",
-    neuro_2: "Ceftriaxon 2 g/Tag für 14 Tage",
-
-    reinfection_badge: "Reinfektion",
-    reinfection_text: "VDRL-Anstieg ≥ 2 Verdünnungsstufen.",
-    reinfection_text2: "→ Vereinbar mit Reinfektion oder neuer Kontamination",
-    reinfection_text3: "→ Als frühe Syphilis behandeln",
-    reinfection_conclusion: "Wahrscheinliche Reinfektion",
-    reinfection_confidence: "Anstieg ≥ 2 Verdünnungsstufen",
-    reinfection_why: "Anstieg ≥ 2 Verdünnungsstufen",
-
-    kinetic_badge: "Feine VDRL-Kinetik",
-    kinetic_conclusion: "Ein VDRL-Anstieg nach verspäteter Behandlung ist mit glockenförmiger serologischer Kinetik vereinbar.",
-    kinetic_text_1: "Die Behandlung erfolgte verspätet nach der vorherigen Serologie, bei anschließend höherem VDRL.",
-    kinetic_text_2: "→ Möglicher vor der Behandlung nicht erfasster Serologie-Gipfel",
-    kinetic_text_3: "→ Möglicher nachfolgend langsamer Abfall",
-    kinetic_text_4: "→ Eine Reinfektion kann jedoch nicht ausgeschlossen werden",
-    kinetic_management_title: "Vorgehen:",
-    kinetic_followup: "Serologische Kontrolle nach 6 Wochen",
-    kinetic_if_worse: "Bei anhaltendem Anstieg oder neuer Exposition: als Reinfektion / frühe Syphilis behandeln",
-    kinetic_confidence: "posttherapeutischer Anstieg vereinbar mit glockenförmiger Kinetik ohne Ausschluss einer Reinfektion",
-    kinetic_why: "Behandlung > 7 Tage nach Serologie | Anstieg nach Behandlung | verfeinerte Kinetik-Interpretation",
-
-    lp_badge: "Lumbalpunktion indiziert",
-    lp_text1: "Neurologische / HNO- / ophthalmologische Zeichen bei positivem TPHA oder EIA und positivem VDRL.",
-    lp_text2: "→ Lumbalpunktion indiziert",
-    lp_text3: "→ Verdacht auf Neurosyphilis",
-    lcr_module: "Interaktives Liquor-Modul: Liquor-TPHA und Liquor-VDRL eingeben und Analyse erneut starten.",
-    lcr_neg_neg: "Liquor-TPHA negativ / Liquor-VDRL negativ",
-    lcr_neg_neg_text: "→ Neurosyphilis nicht bestätigt; mögliche sehr frühe Form oder HNO-/Augenbeteiligung; Fundoskopie / Audiometrie / fachärztliche Beurteilung ergänzen; Behandlung wie späte Syphilis möglich",
-    lcr_pos_neg: "Liquor-TPHA positiv / Liquor-VDRL negativ",
-    lcr_pos_neg_text: "→ Mögliche Neurosyphilis; als Neurosyphilis behandeln",
-    lcr_pos_pos: "Liquor-TPHA positiv / Liquor-VDRL positiv",
-    lcr_pos_pos_text: "→ Bestätigte Neurosyphilis; Behandlung der Neurosyphilis",
-
-    scar_badge: "Wahrscheinlich serologische Narbe",
-    scar_text1: "VDRL-Anstieg < 2 Verdünnungsstufen.",
-    scar_text2: "→ Nicht signifikante Variation",
-    scar_text3: "→ Wahrscheinlich serologische Narbe",
-    scar_text4: "→ Kontrolle nach 6 Wochen oder 3 Monaten bei klinischem Verdacht oder Exposition",
-    scar_conclusion: "Geringe Variation, wahrscheinlich serologische Narbe.",
-    scar_confidence: "Anstieg < 2 Verdünnungsstufen",
-    scar_why: "Anstieg < 2 Verdünnungsstufen"
-  },
-  pl: {
-    moderate: "Umiarkowana", high: "Wysoka", low: "Niska",
-    early_treatment_title: "Zalecane leczenie:",
-    early_1: "1. wybór: benzatynowa penicylina 2,4 mln j. jednorazowo",
-    early_2: "2. wybór: doksycyklina przez 2 tygodnie",
-    early_3: "3. wybór: ceftriakson 1 g/dobę przez 7 dni",
-    late_treatment_title: "Zalecane leczenie:",
-    late_1: "Benzatynowa penicylina 2,4 mln j. raz w tygodniu przez 3 tygodnie",
-    late_2: "Doksycyklina przez 4 tygodnie",
-    neuro_treatment_title: "Leczenie neurosyfilisu:",
-    neuro_1: "Penicylina G IV przez 14 dni",
-    neuro_2: "Ceftriakson 2 g/dobę przez 14 dni",
-
-    reinfection_badge: "Reinfekcja",
-    reinfection_text: "Wzrost VDRL ≥ 2 rozcieńczenia.",
-    reinfection_text2: "→ Zgodne z reinfekcją lub nowym zakażeniem",
-    reinfection_text3: "→ Leczyć jak kiłę wczesną",
-    reinfection_conclusion: "Prawdopodobna reinfekcja",
-    reinfection_confidence: "wzrost ≥ 2 rozcieńczenia",
-    reinfection_why: "wzrost ≥ 2 rozcieńczenia",
-
-    kinetic_badge: "Zaawansowana kinetyka VDRL",
-    kinetic_conclusion: "Wzrost VDRL po opóźnionym leczeniu jest zgodny z dzwonowatą kinetyką serologiczną.",
-    kinetic_text_1: "Leczenie podano późno po poprzednim badaniu serologicznym, a kolejne VDRL było wyższe.",
-    kinetic_text_2: "→ Możliwy nieuchwycony szczyt serologiczny przed leczeniem",
-    kinetic_text_3: "→ Możliwy późniejszy powolny spadek",
-    kinetic_text_4: "→ Ale nie można wykluczyć reinfekcji",
-    kinetic_management_title: "Postępowanie:",
-    kinetic_followup: "Kontrola serologiczna za 6 tygodni",
-    kinetic_if_worse: "Jeśli wzrost się utrzymuje lub jest nowe narażenie: leczyć jak reinfekcję / kiłę wczesną",
-    kinetic_confidence: "wzrost po leczeniu zgodny z kinetyką dzwonowatą bez wykluczenia reinfekcji",
-    kinetic_why: "leczenie > 7 dni po serologii | wzrost po leczeniu | zaawansowana interpretacja kinetyczna",
-
-    lp_badge: "Nakłucie lędźwiowe wskazane",
-    lp_text1: "Objawy neurologiczne / laryngologiczne / okulistyczne przy dodatnim TPHA lub EIA oraz dodatnim VDRL.",
-    lp_text2: "→ Wskazanie do nakłucia lędźwiowego",
-    lp_text3: "→ Podejrzenie neurosyfilisu",
-    lcr_module: "Interaktywny moduł PMR: wpisz TPHA PMR i VDRL PMR, a następnie ponownie uruchom analizę.",
-    lcr_neg_neg: "TPHA PMR ujemny / VDRL PMR ujemny",
-    lcr_neg_neg_text: "→ Neurosyfilis niepotwierdzony; możliwa bardzo wczesna postać lub zajęcie laryngologiczne/okulistyczne; uzupełnić o badanie dna oka / audiometrię / konsultację specjalistyczną; można rozważyć leczenie jak kiłę późną",
-    lcr_pos_neg: "TPHA PMR dodatni / VDRL PMR ujemny",
-    lcr_pos_neg_text: "→ Możliwy neurosyfilis; leczyć jak neurosyfilis",
-    lcr_pos_pos: "TPHA PMR dodatni / VDRL PMR dodatni",
-    lcr_pos_pos_text: "→ Potwierdzony neurosyfilis; leczenie neurosyfilisu",
-
-    scar_badge: "Prawdopodobnie blizna serologiczna",
-    scar_text1: "Wzrost VDRL < 2 rozcieńczenia.",
-    scar_text2: "→ Zmiana nieistotna",
-    scar_text3: "→ Prawdopodobnie blizna serologiczna",
-    scar_text4: "→ Kontrola za 6 tygodni lub 3 miesiące przy podejrzeniu klinicznym lub narażeniu",
-    scar_conclusion: "Niewielka zmiana, prawdopodobnie blizna serologiczna.",
-    scar_confidence: "wzrost < 2 rozcieńczenia",
-    scar_why: "wzrost < 2 rozcieńczenia"
-  },
-  it: {
-    moderate: "Moderata", high: "Alta", low: "Bassa",
-    early_treatment_title: "Trattamento raccomandato:",
-    early_1: "1ª linea: benzatina penicillina 2,4 MUI dose unica",
-    early_2: "2ª linea: doxiciclina per 2 settimane",
-    early_3: "3ª linea: ceftriaxone 1 g/die per 7 giorni",
-    late_treatment_title: "Trattamento raccomandato:",
-    late_1: "Benzatina penicillina 2,4 MUI una volta a settimana per 3 settimane",
-    late_2: "Doxiciclina per 4 settimane",
-    neuro_treatment_title: "Trattamento della neurosifilide:",
-    neuro_1: "Penicillina G EV per 14 giorni",
-    neuro_2: "Ceftriaxone 2 g/die per 14 giorni",
-
-    reinfection_badge: "Reinfezione",
-    reinfection_text: "Aumento del VDRL ≥ 2 diluizioni.",
-    reinfection_text2: "→ Compatibile con reinfezione o nuova contaminazione",
-    reinfection_text3: "→ Trattare come sifilide precoce",
-    reinfection_conclusion: "Reinfezione probabile",
-    reinfection_confidence: "aumento ≥ 2 diluizioni",
-    reinfection_why: "aumento ≥ 2 diluizioni",
-
-    kinetic_badge: "Cinetica avanzata del VDRL",
-    kinetic_conclusion: "L’aumento del VDRL dopo trattamento tardivo è compatibile con una cinetica sierologica a campana.",
-    kinetic_text_1: "Il trattamento è stato somministrato tardivamente dopo la sierologia precedente, con VDRL successivo più elevato.",
-    kinetic_text_2: "→ Possibile picco sierologico non intercettato prima del trattamento",
-    kinetic_text_3: "→ Possibile lenta riduzione successiva",
-    kinetic_text_4: "→ Ma non si può escludere una reinfezione",
-    kinetic_management_title: "Condotta:",
-    kinetic_followup: "Controllo sierologico a 6 settimane",
-    kinetic_if_worse: "Se l’aumento persiste o vi è nuova esposizione: trattare come reinfezione / sifilide precoce",
-    kinetic_confidence: "incremento post-trattamento compatibile con cinetica a campana senza escludere reinfezione",
-    kinetic_why: "trattamento > 7 giorni dopo sierologia | aumento post-trattamento | interpretazione cinetica raffinata",
-
-    lp_badge: "Puntura lombare indicata",
-    lp_text1: "Segni neurologici / ORL / oftalmologici con TPHA o EIA positivo e VDRL positivo.",
-    lp_text2: "→ Indicazione alla puntura lombare",
-    lp_text3: "→ Sospetto di neurosifilide",
-    lcr_module: "Modulo interattivo del liquor: inserire TPHA liquor e VDRL liquor e ripetere l’analisi.",
-    lcr_neg_neg: "TPHA liquor negativo / VDRL liquor negativo",
-    lcr_neg_neg_text: "→ Neurosifilide non confermata; possibile forma molto precoce o interessamento ORL/oftalmologico; completare con fundus / audiometria / valutazione specialistica; si può considerare trattamento come sifilide tardiva",
-    lcr_pos_neg: "TPHA liquor positivo / VDRL liquor negativo",
-    lcr_pos_neg_text: "→ Possibile neurosifilide; trattare come neurosifilide",
-    lcr_pos_pos: "TPHA liquor positivo / VDRL liquor positivo",
-    lcr_pos_pos_text: "→ Neurosifilide confermata; trattamento della neurosifilide",
-
-    scar_badge: "Probabile cicatrice sierologica",
-    scar_text1: "Aumento del VDRL < 2 diluizioni.",
-    scar_text2: "→ Variazione non significativa",
-    scar_text3: "→ Probabile cicatrice sierologica",
-    scar_text4: "→ Ricontrollo a 6 settimane o 3 mesi se sospetto clinico o esposizione",
-    scar_conclusion: "Variazione lieve, probabilmente cicatriziale.",
-    scar_confidence: "aumento < 2 diluizioni",
-    scar_why: "aumento < 2 diluizioni"
-  },
-  ar: {
-    moderate: "متوسطة", high: "مرتفعة", low: "منخفضة",
-    early_treatment_title: "العلاج الموصى به:",
-    early_1: "الخيار الأول: بنزاثين بنسلين 2.4 مليون وحدة جرعة واحدة",
-    early_2: "الخيار الثاني: دوكسيسيكلين لمدة أسبوعين",
-    early_3: "الخيار الثالث: سيفترياكسون 1 غ/يوم لمدة 7 أيام",
-    late_treatment_title: "العلاج الموصى به:",
-    late_1: "بنزاثين بنسلين 2.4 مليون وحدة مرة أسبوعياً لمدة 3 أسابيع",
-    late_2: "دوكسيسيكلين لمدة 4 أسابيع",
-    neuro_treatment_title: "علاج الزهري العصبي:",
-    neuro_1: "بنسلين G وريدي لمدة 14 يوماً",
-    neuro_2: "سيفترياكسون 2 غ/يوم لمدة 14 يوماً",
-
-    reinfection_badge: "إعادة عدوى",
-    reinfection_text: "ارتفاع VDRL بمقدار ≥ درجتي تمديد.",
-    reinfection_text2: "→ يتوافق مع إعادة عدوى أو تلوث جديد",
-    reinfection_text3: "→ يُعالج كزهري مبكر",
-    reinfection_conclusion: "إعادة عدوى مرجحة",
-    reinfection_confidence: "ارتفاع ≥ درجتي تمديد",
-    reinfection_why: "ارتفاع ≥ درجتي تمديد",
-
-    kinetic_badge: "حركية VDRL متقدمة",
-    kinetic_conclusion: "ارتفاع VDRL بعد علاج متأخر قد يتوافق مع حركية مصلية على شكل جرس.",
-    kinetic_text_1: "تم إعطاء العلاج متأخراً بعد الفحص المصلي السابق مع ارتفاع لاحق في VDRL.",
-    kinetic_text_2: "→ احتمال وجود ذروة مصلية لم تُلتقط قبل العلاج",
-    kinetic_text_3: "→ احتمال انخفاض بطيء لاحق",
-    kinetic_text_4: "→ لكن لا يمكن استبعاد إعادة العدوى",
-    kinetic_management_title: "التوصيات:",
-    kinetic_followup: "إعادة الفحص المصلي بعد 6 أسابيع",
-    kinetic_if_worse: "إذا استمر الارتفاع أو وُجد تعرض جديد: يُعالج كإعادة عدوى / زهري مبكر",
-    kinetic_confidence: "ارتفاع بعد العلاج قد يتوافق مع حركية جرسية دون استبعاد إعادة العدوى",
-    kinetic_why: "العلاج بعد >7 أيام من المصلية | ارتفاع بعد العلاج | تفسير حركي دقيق",
-
-    lp_badge: "البزل القطني مُوصى به",
-    lp_text1: "علامات عصبية / أنف أذن حنجرة / عينية مع TPHA أو EIA إيجابي وVDRL إيجابي.",
-    lp_text2: "→ توجد استطبابات للبزل القطني",
-    lp_text3: "→ اشتباه الزهري العصبي",
-    lcr_module: "وحدة CSF التفاعلية: أدخل TPHA وVDRL في السائل الدماغي الشوكي ثم أعد التحليل.",
-    lcr_neg_neg: "TPHA في السائل سلبي / VDRL في السائل سلبي",
-    lcr_neg_neg_text: "→ الزهري العصبي غير مؤكد؛ قد تكون حالة مبكرة جداً أو إصابة أنف أذن حنجرة / عينية؛ استكمل بفحص قاع العين / قياس السمع / تقييم متخصص؛ ويمكن التفكير بعلاج الزهري المتأخر",
-    lcr_pos_neg: "TPHA في السائل إيجابي / VDRL في السائل سلبي",
-    lcr_pos_neg_text: "→ احتمال زهري عصبي؛ يُعالج كزهري عصبي",
-    lcr_pos_pos: "TPHA في السائل إيجابي / VDRL في السائل إيجابي",
-    lcr_pos_pos_text: "→ زهري عصبي مؤكد؛ علاج الزهري العصبي",
-
-    scar_badge: "ندبة مصلية محتملة",
-    scar_text1: "ارتفاع VDRL أقل من درجتي تمديد.",
-    scar_text2: "→ تغير غير مهم",
-    scar_text3: "→ على الأرجح ندبة مصلية",
-    scar_text4: "→ إعادة الفحص بعد 6 أسابيع أو 3 أشهر عند الشك السريري أو التعرض",
-    scar_conclusion: "تغير طفيف، ويرجح أنه ندبة مصلية.",
-    scar_confidence: "ارتفاع أقل من درجتي تمديد",
-    scar_why: "ارتفاع أقل من درجتي تمديد"
-  },
-  zh: {
-    moderate: "中等", high: "高", low: "低",
-    early_treatment_title: "推荐治疗：",
-    early_1: "首选：苄星青霉素 2.4 MU 单次",
-    early_2: "二线：多西环素 2 周",
-    early_3: "三线：头孢曲松 1 g/天，共 7 天",
-    late_treatment_title: "推荐治疗：",
-    late_1: "苄星青霉素 2.4 MU 每周一次，共 3 周",
-    late_2: "多西环素 4 周",
-    neuro_treatment_title: "神经梅毒治疗：",
-    neuro_1: "青霉素 G 静脉注射 14 天",
-    neuro_2: "头孢曲松 2 g/天，共 14 天",
-
-    reinfection_badge: "再感染",
-    reinfection_text: "VDRL 升高 ≥ 2 个稀释度。",
-    reinfection_text2: "→ 与再感染或新暴露相符",
-    reinfection_text3: "→ 按早期梅毒处理",
-    reinfection_conclusion: "可能再感染",
-    reinfection_confidence: "升高 ≥ 2 个稀释度",
-    reinfection_why: "升高 ≥ 2 个稀释度",
-
-    kinetic_badge: "VDRL 高级动力学解释",
-    kinetic_conclusion: "治疗延迟后 VDRL 升高，符合钟形血清学动力学的可能。",
-    kinetic_text_1: "治疗在前一次血清学检查后较晚实施，随后 VDRL 更高。",
-    kinetic_text_2: "→ 可能在治疗前漏掉了血清学峰值",
-    kinetic_text_3: "→ 可能随后缓慢下降",
-    kinetic_text_4: "→ 但不能排除再感染",
-    kinetic_management_title: "处理建议：",
-    kinetic_followup: "6 周后复查血清学",
-    kinetic_if_worse: "若继续升高或有新的暴露：按再感染 / 早期梅毒处理",
-    kinetic_confidence: "治疗后升高符合钟形动力学但不能排除再感染",
-    kinetic_why: "治疗晚于血清学 >7 天 | 治疗后升高 | 精细动力学解释",
-
-    lp_badge: "建议腰穿",
-    lp_text1: "存在神经 / 耳鼻喉 / 眼部症状，且 TPHA 或 EIA 阳性并伴 VDRL 阳性。",
-    lp_text2: "→ 建议行腰椎穿刺",
-    lp_text3: "→ 怀疑神经梅毒",
-    lcr_module: "交互式脑脊液模块：填写脑脊液 TPHA 和 VDRL 后重新分析。",
-    lcr_neg_neg: "脑脊液 TPHA 阴性 / 脑脊液 VDRL 阴性",
-    lcr_neg_neg_text: "→ 神经梅毒未证实；可能为极早期形式或耳鼻喉/眼部受累；建议补充眼底检查 / 听力检查 / 专科评估；可考虑按晚期梅毒处理",
-    lcr_pos_neg: "脑脊液 TPHA 阳性 / 脑脊液 VDRL 阴性",
-    lcr_pos_neg_text: "→ 可能神经梅毒；按神经梅毒处理",
-    lcr_pos_pos: "脑脊液 TPHA 阳性 / 脑脊液 VDRL 阳性",
-    lcr_pos_pos_text: "→ 神经梅毒确诊；按神经梅毒治疗",
-
-    scar_badge: "可能为血清学瘢痕",
-    scar_text1: "VDRL 升高 < 2 个稀释度。",
-    scar_text2: "→ 变化无显著意义",
-    scar_text3: "→ 可能为血清学瘢痕",
-    scar_text4: "→ 如有临床怀疑或暴露，6 周或 3 个月复查",
-    scar_conclusion: "变化较小，可能为血清学瘢痕。",
-    scar_confidence: "升高 < 2 个稀释度",
-    scar_why: "升高 < 2 个稀释度"
-  },
-  ja: {
-    moderate: "中等", high: "高い", low: "低い",
-    early_treatment_title: "推奨治療：",
-    early_1: "第一選択：ベンザチンペニシリン 2.4 MU 単回",
-    early_2: "第二選択：ドキシサイクリン 2 週間",
-    early_3: "第三選択：セフトリアキソン 1 g/日を 7 日間",
-    late_treatment_title: "推奨治療：",
-    late_1: "ベンザチンペニシリン 2.4 MU を週 1 回、3 週間",
-    late_2: "ドキシサイクリン 4 週間",
-    neuro_treatment_title: "神経梅毒の治療：",
-    neuro_1: "ペニシリン G 静注 14 日間",
-    neuro_2: "セフトリアキソン 2 g/日を 14 日間",
-
-    reinfection_badge: "再感染",
-    reinfection_text: "VDRL が 2 希釈以上上昇。",
-    reinfection_text2: "→ 再感染または新たな曝露と整合",
-    reinfection_text3: "→ 早期梅毒として治療",
-    reinfection_conclusion: "再感染の可能性が高い",
-    reinfection_confidence: "2 希釈以上の上昇",
-    reinfection_why: "2 希釈以上の上昇",
-
-    kinetic_badge: "VDRL 高度動態解釈",
-    kinetic_conclusion: "治療遅延後の VDRL 上昇はベル型の血清学的動態と整合します。",
-    kinetic_text_1: "前回の血清学検査後に治療が遅れて行われ、その後の VDRL がより高値でした。",
-    kinetic_text_2: "→ 治療前の血清学ピークを捉え損ねた可能性",
-    kinetic_text_3: "→ その後ゆっくり低下している可能性",
-    kinetic_text_4: "→ ただし再感染は除外できません",
-    kinetic_management_title: "対応：",
-    kinetic_followup: "6 週間後に血清学を再検",
-    kinetic_if_worse: "上昇が持続する、または新たな曝露がある場合：再感染 / 早期梅毒として治療",
-    kinetic_confidence: "治療後上昇はベル型動態と整合するが再感染は除外できない",
-    kinetic_why: "血清学から >7 日後の治療 | 治療後上昇 | 精密な動態解釈",
-
-    lp_badge: "腰椎穿刺が適応",
-    lp_text1: "神経 / 耳鼻咽喉 / 眼症状があり、TPHA または EIA 陽性かつ VDRL 陽性。",
-    lp_text2: "→ 腰椎穿刺が適応",
-    lp_text3: "→ 神経梅毒が疑われる",
-    lcr_module: "髄液インタラクティブモジュール：髄液 TPHA と髄液 VDRL を入力して再解析してください。",
-    lcr_neg_neg: "髄液 TPHA 陰性 / 髄液 VDRL 陰性",
-    lcr_neg_neg_text: "→ 神経梅毒は確認されない；ごく早期や耳鼻咽喉/眼病変の可能性；眼底検査 / 聴力検査 / 専門評価を追加し、晩期梅毒としての治療を考慮可能",
-    lcr_pos_neg: "髄液 TPHA 陽性 / 髄液 VDRL 陰性",
-    lcr_pos_neg_text: "→ 神経梅毒の可能性；神経梅毒として治療",
-    lcr_pos_pos: "髄液 TPHA 陽性 / 髄液 VDRL 陽性",
-    lcr_pos_pos_text: "→ 神経梅毒確定；神経梅毒の治療",
-
-    scar_badge: "血清学的瘢痕の可能性",
-    scar_text1: "VDRL 上昇 < 2 希釈。",
-    scar_text2: "→ 有意な変化ではない",
-    scar_text3: "→ 血清学的瘢痕の可能性",
-    scar_text4: "→ 臨床的疑いまたは曝露があれば 6 週間または 3 か月で再検",
-    scar_conclusion: "軽微な変動で、血清学的瘢痕の可能性があります。",
-    scar_confidence: "< 2 希釈の上昇",
-    scar_why: "< 2 希釈の上昇"
+    late_treatment_title:"Traitement recommandé (syphilis tardive) :",
+    late_1:"Extencilline 2,4 MUI 1 fois/semaine pendant 3 semaines",
+    late_2:"Doxycycline 4 semaines",
+    early_treatment_title:"Traitement recommandé (syphilis précoce) :",
+    early_1:"1re intention : Extencilline 2,4 MUI dose unique",
+    early_2:"2e intention : Doxycycline 2 semaines",
+    early_3:"3e intention : Ceftriaxone 1 g/j pendant 7 jours",
+    neuro_treatment_title:"Traitement recommandé (neurosyphilis / atteinte ORL / oculaire) :",
+    neuro_1:"Pénicilline G IV 14 jours",
+    neuro_2:"Ceftriaxone 2 g/j pendant 14 jours",
+    kinetic_conclusion:"Interprétation prudente : augmentation du VDRL après traitement intermédiaire, compatible avec une cinétique insuffisamment contrôlée ou une réinfection.",
+    kinetic_badge:"Cinétique VDRL à recontrôler",
+    kinetic_text_1:"Le VDRL augmente d'au moins 2 dilutions entre deux sérologies.",
+    kinetic_text_2:"Un traitement a eu lieu entre les deux prélèvements, mais tardivement après la première sérologie.",
+    kinetic_text_3:"Cette situation ne permet pas d'affirmer une bonne réponse thérapeutique.",
+    kinetic_text_4:"Il faut recontrôler rapidement et raisonner comme une syphilis précoce active si le contexte est compatible.",
+    kinetic_management_title:"Conduite à tenir :",
+    kinetic_followup:"Recontrôle clinique et VDRL rapproché.",
+    kinetic_if_worse:"En cas d'aggravation clinique ou biologique, retraiter comme syphilis précoce.",
+    kinetic_confidence:"cinétique biologique intermédiaire, interprétation prudente",
+    kinetic_why:"augmentation d'au moins 2 dilutions malgré traitement intermédiaire tardif",
+    reinfection_conclusion:"Réinfection / récidive biologique probable.",
+    reinfection_badge:"Réinfection probable",
+    reinfection_text:"Le VDRL augmente d'au moins 2 dilutions entre les deux derniers contrôles.",
+    reinfection_text2:"En l'absence d'explication meilleure, cela évoque une réinfection ou une reprise évolutive.",
+    reinfection_text3:"Traiter comme une syphilis précoce et reprendre le suivi sérologique.",
+    reinfection_confidence:"augmentation franche du VDRL",
+    reinfection_why:"augmentation d'au moins 2 dilutions",
+    scar_conclusion:"Variation faible compatible avec une cicatrice sérologique.",
+    scar_badge:"Profil cicatriciel probable",
+    scar_text1:"La variation du VDRL est inférieure à 2 dilutions.",
+    scar_text2:"Ce profil est plus compatible avec une fluctuation cicatricielle qu'avec une réinfection certaine.",
+    scar_text3:"Un recontrôle est recommandé en cas de doute clinique ou de contage récent.",
+    scar_text4:"En l'absence d'argument clinique fort, ne pas conclure à une syphilis récente sur cette seule variation.",
+    scar_confidence:"variation faible du VDRL",
+    scar_why:"augmentation inférieure à 2 dilutions",
+    moderate:"Modérée",
+    high:"Élevée"
   }
 };
+function dynT(key){
+  const fr = (DYN_I18N.fr && DYN_I18N.fr[key]) || key;
+  return (DYN_I18N[currentLang] && DYN_I18N[currentLang][key]) || fr;
+}
+
 function initSupabase(){
   try{
     supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
@@ -1111,13 +704,6 @@ function translateResultText(text){
 
 
 function setBoxes(compare, tx, conf, why){
-  document.getElementById("compareInfo").textContent = compare;
-  document.getElementById("txInfo").textContent = tx;
-  document.getElementById("confidenceInfo").textContent = conf;
-  document.getElementById("whyInfo").textContent = why;
-}
-
-function setBoxes(compare, tx, conf, why){
   document.getElementById("compareInfo").textContent = translatePlainText(compare);
   document.getElementById("txInfo").textContent = translatePlainText(tx);
   document.getElementById("confidenceInfo").textContent = translatePlainText(conf);
@@ -1127,6 +713,9 @@ function setBoxes(compare, tx, conf, why){
 function parseDate(s){ return new Date(s + "T00:00:00"); }
 function daysDiff(a,b){ return Math.round((a - b)/(1000*60*60*24)); }
 function absDays(a,b){ return Math.abs(daysDiff(a,b)); }
+/* =============================
+   PARSING / NORMALISATION DES ENTREES
+   ============================= */
 function parseData(){
   const serologies = [...document.querySelectorAll("#seroList .rowbox")].map(row => {
     const dateStr = row.querySelector(".sero-date").value;
@@ -1295,30 +884,30 @@ function isValidVDRL(v){
 
 function confidence(level, reason){ return `${level} — ${reason}`; }
 function standardLateTreatment(){
+  const items = CLINICAL_RULEBOOK.treatments.late.map(code => TREATMENTS[code]?.label).filter(Boolean);
   return `${dynT("late_treatment_title")}
-• ${dynT("late_1")}
+• ${items[0] || dynT("late_1")}
 ou
-• ${dynT("late_2")}`;
+• ${items[1] || dynT("late_2")}`;
 }
 function standardEarlyTreatment(){
+  const items = CLINICAL_RULEBOOK.treatments.early.map(code => TREATMENTS[code]?.label).filter(Boolean);
   return `${dynT("early_treatment_title")}
-• ${dynT("early_1")}
-• ${dynT("early_2")}
-• ${dynT("early_3")}`;
+• ${items[0] || dynT("early_1")}
+• ${items[1] || dynT("early_2")}
+• ${items[2] || dynT("early_3")}`;
 }
 function standardNeuroTreatment(){
+  const items = CLINICAL_RULEBOOK.treatments.neuro.map(code => TREATMENTS[code]?.label).filter(Boolean);
   return `${dynT("neuro_treatment_title")}
-• ${dynT("neuro_1")}
+• ${items[0] || dynT("neuro_1")}
 ou
-• ${dynT("neuro_2")}`;
+• ${items[1] || dynT("neuro_2")}`;
 }
 function treatmentValidForCategory(type, category){
   if(!type || type==="unknown") return false;
-  const group = TREATMENTS[type]?.group;
-  if(category==="early") return group==="early";
-  if(category==="late") return group==="late";
-  if(category==="neuro") return group==="neuro";
-  return false;
+  const allowed = CLINICAL_RULEBOOK.treatments[category] || [];
+  return allowed.includes(type);
 }
 function getEpisodeSerologyForTreatment(serologies, tx){
   const within7After = serologies.find(s => daysDiff(s.date, tx.date) >= 0 && daysDiff(s.date, tx.date) <= 7);
@@ -1326,6 +915,9 @@ function getEpisodeSerologyForTreatment(serologies, tx){
   const before = [...serologies].filter(s => s.date <= tx.date).slice(-1)[0];
   return { serology: before || null };
 }
+/* =============================
+   ETAT CLINIQUE COURANT
+   ============================= */
 function currentClinical(){
   const chancreTypical = !!document.getElementById("chancreTypical")?.checked;
   const chancreDoubtful = !!document.getElementById("chancreDoubtful")?.checked;
@@ -1361,6 +953,9 @@ function categoryAtSerology(serologiesUpToIndex, serology, clinical){
   }
   return null;
 }
+/* =============================
+   AUDIT DES TRAITEMENTS ANTERIEURS
+   ============================= */
 function buildTreatmentAudit(serologies, treatments, clinical){
   return treatments.map(tx => {
     const ep = getEpisodeSerologyForTreatment(serologies, tx);
@@ -1493,6 +1088,9 @@ async function setResult(html, compare, tx, conf, why, payload, parsed, clinical
   const ec = document.getElementById("expertContent");
   if(ec){ ec.textContent = expertText || ""; }
 }
+/* =============================
+   MOTEUR PRINCIPAL D'ANALYSE
+   ============================= */
 async function analyse(){
   const parsed = parseData();
   const { identifier, analysisDate, serologies, treatments } = parsed;
@@ -1506,6 +1104,28 @@ async function analyse(){
 
   // CAT clinique possible même sans aucune sérologie datée ou sans biologie exploitable
   if(!serologies.length || !bioEntered){
+
+    if(clinical.neuro && (clinical.chancreTypical || clinical.chancreDoubtful)){
+      const conclusion = "Signes neuro / ORL / ophtalmo avec chancre évocateur : proposer une ponction lombaire et évaluation spécialisée, même si une syphilis primaire paraît possible (formes primo-tertiaires possibles).";
+      await setResult(
+`${badge("danger","Ponction lombaire à proposer")}
+Signes neurologiques / ORL / ophtalmologiques associés à un chancre évocateur, sans biologie exploitable.
+
+→ Ne pas rassurer sur le seul aspect de chancre primaire
+→ Proposer une ponction lombaire
+→ Faire sérologie tréponémique + VDRL en urgence
+→ Avis spécialisé si atteinte ophtalmologique / ORL / neurologique
+
+${standardNeuroTreatment()}`,
+        `Référence clinique du ${todayRef}`,
+        txTextEmpty,
+        confidence("Modérée","priorité aux signes neuro/ORL/ophtalmo malgré chancre évocateur"),
+        finalWhy(["signes neuro/ORL/ophtalmo", clinical.chancreTypical ? "chancre typique" : "chancre douteux", "formes primo-tertiaires possibles", "biologie non exploitable"]),
+        { identifier, analysisDate:document.getElementById("analysisDate").value, conclusion, category:"neuro", recommended_treatment:standardNeuroTreatment(), compare:`Référence clinique du ${todayRef}`, tx:txTextEmpty, why:finalWhy(["signes neuro/ORL/ophtalmo", clinical.chancreTypical ? "chancre typique" : "chancre douteux", "formes primo-tertiaires possibles", "biologie non exploitable"]), serologies, treatments },
+        parsed, clinical, "Règle prioritaire: neuro/ORL/ophtalmo + chancre évocateur sans biologie => proposer PL"
+      );
+      return;
+    }
 
     if(clinical.chancreTypical || clinical.chancreDoubtful){
       const conclusion = clinical.chancreTypical
@@ -1618,39 +1238,14 @@ Aucun résultat sérologique exploitable n’a été saisi, ou aucune sérologie
 
   document.getElementById("csfPanel").classList.add("hidden");
 
-  if(clinical.chancreTypical && trepPositive(last) && vdrlPositive(last.vdrl)){
-    const conclusion = "Syphilis précoce certaine (chancre typique + tréponémique positif + VDRL positif).";
-    return await setResult(
-`${badge("warning","Syphilis précoce certaine")}
-Chancre typique + EIA/TPHA positif + VDRL positif
-
-→ Syphilis précoce retenue
-→ Être sûr de la clinique du chancre
-
-${standardEarlyTreatment()}`,
-    `Dernière sérologie du ${last.dateStr} (VDRL ${last.vdrl})`, txText, confidence("Élevée","chancre typique + tréponémique positif + VDRL positif"), finalWhy([...why,"chancre typique","tréponémique positif","VDRL positif"]),
-    { identifier, analysisDate:document.getElementById("analysisDate").value, conclusion, category:"early", recommended_treatment:standardEarlyTreatment(), compare:`Dernière sérologie du ${last.dateStr} (VDRL ${last.vdrl})`, tx:txText, why:finalWhy([...why,"chancre typique","tréponémique positif","VDRL positif"]), serologies, treatments }, parsed, clinical);
-  }
-
-  if(clinical.chancreDoubtful && trepPositive(last) && vdrlPositive(last.vdrl)){
-    const conclusion = "Syphilis précoce probable ; si doute clinique important, garder l’hypothèse d’une syphilis tardive.";
-    return await setResult(
-`${badge("warning","Syphilis précoce probable")}
-Chancre douteux + EIA/TPHA positif + VDRL positif
-
-→ Syphilis précoce probable
-→ Si la clinique est douteuse ou atypique, garder en réserve l’hypothèse d’une syphilis tardive
-
-${standardEarlyTreatment()}`,
-    `Dernière sérologie du ${last.dateStr} (VDRL ${last.vdrl})`, txText, confidence("Modérée","chancre douteux + sérologie positive"), finalWhy([...why,"chancre douteux","tréponémique positif","VDRL positif"]),
-    { identifier, analysisDate:document.getElementById("analysisDate").value, conclusion, category:"early", recommended_treatment:standardEarlyTreatment(), compare:`Dernière sérologie du ${last.dateStr} (VDRL ${last.vdrl})`, tx:txText, why:finalWhy([...why,"chancre douteux","tréponémique positif","VDRL positif"]), serologies, treatments }, parsed, clinical);
-  }
-
-  if(clinical.neuro && trepPositive(last) && vdrlPositive(last.vdrl)){
+  if(clinical.neuro && trepPositive(last)){
     const category = "neuro";
     const recommended_treatment = standardNeuroTreatment();
     const csfTpha = document.getElementById("csfTpha")?.value || "";
     const csfVdrl = document.getElementById("csfVdrl")?.value || "";
+    const neuroContext = [];
+    if(clinical.chancreTypical) neuroContext.push("chancre typique");
+    if(clinical.chancreDoubtful) neuroContext.push("chancre douteux");
 
     document.getElementById("csfPanel").classList.remove("hidden");
 
@@ -1705,25 +1300,56 @@ Renseigne TPHA LCR et VDRL LCR puis relance l’analyse pour obtenir l’interpr
       expert.push("Module LCR affiché, résultats non encore saisis");
     }
 
-    expert.push("Règle déclenchée: neuro + tréponémique positif + VDRL positif => neurosyphilis suspectée");
+    expert.push(`Règle déclenchée: neuro + tréponémique positif${neuroContext.length ? ' + ' + neuroContext.join(' + ') : ''} => priorité PL, même si chancre apparent`);
     return await setResult(
 `${badge("danger","Ponction lombaire indiquée")}
-Signes neurologiques / ORL / ophtalmologiques avec TPHA ou EIA positif et VDRL positif.
-
+Signes neurologiques / ORL / ophtalmologiques avec TPHA ou EIA positif${vdrlPositive(last.vdrl) ? " et VDRL positif" : ""}.
+${neuroContext.length ? `\nContexte clinique associé : ${neuroContext.join(" / ")}\n` : ""}
 → Indication de ponction lombaire
 → Suspicion de neurosyphilis
+→ Les formes primo-tertiaires existent : le chancre apparent ne doit pas faire écarter le bilan neuro
 
 ${recommended_treatment}${lcrText}`,
       `Dernière sérologie positive du ${last.dateStr} (VDRL ${last.vdrl})`,
       txText,
-      confidence("Élevée","clinique neuro/ORL/oph + sérologie positive"),
-      finalWhy([...why,lcrWhy]),
-      { identifier, analysisDate:document.getElementById("analysisDate").value, conclusion:lcrConclusion, category, recommended_treatment, compare:`Dernière sérologie positive du ${last.dateStr} (VDRL ${last.vdrl})`, tx:txText, why:finalWhy([...why,lcrWhy]), serologies, treatments },
+      confidence("Élevée","clinique neuro/ORL/oph + sérologie tréponémique positive"),
+      finalWhy([...why, ...neuroContext, "signes neuro/ORL/ophtalmo", "tréponémique positif", lcrWhy]),
+      { identifier, analysisDate:document.getElementById("analysisDate").value, conclusion:lcrConclusion, category, recommended_treatment, compare:`Dernière sérologie positive du ${last.dateStr} (VDRL ${last.vdrl})`, tx:txText, why:finalWhy([...why, ...neuroContext, "signes neuro/ORL/ophtalmo", "tréponémique positif", lcrWhy]), serologies, treatments },
       parsed, clinical, expert.join("\n")
     );
   }
 
+  if(clinical.chancreTypical && trepPositive(last) && vdrlPositive(last.vdrl)){
+    const conclusion = "Syphilis précoce certaine (chancre typique + tréponémique positif + VDRL positif).";
+    return await setResult(
+`${badge("warning","Syphilis précoce certaine")}
+Chancre typique + EIA/TPHA positif + VDRL positif
+
+→ Syphilis précoce retenue
+→ Être sûr de la clinique du chancre
+
+${standardEarlyTreatment()}`,
+    `Dernière sérologie du ${last.dateStr} (VDRL ${last.vdrl})`, txText, confidence("Élevée","chancre typique + tréponémique positif + VDRL positif"), finalWhy([...why,"chancre typique","tréponémique positif","VDRL positif"]),
+    { identifier, analysisDate:document.getElementById("analysisDate").value, conclusion, category:"early", recommended_treatment:standardEarlyTreatment(), compare:`Dernière sérologie du ${last.dateStr} (VDRL ${last.vdrl})`, tx:txText, why:finalWhy([...why,"chancre typique","tréponémique positif","VDRL positif"]), serologies, treatments }, parsed, clinical);
+  }
+
+  if(clinical.chancreDoubtful && trepPositive(last) && vdrlPositive(last.vdrl)){
+    const conclusion = "Syphilis précoce probable ; si doute clinique important, garder l’hypothèse d’une syphilis tardive.";
+    return await setResult(
+`${badge("warning","Syphilis précoce probable")}
+Chancre douteux + EIA/TPHA positif + VDRL positif
+
+→ Syphilis précoce probable
+→ Si la clinique est douteuse ou atypique, garder en réserve l’hypothèse d’une syphilis tardive
+
+${standardEarlyTreatment()}`,
+    `Dernière sérologie du ${last.dateStr} (VDRL ${last.vdrl})`, txText, confidence("Modérée","chancre douteux + sérologie positive"), finalWhy([...why,"chancre douteux","tréponémique positif","VDRL positif"]),
+    { identifier, analysisDate:document.getElementById("analysisDate").value, conclusion, category:"early", recommended_treatment:standardEarlyTreatment(), compare:`Dernière sérologie du ${last.dateStr} (VDRL ${last.vdrl})`, tx:txText, why:finalWhy([...why,"chancre douteux","tréponémique positif","VDRL positif"]), serologies, treatments }, parsed, clinical);
+  }
+
+
   if(clinical.chancreTypical && trepNegativeOrMissingVdrl(last)){
+
     const category = "early";
     const recommended_treatment = standardEarlyTreatment();
     const conclusion = "Chancre typique avec sérologie négative : syphilis précoce à traiter.";
@@ -2255,6 +1881,46 @@ function openBigChart(){
   win.document.close();
 }
 
+/* =============================
+   API PUBLIQUE DE MAINTENANCE
+   ============================= */
+const __rawAnalyse = analyse;
+analyse = async function(){
+  try {
+    return await __rawAnalyse();
+  } catch (error) {
+    console.error('Analyse error:', error);
+    const box = document.getElementById('resultBox');
+    if(box){
+      box.innerHTML = `${badge("danger", "Erreur d'analyse")}<div style="margin-top:10px">${String(error?.message || error)}</div>`;
+    }
+    const whyInfo = document.getElementById('whyInfo');
+    if(whyInfo) whyInfo.textContent = 'Erreur technique : ' + String(error?.message || error);
+    throw error;
+  }
+};
+
+window.SyphilisTool = {
+  version: TOOL_VERSION,
+  rules: CLINICAL_RULEBOOK,
+  setRule: deepSetRule,
+  treatments: TREATMENTS,
+  parseData,
+  currentClinical,
+  buildTreatmentAudit,
+  runAnalysis: analyse,
+  getState(){
+    return {
+      currentLang,
+      lastAnalysisPayload,
+      lastSavedAnalysisEventId
+    };
+  }
+};
+
+/* =============================
+   BOOTSTRAP UI / EVENTS
+   ============================= */
 document.addEventListener("DOMContentLoaded", () => {
   initSupabase();
   applyTranslations("fr");
