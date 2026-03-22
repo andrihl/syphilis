@@ -1098,10 +1098,10 @@ function applyTranslations(lang){
   const txInfo = document.getElementById('txInfo');
   const confInfo = document.getElementById('confidenceInfo');
   const whyInfo = document.getElementById('whyInfo');
-  if(compareInfo) compareInfo.textContent = translatePlainText(compareInfo.textContent);
-  if(txInfo) txInfo.textContent = translatePlainText(txInfo.textContent);
-  if(confInfo) confInfo.textContent = translatePlainText(confInfo.textContent);
-  if(whyInfo) whyInfo.textContent = translatePlainText(whyInfo.textContent);
+  if(compareInfo) compareInfo.textContent = translateDeepText(compareInfo.textContent);
+  if(txInfo) txInfo.textContent = translateDeepText(txInfo.textContent);
+  if(confInfo) confInfo.textContent = translateDeepText(confInfo.textContent);
+  if(whyInfo) whyInfo.textContent = translateDeepText(whyInfo.textContent);
   const compareTitle = compareInfo ? compareInfo.previousElementSibling : null;
   if(compareTitle) compareTitle.innerHTML = `<span id="i18nMemoryVdrlRef">${d.memoryVdrl}</span> ${extraT('retainedSuffix')}`;
   const txTitle = txInfo ? txInfo.previousElementSibling : null;
@@ -1342,23 +1342,7 @@ function translatePlainText(text){
       "PL indiquée":"PL indicata",
       "Ponction lombaire à proposer":"Puntura lombare da proporre",
       "Contexte clinique associé :":"Contesto clinico associato:",
-      "Traitement(s) saisi(s) sans biologie exploitable":"Trattamento/i inserito/i senza biologia interpretabile",
-      "suspicion de neurosyphilis.":"sospetta neurosifilide.",
-      "Traiter comme syphilis tardive par sécurité.":"Trattare come sifilide tardiva per sicurezza.",
-      "Référence clinique du ":"Riferimento clinico del ",
-      "Signes neuro / ORL / ophtalmo avec chancre évocateur : proposer une ponction lombaire et évaluation spécialisée, même si une syphilis primaire paraît possible (formes primo-tertiaires possibles).":"Segni neuro / ORL / oftalmologici con sifiloma evocatore: proporre puntura lombare e valutazione specialistica, anche se una sifilide primaria può sembrare possibile (sono possibili forme primo-terziarie).",
-      "Signes neurologiques / ORL / ophtalmologiques associés à un chancre évocateur, sans biologie exploitable.":"Segni neurologici / ORL / oftalmologici associati a un sifiloma evocatore, senza biologia interpretabile.",
-      "→ Ne pas rassurer sur le seul aspect de chancre primaire":"→ Non rassicurare sulla sola apparenza di sifiloma primario",
-      "→ Proposer une ponction lombaire":"→ Proporre una puntura lombare",
-      "→ Faire sérologie tréponémique + VDRL en urgence":"→ Eseguire urgentemente sierologia treponemica + VDRL",
-      "→ Avis spécialisé si atteinte ophtalmologique / ORL / neurologique":"→ Valutazione specialistica se coinvolgimento oftalmologico / ORL / neurologico",
-      "chancre typique":"sifiloma tipico",
-      "chancre douteux":"sifiloma dubbio",
-      "signes neuro/ORL/ophtalmo":"segni neuro/ORL/oftalmologici",
-      "formes primo-tertiaires possibles":"possibili forme primo-terziarie",
-      "biologie non exploitable":"biologia non interpretabile",
-      "tréponémique positif":"treponemico positivo",
-      "ponction lombaire indiquée":"puntura lombare indicata"
+      "Traitement(s) saisi(s) sans biologie exploitable":"Trattamento/i inserito/i senza biologia interpretabile"
     },
     ar: {
       "Ponction lombaire indiquée":"البزل القطني مُوصى به",
@@ -1387,7 +1371,16 @@ function translatePlainText(text){
       "signes neuro/ORL/ophtalmo":"علامات عصبية/أنف أذن حنجرة/عينية",
       "formes primo-tertiaires possibles":"احتمال وجود أشكال أولية-ثالثية",
       "biologie non exploitable":"لا توجد بيولوجيا قابلة للتفسير",
-      "tréponémique positif":"اختبار لولبي إيجابي"
+      "aucune biologie exploitable ou sérologie datée saisie":"لا توجد بيولوجيا قابلة للتفسير أو لم يتم إدخال مصلية مؤرخة",
+      "tréponémique positif":"اختبار لولبي إيجابي",
+      "pas d’antécédent négatif":"لا توجد مصلية سلبية سابقة",
+      "pas de traitement validé":"لا يوجد علاج سابق مُعتمد",
+      "pas de chancre":"لا توجد قرحة نموذجية",
+      "pas de contage":"لا يوجد تعرّض حديث",
+      "absence de biologie exploitable":"غياب معطيات بيولوجية قابلة للتفسير",
+      "Faible — absence de biologie exploitable":"منخفضة — غياب معطيات بيولوجية قابلة للتفسير",
+      "Élevée — pas d’antécédent négatif ni de traitement validé":"مرتفعة — لا توجد مصلية سلبية سابقة ولا علاج سابق مُعتمد",
+      "pas d’antécédent négatif ni de traitement validé":"لا توجد مصلية سلبية سابقة ولا علاج سابق مُعتمد"
     },
     zh: {
       "Ponction lombaire indiquée":"建议腰椎穿刺",
@@ -1406,106 +1399,277 @@ function translatePlainText(text){
       "Aucun traitement valide retenu":"未保留有效既往治疗",
       "Dernière sérologie positive du ":"最近一次阳性血清学日期：",
       "Dernière sérologie du ":"最近一次血清学日期：",
-      "PL indiquée":"已提示腰穿",
-      "Ponction lombaire à proposer":"建议腰椎穿刺",
-      "Contexte clinique associé :":"相关临床背景：",
-      "Traitement(s) saisi(s) sans biologie exploitable":"已录入治疗，但无可解释的生物学结果",
-      "Référence clinique du ":"临床参考日期：",
-      "suspicion de neurosyphilis.":"怀疑神经梅毒。",
-      "Traiter comme syphilis tardive par sécurité.":"为安全起见按晚期梅毒治疗。",
-      "Référence clinique du ":"临床参考日期：",
-      "Signes neuro / ORL / ophtalmo avec chancre évocateur : proposer une ponction lombaire et évaluation spécialisée, même si une syphilis primaire paraît possible (formes primo-tertiaires possibles).":"存在神经 / 耳鼻喉 / 眼科体征并伴提示性硬下疳：即使看起来可能是一期梅毒，也应建议腰椎穿刺和专科评估（可能存在一期-三期并存形式）。",
-      "Signes neurologiques / ORL / ophtalmologiques associés à un chancre évocateur, sans biologie exploitable.":"存在神经 / 耳鼻喉 / 眼科体征并伴提示性硬下疳，且暂无可解释的生物学结果。",
-      "→ Ne pas rassurer sur le seul aspect de chancre primaire":"→ 不应仅因表面呈一期硬下疳而掉以轻心",
-      "→ Proposer une ponction lombaire":"→ 建议腰椎穿刺",
-      "→ Faire sérologie tréponémique + VDRL en urgence":"→ 尽快完成梅毒螺旋体血清学 + VDRL",
-      "→ Avis spécialisé si atteinte ophtalmologique / ORL / neurologique":"→ 如有眼科 / 耳鼻喉 / 神经受累，建议专科会诊",
-      "chancre typique":"典型硬下疳",
-      "chancre douteux":"可疑硬下疳",
-      "signes neuro/ORL/ophtalmo":"神经/耳鼻喉/眼科体征",
-      "formes primo-tertiaires possibles":"可能存在一期-三期并存形式",
-      "biologie non exploitable":"生物学结果不可解释",
-      "tréponémique positif":"梅毒螺旋体检测阳性",
-      "ponction lombaire indiquée":"建议腰椎穿刺"
+      "PL indiquée":"已提示腰穿"
     },
     ja: {
-      "Ponction lombaire indiquée":"腰椎穿刺が適応",
-      "Interprétation du LCR :":"髄液の解釈：",
+      "Ponction lombaire indiquée":"腰椎穿刺を提案",
+      "Interprétation du LCR :":"髄液の解釈:",
       "Signes neurologiques / ORL / ophtalmologiques avec TPHA ou EIA positif et VDRL positif.":"神経 / 耳鼻咽喉 / 眼症状があり、TPHA または EIA 陽性かつ VDRL 陽性。",
-      "→ Indication de ponction lombaire":"→ 腰椎穿刺が適応",
-      "→ Suspicion de neurosyphilis":"→ 神経梅毒が疑われる",
-      "Traitement de neurosyphilis :":"神経梅毒の治療：",
-      "Pénicilline G IV 14 jours":"ペニシリン G 静注 14 日間",
-      "Ceftriaxone 2 g/j pendant 14 jours":"セフトリアキソン 2 g/日を 14 日間",
-      "TPHA LCR positif / VDRL LCR positif":"髄液 TPHA 陽性 / 髄液 VDRL 陽性",
+      "→ Indication de ponction lombaire":"→ 腰椎穿刺の適応あり",
+      "→ Suspicion de neurosyphilis":"→ 神経梅毒を疑う",
+      "Traitement de neurosyphilis :":"神経梅毒の治療:",
+      "Pénicilline G IV 14 jours":"ペニシリンG静注14日間",
+      "Ceftriaxone 2 g/j pendant 14 jours":"セフトリアキソン2g/日を14日間",
+      "TPHA LCR positif / VDRL LCR positif":"髄液TPHA陽性 / 髄液VDRL陽性",
       "→ Neurosyphilis confirmée":"→ 神経梅毒確定",
-      "→ Traitement de neurosyphilis":"→ 神経梅毒の治療",
-      "TPHA LCR négatif / VDRL LCR négatif":"髄液 TPHA 陰性 / 髄液 VDRL 陰性",
-      "TPHA LCR positif / VDRL LCR négatif":"髄液 TPHA 陽性 / 髄液 VDRL 陰性",
+      "→ Traitement de neurosyphilis":"→ 神経梅毒として治療",
+      "TPHA LCR négatif / VDRL LCR négatif":"髄液TPHA陰性 / 髄液VDRL陰性",
+      "TPHA LCR positif / VDRL LCR négatif":"髄液TPHA陽性 / 髄液VDRL陰性",
       "Aucun traitement valide retenu":"有効な既往治療は保持されていません",
-      "Dernière sérologie positive du ":"直近の陽性血清学：",
-      "Dernière sérologie du ":"直近の血清学：",
-      "PL indiquée":"腰椎穿刺適応",
-      "Ponction lombaire à proposer":"腰椎穿刺を提案",
-      "Contexte clinique associé :":"関連する臨床状況：",
-      "Traitement(s) saisi(s) sans biologie exploitable":"解釈可能な検査結果がないまま治療が入力されています",
-      "Référence clinique du ":"臨床参照日：",
-      "suspicion de neurosyphilis.":"神経梅毒疑い。",
-      "Traiter comme syphilis tardive par sécurité.":"安全のため晩期梅毒として治療する。",
-      "Référence clinique du ":"臨床参照日：",
-      "Signes neuro / ORL / ophtalmo avec chancre évocateur : proposer une ponction lombaire et évaluation spécialisée, même si une syphilis primaire paraît possible (formes primo-tertiaires possibles).":"神経 / 耳鼻咽喉 / 眼症状があり、硬性下疳を示唆する病変を伴う場合は、一次梅毒が考えられても、腰椎穿刺と専門評価を提案する（一期・三期同時型の可能性あり）。",
-      "Signes neurologiques / ORL / ophtalmologiques associés à un chancre évocateur, sans biologie exploitable.":"神経 / 耳鼻咽喉 / 眼症状があり、硬性下疳を示唆する病変を伴うが、解釈可能な検査結果はない。",
-      "→ Ne pas rassurer sur le seul aspect de chancre primaire":"→ 見かけ上の一次硬性下疳だけで安心してはならない",
-      "→ Proposer une ponction lombaire":"→ 腰椎穿刺を提案する",
-      "→ Faire sérologie tréponémique + VDRL en urgence":"→ 緊急でトレポネーマ血清学 + VDRL を実施する",
-      "→ Avis spécialisé si atteinte ophtalmologique / ORL / neurologique":"→ 眼科 / 耳鼻咽喉科 / 神経症状があれば専門科へ相談",
-      "chancre typique":"典型的な硬性下疳",
-      "chancre douteux":"疑わしい硬性下疳",
-      "signes neuro/ORL/ophtalmo":"神経/耳鼻咽喉/眼症状",
-      "formes primo-tertiaires possibles":"一期・三期同時型の可能性",
-      "biologie non exploitable":"解釈不能な検査結果",
-      "tréponémique positif":"トレポネーマ検査陽性",
-      "ponction lombaire indiquée":"腰椎穿刺適応"
+      "Dernière sérologie positive du ":"直近の陽性血清学: ",
+      "Dernière sérologie du ":"直近の血清学: ",
+      "PL indiquée":"腰椎穿刺適応"
+    },
+    ru: {
+      "Ponction lombaire indiquée":"Показана люмбальная пункция",
+      "Interprétation du LCR :":"Интерпретация ликвора:",
+      "Signes neurologiques / ORL / ophtalmologiques avec TPHA ou EIA positif et VDRL positif.":"Неврологические / ЛОР / офтальмологические признаки при положительном TPHA или EIA и положительном VDRL.",
+      "→ Indication de ponction lombaire":"→ Показана люмбальная пункция",
+      "→ Suspicion de neurosyphilis":"→ Подозрение на нейросифилис",
+      "Traitement de neurosyphilis :":"Лечение нейросифилиса:",
+      "Pénicilline G IV 14 jours":"Пенициллин G в/в 14 дней",
+      "Ceftriaxone 2 g/j pendant 14 jours":"Цефтриаксон 2 г/сут 14 дней",
+      "TPHA LCR positif / VDRL LCR positif":"TPHA ликвора положительный / VDRL ликвора положительный",
+      "→ Neurosyphilis confirmée":"→ Подтвержденный нейросифилис",
+      "→ Traitement de neurosyphilis":"→ Лечение нейросифилиса",
+      "TPHA LCR négatif / VDRL LCR négatif":"TPHA ликвора отрицательный / VDRL ликвора отрицательный",
+      "TPHA LCR positif / VDRL LCR négatif":"TPHA ликвора положительный / VDRL ликвора отрицательный",
+      "Aucun traitement valide retenu":"Нет учтенного валидного предшествующего лечения",
+      "Dernière sérologie positive du ":"Последняя положительная серология от ",
+      "Dernière sérologie du ":"Последняя серология от ",
+      "PL indiquée":"ЛП показана"
     }
   };
+  const map = maps[currentLang] || {};
+  if(map[text]) return map[text];
   let out = text;
-  const dict = maps[currentLang] || {};
-  for(const [fr, loc] of Object.entries(dict)){
-    out = out.split(fr).join(loc);
-  }
-  const extraPairs = [
-    ["→ Les formes primo-tertiaires existent : le chancre apparent ne doit pas faire écarter le bilan neuro", moreT("primerTertiary")],
-    ["Élevée — clinique neuro/ORL/oph + sérologie tréponémique positive", moreT("confidenceHighNeuro")],
-    ["Modérée — cinétique biologique intermédiaire, interprétation prudente", moreT("confidenceModerateKinetic")],
-    ["Aucun traitement valide retenu", moreT("noValidTreatment")],
-    ["Ponction lombaire à proposer", moreT("lpSuggested")],
-    ["Contexte clinique associé :", moreT("clinicalContextLabel")],
-    ["Référence clinique du ", moreT("clinicalReferencePrefix")],
-    ["Traitement(s) saisi(s) sans biologie exploitable", moreT("txWithoutBiology")],
-    ["signes neuro/ORL/ophtalmo", moreT("reasonNeuro")],
-    ["chancre typique", moreT("reasonTypicalChancre")],
-    ["chancre douteux", moreT("reasonDoubtfulChancre")],
-    ["formes primo-tertiaires possibles", moreT("reasonPrimoTertiary")],
-    ["biologie non exploitable", moreT("reasonNoBiology")],
-    ["tréponémique positif", moreT("reasonTrepPositive")],
-    ["LCR TPHA+ VDRL+", moreT("reasonCsfPosPos")],
-    ["LCR TPHA+ VDRL-", moreT("reasonCsfPosNeg")],
-    ["LCR TPHA- VDRL-", moreT("reasonCsfNegNeg")]
-  ];
-  extraPairs.forEach(([fr,loc]) => { out = out.split(fr).join(loc); });
+  Object.keys(map).sort((a,b)=>b.length-a.length).forEach((k)=>{
+    out = out.split(k).join(map[k]);
+  });
   return out;
 }
 
 function translateResultText(text){
-  return translatePlainText(text);
+  return translateDeepText(text);
+}
+
+function translateDeepText(text){
+  let out = translatePlainText(text);
+  if(currentLang === "fr" || !out) return out;
+  const maps = {
+    en: {
+      "Syphilis tardive par défaut":"Late syphilis by default",
+      "Pas d’historique antérieur exploitable.":"No usable prior history.",
+      "Pas d’historique de traitement validé, pas d’antécédent négatif, et absence de chancre clinique.":"No validated treatment history, no prior negative result, and no clinical chancre.",
+      "→ Une seule sérologie avec VDRL > 0":"→ Only one serology with VDRL > 0",
+      "→ Infection non datable":"→ Undatable infection",
+      "→ À considérer comme syphilis tardive":"→ Should be considered late syphilis",
+      "Situation restant indatable ou historique insuffisant.":"Situation remains undatable or history is insufficient.",
+      "Traitement recommandé (syphilis tardive) :":"Recommended treatment (late syphilis):",
+      "Traitement recommandé (syphilis précoce) :":"Recommended treatment (early syphilis):",
+      "Traitement recommandé (neurosyphilis / atteinte ORL / oculaire) :":"Recommended treatment (neurosyphilis / ENT / ocular involvement):",
+      "Pas d’historique antérieur exploitable":"No usable prior history",
+      "pas d’antécédent négatif":"no prior negative result",
+      "pas de traitement validé":"no validated treatment",
+      "pas de chancre":"no chancre",
+      "une seule sérologie":"single serology",
+      "situation indatable":"undatable situation",
+      "CAT de sécurité":"safety management",
+      "Élevée":"High",
+      "Modérée":"Moderate",
+      "Faible":"Low"
+    },
+    es: {
+      "Syphilis tardive par défaut":"Sífilis tardía por defecto",
+      "Pas d’historique antérieur exploitable.":"Sin antecedentes previos utilizables.",
+      "Pas d’historique de traitement validé, pas d’antécédent négatif, et absence de chancre clinique.":"Sin antecedentes de tratamiento validado, sin antecedente negativo y sin chancro clínico.",
+      "→ Une seule sérologie avec VDRL > 0":"→ Una sola serología con VDRL > 0",
+      "→ Infection non datable":"→ Infección no datable",
+      "→ À considérer comme syphilis tardive":"→ Considerar como sífilis tardía",
+      "Situation restant indatable ou historique insuffisant.":"Situación aún no datable o historia insuficiente.",
+      "Traitement recommandé (syphilis tardive) :":"Tratamiento recomendado (sífilis tardía):",
+      "Traitement recommandé (syphilis précoce) :":"Tratamiento recomendado (sífilis precoz):",
+      "Traitement recommandé (neurosyphilis / atteinte ORL / oculaire) :":"Tratamiento recomendado (neurosífilis / afectación ORL / ocular):",
+      "Pas d’historique antérieur exploitable":"Sin antecedentes previos utilizables",
+      "pas d’antécédent négatif":"sin antecedente negativo",
+      "pas de traitement validé":"sin tratamiento validado",
+      "pas de chancre":"sin chancro",
+      "une seule sérologie":"una sola serología",
+      "situation indatable":"situación no datable",
+      "CAT de sécurité":"conducta de seguridad",
+      "Élevée":"Alta",
+      "Modérée":"Moderada",
+      "Faible":"Baja"
+    },
+    pt: {
+      "Syphilis tardive par défaut":"Sífilis tardia por defeito",
+      "Pas d’historique antérieur exploitable.":"Sem histórico anterior utilizável.",
+      "Pas d’historique de traitement validé, pas d’antécédent négatif, et absence de chancre clinique.":"Sem histórico de tratamento validado, sem antecedente negativo e sem cancro clínico.",
+      "→ Une seule sérologie avec VDRL > 0":"→ Apenas uma serologia com VDRL > 0",
+      "→ Infection non datable":"→ Infeção não datável",
+      "→ À considérer comme syphilis tardive":"→ Considerar como sífilis tardia",
+      "Situation restant indatable ou historique insuffisant.":"Situação ainda não datável ou histórico insuficiente.",
+      "Traitement recommandé (syphilis tardive) :":"Tratamento recomendado (sífilis tardia):",
+      "Traitement recommandé (syphilis précoce) :":"Tratamento recomendado (sífilis precoce):",
+      "Traitement recommandé (neurosyphilis / atteinte ORL / oculaire) :":"Tratamento recomendado (neurossífilis / envolvimento ORL / ocular):",
+      "Pas d’historique antérieur exploitable":"Sem histórico anterior utilizável",
+      "pas d’antécédent négatif":"sem antecedente negativo",
+      "pas de traitement validé":"sem tratamento validado",
+      "pas de chancre":"sem cancro",
+      "une seule sérologie":"uma única serologia",
+      "situation indatable":"situação não datável",
+      "CAT de sécurité":"conduta de segurança",
+      "Élevée":"Elevada",
+      "Modérée":"Moderada",
+      "Faible":"Baixa"
+    },
+    de: {
+      "Syphilis tardive par défaut":"Späte Syphilis standardmäßig",
+      "Pas d’historique antérieur exploitable.":"Keine verwertbare Vorgeschichte.",
+      "Pas d’historique de traitement validé, pas d’antécédent négatif, et absence de chancre clinique.":"Keine validierte Behandlungsvorgeschichte, kein negativer Vorbefund und kein klinischer Schanker.",
+      "→ Une seule sérologie avec VDRL > 0":"→ Nur eine Serologie mit VDRL > 0",
+      "→ Infection non datable":"→ Infektion nicht datierbar",
+      "→ À considérer comme syphilis tardive":"→ Als späte Syphilis zu betrachten",
+      "Situation restant indatable ou historique insuffisant.":"Situation weiterhin nicht datierbar oder Vorgeschichte unzureichend.",
+      "Traitement recommandé (syphilis tardive) :":"Empfohlene Behandlung (späte Syphilis):",
+      "Traitement recommandé (syphilis précoce) :":"Empfohlene Behandlung (frühe Syphilis):",
+      "Traitement recommandé (neurosyphilis / atteinte ORL / oculaire) :":"Empfohlene Behandlung (Neurosyphilis / HNO- / okuläre Beteiligung):",
+      "Pas d’historique antérieur exploitable":"Keine verwertbare Vorgeschichte",
+      "pas d’antécédent négatif":"kein negativer Vorbefund",
+      "pas de traitement validé":"keine validierte Behandlung",
+      "pas de chancre":"kein Schanker",
+      "une seule sérologie":"nur eine Serologie",
+      "situation indatable":"nicht datierbare Situation",
+      "CAT de sécurité":"Sicherheitsvorgehen",
+      "Élevée":"Hoch",
+      "Modérée":"Moderat",
+      "Faible":"Niedrig"
+    },
+    pl: {
+      "Syphilis tardive par défaut":"Kiła późna domyślnie",
+      "Pas d’historique antérieur exploitable.":"Brak użytecznej wcześniejszej historii.",
+      "Pas d’historique de traitement validé, pas d’antécédent négatif, et absence de chancre clinique.":"Brak potwierdzonego wcześniejszego leczenia, brak wcześniejszego wyniku ujemnego i brak klinicznego wrzodu.",
+      "→ Une seule sérologie avec VDRL > 0":"→ Tylko jedno badanie serologiczne z VDRL > 0",
+      "→ Infection non datable":"→ Zakażenie niedatowalne",
+      "→ À considérer comme syphilis tardive":"→ Należy traktować jako kiłę późną",
+      "Situation restant indatable ou historique insuffisant.":"Sytuacja nadal niedatowalna lub wywiad niewystarczający.",
+      "Traitement recommandé (syphilis tardive) :":"Zalecane leczenie (kiła późna):",
+      "Traitement recommandé (syphilis précoce) :":"Zalecane leczenie (kiła wczesna):",
+      "Traitement recommandé (neurosyphilis / atteinte ORL / oculaire) :":"Zalecane leczenie (neurosyfilis / zajęcie laryngologiczne / okulistyczne):",
+      "Pas d’historique antérieur exploitable":"Brak użytecznej wcześniejszej historii",
+      "pas d’antécédent négatif":"brak wcześniejszego wyniku ujemnego",
+      "pas de traitement validé":"brak potwierdzonego leczenia",
+      "pas de chancre":"brak wrzodu",
+      "une seule sérologie":"jedno badanie serologiczne",
+      "situation indatable":"sytuacja niedatowalna",
+      "CAT de sécurité":"postępowanie bezpieczeństwa",
+      "Élevée":"Wysoka",
+      "Modérée":"Umiarkowana",
+      "Faible":"Niska"
+    },
+    it: {
+      "Syphilis tardive par défaut":"Sifilide tardiva per default",
+      "Pas d’historique antérieur exploitable.":"Nessuna anamnesi precedente utilizzabile.",
+      "Pas d’historique de traitement validé, pas d’antécédent négatif, et absence de chancre clinique.":"Nessuna storia di trattamento validata, nessun precedente negativo e assenza di sifiloma clinico.",
+      "→ Une seule sérologie avec VDRL > 0":"→ Una sola sierologia con VDRL > 0",
+      "→ Infection non datable":"→ Infezione non databile",
+      "→ À considérer comme syphilis tardive":"→ Da considerare come sifilide tardiva",
+      "Situation restant indatable ou historique insuffisant.":"Situazione ancora non databile o anamnesi insufficiente.",
+      "Traitement recommandé (syphilis tardive) :":"Trattamento raccomandato (sifilide tardiva):",
+      "Traitement recommandé (syphilis précoce) :":"Trattamento raccomandato (sifilide precoce):",
+      "Traitement recommandé (neurosyphilis / atteinte ORL / oculaire) :":"Trattamento raccomandato (neurosifilide / coinvolgimento ORL / oculare):",
+      "Pas d’historique antérieur exploitable":"Nessuna anamnesi precedente utilizzabile",
+      "pas d’antécédent négatif":"nessun precedente negativo",
+      "pas de traitement validé":"nessun trattamento validato",
+      "pas de chancre":"assenza di sifiloma",
+      "une seule sérologie":"una sola sierologia",
+      "situation indatable":"situazione non databile",
+      "CAT de sécurité":"condotta di sicurezza",
+      "Élevée":"Elevata",
+      "Modérée":"Moderata",
+      "Faible":"Bassa"
+    },
+    ar: {
+      "Syphilis tardive par défaut":"زهري متأخر افتراضياً",
+      "Pas d’historique antérieur exploitable.":"لا توجد سوابق قابلة للاستغلال.",
+      "Pas d’historique de traitement validé, pas d’antécédent négatif, et absence de chancre clinique.":"لا توجد قصة علاجية معتمدة، ولا سلبية سابقة، ولا قرحة سريرية.",
+      "→ Une seule sérologie avec VDRL > 0":"→ تحليل مصلي واحد فقط مع VDRL > 0",
+      "→ Infection non datable":"→ عدوى غير قابلة للتأريخ",
+      "→ À considérer comme syphilis tardive":"→ يجب اعتبارها زهرياً متأخراً",
+      "Situation restant indatable ou historique insuffisant.":"الحالة ما زالت غير قابلة للتأريخ أو أن القصة السريرية غير كافية.",
+      "Traitement recommandé (syphilis tardive) :":"العلاج الموصى به (الزهري المتأخر):",
+      "Traitement recommandé (syphilis précoce) :":"العلاج الموصى به (الزهري المبكر):",
+      "Traitement recommandé (neurosyphilis / atteinte ORL / oculaire) :":"العلاج الموصى به (الزهري العصبي / إصابة الأنف والأذن والحنجرة / العينية):",
+      "Pas d’historique antérieur exploitable":"لا توجد سوابق قابلة للاستغلال",
+      "pas d’antécédent négatif":"لا توجد سلبية سابقة",
+      "pas de traitement validé":"لا يوجد علاج معتمد",
+      "pas de chancre":"لا توجد قرحة",
+      "une seule sérologie":"تحليل مصلي واحد فقط",
+      "situation indatable":"حالة غير قابلة للتأريخ",
+      "CAT de sécurité":"تدبير احتياطي",
+      "Élevée":"مرتفعة",
+      "Modérée":"متوسطة",
+      "Faible":"منخفضة"
+    },
+    zh: {
+      "Syphilis tardive par défaut":"默认按晚期梅毒处理",
+      "Pas d’historique antérieur exploitable.":"无可利用既往病史。",
+      "Pas d’historique de traitement validé, pas d’antécédent négatif, et absence de chancre clinique.":"无经确认的既往治疗史、无既往阴性结果，且无临床硬下疳。",
+      "→ Une seule sérologie avec VDRL > 0":"→ 仅有一次血清学检查且 VDRL > 0",
+      "→ Infection non datable":"→ 感染无法定时",
+      "→ À considérer comme syphilis tardive":"→ 应视为晚期梅毒",
+      "Situation restant indatable ou historique insuffisant.":"情况仍无法定时，或病史不足。",
+      "Traitement recommandé (syphilis tardive) :":"推荐治疗（晚期梅毒）：",
+      "Traitement recommandé (syphilis précoce) :":"推荐治疗（早期梅毒）：",
+      "Traitement recommandé (neurosyphilis / atteinte ORL / oculaire) :":"推荐治疗（神经梅毒 / 耳鼻喉 / 眼部受累）：",
+      "Pas d’historique antérieur exploitable":"无可利用既往病史",
+      "pas d’antécédent négatif":"无既往阴性结果",
+      "pas de traitement validé":"无经确认的治疗",
+      "pas de chancre":"无硬下疳",
+      "une seule sérologie":"单次血清学检查",
+      "situation indatable":"无法定时的情况",
+      "CAT de sécurité":"安全处置",
+      "Élevée":"高",
+      "Modérée":"中等",
+      "Faible":"低"
+    },
+    ja: {
+      "Syphilis tardive par défaut":"デフォルトで晩期梅毒",
+      "Pas d’historique antérieur exploitable.":"利用可能な既往歴がありません。",
+      "Pas d’historique de traitement validé, pas d’antécédent négatif, et absence de chancre clinique.":"有効な治療歴も陰性既往もなく、臨床的硬性下疳もありません。",
+      "→ Une seule sérologie avec VDRL > 0":"→ VDRL > 0 の血清検査が1回のみ",
+      "→ Infection non datable":"→ 感染時期を特定できない",
+      "→ À considérer comme syphilis tardive":"→ 晩期梅毒として扱う",
+      "Situation restant indatable ou historique insuffisant.":"依然として感染時期不明、または既往歴が不十分です。",
+      "Traitement recommandé (syphilis tardive) :":"推奨治療（晩期梅毒）：",
+      "Traitement recommandé (syphilis précoce) :":"推奨治療（早期梅毒）：",
+      "Traitement recommandé (neurosyphilis / atteinte ORL / oculaire) :":"推奨治療（神経梅毒 / 耳鼻咽喉 / 眼病変）：",
+      "Pas d’historique antérieur exploitable":"利用可能な既往歴なし",
+      "pas d’antécédent négatif":"陰性既往なし",
+      "pas de traitement validé":"有効治療歴なし",
+      "pas de chancre":"硬性下疳なし",
+      "une seule sérologie":"血清検査1回のみ",
+      "situation indatable":"時期不明の状況",
+      "CAT de sécurité":"安全策",
+      "Élevée":"高い",
+      "Modérée":"中等度",
+      "Faible":"低い"
+    }
+  };
+  const map = maps[currentLang] || {};
+  if(map[out]) return map[out];
+  Object.keys(map).sort((a,b)=>b.length-a.length).forEach((k)=>{
+    out = out.split(k).join(map[k]);
+  });
+  return out;
 }
 
 
 function setBoxes(compare, tx, conf, why){
-  document.getElementById("compareInfo").textContent = translatePlainText(compare);
-  document.getElementById("txInfo").textContent = translatePlainText(tx);
-  document.getElementById("confidenceInfo").textContent = translatePlainText(conf);
-  document.getElementById("whyInfo").textContent = translatePlainText(why);
+  document.getElementById("compareInfo").textContent = translateDeepText(compare);
+  document.getElementById("txInfo").textContent = translateDeepText(tx);
+  document.getElementById("confidenceInfo").textContent = translateDeepText(conf);
+  document.getElementById("whyInfo").textContent = translateDeepText(why);
 }
 
 function parseDate(s){ return new Date(s + "T00:00:00"); }
@@ -1682,21 +1846,21 @@ function isValidVDRL(v){
 
 function confidence(level, reason){ return translatePlainText(`${level} — ${reason}`); }
 function standardLateTreatment(){
-  const items = CLINICAL_RULEBOOK.treatments.late.map(code => TREATMENTS[code]?.label).filter(Boolean);
+  const items = CLINICAL_RULEBOOK.treatments.late.map(code => treatmentLabel(code)).filter(Boolean);
   return `${dynT("late_treatment_title")}
 • ${items[0] || dynT("late_1")}
 ou
 • ${items[1] || dynT("late_2")}`;
 }
 function standardEarlyTreatment(){
-  const items = CLINICAL_RULEBOOK.treatments.early.map(code => TREATMENTS[code]?.label).filter(Boolean);
+  const items = CLINICAL_RULEBOOK.treatments.early.map(code => treatmentLabel(code)).filter(Boolean);
   return `${dynT("early_treatment_title")}
 • ${items[0] || dynT("early_1")}
 • ${items[1] || dynT("early_2")}
 • ${items[2] || dynT("early_3")}`;
 }
 function standardNeuroTreatment(){
-  const items = CLINICAL_RULEBOOK.treatments.neuro.map(code => TREATMENTS[code]?.label).filter(Boolean);
+  const items = CLINICAL_RULEBOOK.treatments.neuro.map(code => treatmentLabel(code)).filter(Boolean);
   return `${dynT("neuro_treatment_title")}
 • ${items[0] || dynT("neuro_1")}
 ou
@@ -1815,10 +1979,10 @@ function downloadHistoryExcel(){
   const rows = history.map(item => ({
     [moreT("excelColDate")]: item.analysisDate || "",
     [moreT("excelColId")]: item.identifier || "",
-    [moreT("excelColResult")]: translatePlainText(item.conclusion || ""),
-    [moreT("excelColCompare")]: translatePlainText(item.compare || ""),
-    [moreT("excelColTx")]: translatePlainText(item.tx || ""),
-    [moreT("excelColWhy")]: translatePlainText(item.why || ""),
+    [moreT("excelColResult")]: translateDeepText(item.conclusion || ""),
+    [moreT("excelColCompare")]: translateDeepText(item.compare || ""),
+    [moreT("excelColTx")]: translateDeepText(item.tx || ""),
+    [moreT("excelColWhy")]: translateDeepText(item.why || ""),
     [moreT("excelColSaved")]: item.savedAt || ""
   }));
   const ws = XLSX.utils.json_to_sheet(rows);
@@ -2819,7 +2983,7 @@ analyse = async function(){
       box.innerHTML = `${badge("danger", "Erreur d'analyse")}<div style="margin-top:10px">${String(error?.message || error)}</div>`;
     }
     const whyInfo = document.getElementById('whyInfo');
-    if(whyInfo) whyInfo.textContent = 'Erreur technique : ' + String(error?.message || error);
+    if(whyInfo) whyInfo.textContent = translateDeepText('Erreur technique : ' + String(error?.message || error));
     throw error;
   }
 };
