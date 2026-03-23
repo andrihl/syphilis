@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Outil syphilis – Supabase corrigé v3</title>
+<title></title>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
@@ -64,15 +64,15 @@ table{width:100%;border-collapse:collapse;font-size:14px} th,td{padding:10px;bor
   <div class="grid">
     <div class="card">
       <div class="card-h">
-        <h2>Données à remplir</h2>
+        <h2></h2>
       </div>
       <div class="card-b stack">
         <div>
-          <div class="section-title">Identification</div>
+          <div class="section-title"></div>
           <div class="rowbox">
             <div class="row idrow">
               <div class="field">
-                <label style="font-size:12px"><span id="i18nMemoryIdentifier">Identifiant</span> patient / dossier</label>
+                <label style="font-size:12px" id="i18nPatientIdLabel"></label>
                 <input id="patientId" type="text" placeholder="ex : AB12-2026-045">
               </div>
             </div>
@@ -81,81 +81,81 @@ table{width:100%;border-collapse:collapse;font-size:14px} th,td{padding:10px;bor
         </div>
 
         <div>
-          <div class="section-title" id="i18nClinicalTitle">Clinique</div>
+          <div class="section-title" id="i18nClinicalTitle"></div>
           <div class="pillbar" style="margin-top:10px">
-            <label class="check"><input type="checkbox" id="chancreTypical"> <span id="i18nChancreTypical">Chancre typique</span></label>
-            <label class="check"><input type="checkbox" id="chancreDoubtful"> <span id="i18nChancreDoubtful">Chancre douteux</span></label>
-            <label class="check"><input type="checkbox" id="contact"> <span id="i18nContact">Contage &lt; 6 semaines</span></label>
-            <label class="check"><input type="checkbox" id="neuro"> <span id="i18nNeuro">Signes neuro / ORL / ophtalmo</span></label>
-            <label class="check"><input type="checkbox" id="cutaneous"> <span id="i18nCutaneous">Autres signes cutanés</span></label>
-            <label class="check"><input type="checkbox" id="scarKnown"> <span id="i18nScarKnown">Cicatrice sérologique connue</span></label>
+            <label class="check"><input type="checkbox" id="chancreTypical"> <span id="i18nChancreTypical"></span></label>
+            <label class="check"><input type="checkbox" id="chancreDoubtful"> <span id="i18nChancreDoubtful"></span></label>
+            <label class="check"><input type="checkbox" id="contact"> <span id="i18nContact"></span></label>
+            <label class="check"><input type="checkbox" id="neuro"> <span id="i18nNeuro"></span></label>
+            <label class="check"><input type="checkbox" id="cutaneous"> <span id="i18nCutaneous"></span></label>
+            <label class="check"><input type="checkbox" id="scarKnown"> <span id="i18nScarKnown"></span></label>
           </div>
-          <div class="small" style="margin-top:8px" id="i18nCutaneousHelp">Les autres signes cutanés ne permettent pas de dater l’infection.</div>
+          <div class="small" style="margin-top:8px" id="i18nCutaneousHelp"></div>
           <div class="toolbar" style="margin-top:10px">
-            <button class="btn-green" type="button" id="btnAddSero">+ Sérologie</button>
-            <button class="btn-soft" type="button" id="btnAddTx">+ Traitement</button>
+            <button class="btn-green" type="button" id="btnAddSero"></button>
+            <button class="btn-soft" type="button" id="btnAddTx"></button>
           </div>
         </div>
 
         <div>
-          <div class="section-title"><span id="i18nSerologiesStatic">Sérologies</span></div>
-          <div class="help" style="margin:6px 0 10px"><span id="i18nSerologiesHelp">Tu peux remplir EIA seul, TPHA seul, ou les deux. Si EIA ou TPHA est négatif et VDRL non renseigné, la sérologie est considérée négative.</span></div>
+          <div class="section-title"><span id="i18nSerologiesStatic"></span></div>
+          <div class="help" style="margin:6px 0 10px"><span id="i18nSerologiesHelp"></span></div>
           <div id="seroList" class="stack"></div>
         </div>
 
         <div>
-          <div class="section-title"><span id="i18nTreatmentsStatic">Traitements antérieurs</span></div>
-          <div class="help" style="margin:6px 0 10px"><span id="i18nTreatmentsHelp">Un traitement &lt; 1 semaine avant une sérologie est considéré comme traitement de l’épisode.</span></div>
+          <div class="section-title"><span id="i18nTreatmentsStatic"></span></div>
+          <div class="help" style="margin:6px 0 10px"><span id="i18nTreatmentsHelp"></span></div>
           <div id="treatmentList" class="stack"></div>
         </div>
 
         <div id="csfPanel" class="hidden">
-          <div class="section-title">Ponction lombaire / LCR</div>
+          <div class="section-title"></div>
           <div class="rowbox">
             <div class="row csf">
               <div class="field">
-                <label>TPHA LCR</label>
-                <select id="csfTpha"><option value="">—</option><option value="pos">Positif</option><option value="neg">Négatif</option></select>
+                <label></label>
+                <select id="csfTpha"><option value="">—</option><option value="pos"></option><option value="neg"></option></select>
               </div>
               <div class="field">
-                <label>VDRL LCR</label>
-                <select id="csfVdrl"><option value="">—</option><option value="pos">Positif</option><option value="neg">Négatif</option></select>
+                <label></label>
+                <select id="csfVdrl"><option value="">—</option><option value="pos"></option><option value="neg"></option></select>
               </div>
             </div>
           </div>
         </div>
 
         <div class="toolbar">
-          <button class="btn-primary" type="button" id="btnAnalyse">Analyser</button>
-          <button class="btn-red" type="button" id="btnReset">Réinitialiser</button>
-          <button class="btn-orange" type="button" id="btnPdf">Télécharger PDF</button>
-          <button class="btn-soft" type="button" id="btnBigChart">Ouvrir le graphique en grand</button>
+          <button class="btn-primary" type="button" id="btnAnalyse"></button>
+          <button class="btn-red" type="button" id="btnReset"></button>
+          <button class="btn-orange" type="button" id="btnPdf"></button>
+          <button class="btn-soft" type="button" id="btnBigChart"></button>
         </div>
       </div>
     </div>
 
     <div class="card">
       <div class="card-h">
-        <h2>Interprétation</h2>
-        <div class="help">conclusion + CAT + justification</div>
+        <h2></h2>
+        <div class="help"></div>
       </div>
       <div class="card-b">
-        <div id="resultBox" class="result"><span class="empty">Remplis les données puis clique sur « Analyser ».</span></div>
-        <div class="toolbar" style="margin-top:10px"><button class="btn-soft" type="button" id="btnExpert">Mode expert</button></div>
+        <div id="resultBox" class="result"><span class="empty"></span></div>
+        <div class="toolbar" style="margin-top:10px"><button class="btn-soft" type="button" id="btnExpert"></button></div>
         <div id="expertBox" class="rowbox hidden" style="margin-top:10px"><pre id="expertContent" style="white-space:pre-wrap;margin:0;font-family:inherit;font-size:13px"></pre></div>
         <div class="mini">
-          <div class="box"><div class="section-title"><span id="i18nMemoryVdrlRef">VDRL de référence</span> retenu</div><div id="compareInfo" class="note" style="margin-top:8px">—</div></div>
-          <div class="box"><div class="section-title"><span id="i18nMemoryTx">Traitement antérieur retenu</span></div><div id="txInfo" class="note" style="margin-top:8px">—</div></div>
+          <div class="box"><div class="section-title"><span id="i18nMemoryVdrlRef"></span></div><div id="compareInfo" class="note" style="margin-top:8px">—</div></div>
+          <div class="box"><div class="section-title"><span id="i18nMemoryTx"></span></div><div id="txInfo" class="note" style="margin-top:8px">—</div></div>
         </div>
         <div class="mini">
-          <div class="box"><div class="section-title">Score de confiance</div><div id="confidenceInfo" class="note" style="margin-top:8px">—</div></div>
-          <div class="box"><div class="section-title">Pourquoi cette conclusion</div><div id="whyInfo" class="note" style="margin-top:8px">—</div></div>
+          <div class="box"><div class="section-title"></div><div id="confidenceInfo" class="note" style="margin-top:8px">—</div></div>
+          <div class="box"><div class="section-title"></div><div id="whyInfo" class="note" style="margin-top:8px">—</div></div>
         </div>
         <canvas id="chart"></canvas>
 
         <div class="rowbox" style="margin-top:14px">
-          <div class="section-title">Évaluation de l’interprétation</div>
-          <div class="help" style="margin:8px 0 12px">Note de 0 à 5.</div>
+          <div class="section-title"></div>
+          <div class="help" style="margin:8px 0 12px"></div>
           <div class="ratingbar">
             <button class="btn-soft" type="button" data-rating="0">0</button>
             <button class="btn-soft" type="button" data-rating="1">1</button>
@@ -164,21 +164,21 @@ table{width:100%;border-collapse:collapse;font-size:14px} th,td{padding:10px;bor
             <button class="btn-soft" type="button" data-rating="4">4</button>
             <button class="btn-soft" type="button" data-rating="5">5</button>
           </div>
-          <div id="feedbackStatus" class="status" style="margin-top:10px">Aucune évaluation envoyée.</div>
+          <div id="feedbackStatus" class="status" style="margin-top:10px"></div>
         </div>
 
         <div class="rowbox" style="margin-top:14px">
-          <div class="section-title" id="i18nReportTitle">Souhaitez-vous signaler un cas problématique ?</div>
-          <div class="help" id="i18nReportDesc" style="margin:8px 0 12px">Le commentaire sera envoyé avec les données cliniques et biologiques de cette analyse, sans identifiant patient.</div>
+          <div class="section-title" id="i18nReportTitle"></div>
+          <div class="help" id="i18nReportDesc" style="margin:8px 0 12px"></div>
           <div class="field">
-            <label id="i18nCommentLabel">Commentaire</label>
-            <textarea id="problematicCaseText" rows="5" placeholder="Décris le problème observé, l’erreur supposée, ou la nuance clinique manquante."></textarea>
+            <label id="i18nCommentLabel"></label>
+            <textarea id="problematicCaseText" rows="5" placeholder=""></textarea>
           </div>
           <div class="toolbar" style="margin-top:12px">
-            <button class="btn-orange" type="button" id="btnProblem"><span id="i18nReportButton">Envoyer le cas problématique</span></button>
+            <button class="btn-orange" type="button" id="btnProblem"><span id="i18nReportButton"></span></button>
           </div>
-          <div id="problemStatus" class="status" style="margin-top:10px">Aucun signalement envoyé.</div>
-          <div id="supabaseStatus" class="status" style="margin-top:10px">Supabase prêt.</div>
+          <div id="problemStatus" class="status" style="margin-top:10px"></div>
+          <div id="supabaseStatus" class="status" style="margin-top:10px"></div>
         </div>
       </div>
     </div>
@@ -186,19 +186,19 @@ table{width:100%;border-collapse:collapse;font-size:14px} th,td{padding:10px;bor
 
   <div class="card" style="margin-top:16px">
     <div class="card-h">
-      <h2><span id="i18nMemoryTitle">Mémoire des analyses</span></h2>
-      <div class="help"><span id="i18nMemorySub">historique local dans le navigateur</span></div>
+      <h2><span id="i18nMemoryTitle"></span></h2>
+      <div class="help"><span id="i18nMemorySub"></span></div>
     </div>
     <div class="card-b">
       <div class="toolbar" style="margin-bottom:12px">
-        <button class="btn-violet" type="button" id="btnHistoryExcel"><span id="i18nDownloadAll">Télécharger toutes les analyses (Excel)</span></button>
-        <button class="btn-soft" type="button" id="btnHistoryRefresh"><span id="i18nRefresh">Actualiser</span></button>
-        <button class="btn-red" type="button" id="btnHistoryReset"><span id="i18nClearMemory">Vider la mémoire</span></button>
+        <button class="btn-violet" type="button" id="btnHistoryExcel"><span id="i18nDownloadAll"></span></button>
+        <button class="btn-soft" type="button" id="btnHistoryRefresh"><span id="i18nRefresh"></span></button>
+        <button class="btn-red" type="button" id="btnHistoryReset"><span id="i18nClearMemory"></span></button>
       </div>
-      <div id="historyInfo" class="note"><span id="i18nNoSaved">Aucune analyse mémorisée.</span></div>
+      <div id="historyInfo" class="note"><span id="i18nNoSaved"></span></div>
       <div style="overflow:auto; margin-top:12px">
         <table id="historyTable">
-          <thead><tr><th><span id="i18nMemoryDate">Date analyse</span></th><th><span id="i18nMemoryIdentifierHead">Identifiant</span></th><th><span id="i18nMemoryConclusion">Conclusion</span></th><th><span id="i18nMemoryVdrlHead">VDRL de référence</span></th><th><span id="i18nMemoryTxHead">Traitement antérieur retenu</span></th></tr></thead>
+          <thead><tr><th><span id="i18nMemoryDate"></span></th><th><span id="i18nMemoryIdentifierHead"></span></th><th><span id="i18nMemoryConclusion"></span></th><th><span id="i18nMemoryVdrlHead"></span></th><th><span id="i18nMemoryTxHead"></span></th></tr></thead>
           <tbody></tbody>
         </table>
       </div>
@@ -252,11 +252,13 @@ const CLINICAL_RULEBOOK = {
     treatTpahPositiveVdrlNegativeAsPossibleNeuro: true
   },
   notes: {
-    neuroPriority: 'Si signes neuro/ORL/ophtalmo, proposer PL même avec chancre typique (formes primo-tertiaires possibles).',
-    lateDefault: 'Si infection indatable avec VDRL positif, traiter comme syphilis tardive sauf argument robuste de forme récente.',
-    scarRule: 'Une augmentation < 2 dilutions est plutôt compatible avec un profil cicatriciel ; recontrôle si doute clinique ou contage.'
+    neuroPriority: 'rulebookNeuroPriority',
+    lateDefault: 'rulebookLateDefault',
+    scarRule: 'rulebookScarRule'
   }
 };
+
+function getRulebookNote(key){ return logicT(CLINICAL_RULEBOOK.notes[key] || key); }
 
 function deepSetRule(path, value){
   const parts = path.split('.');
@@ -328,6 +330,27 @@ const UI_I18N = {
   zh:{title:"梅毒临床与生物学解释工具",subtitle:"输入临床、血清学和治疗数据，以获得结构化解释、时间随访及临床可用的 VDRL 图表。",data:"待填写数据",inter:"解释",interSub:"结论 + 处理 + 理由",memory:"分析记录",memorySub:"浏览器本地历史",id:"身份信息",pid:"患者 / 病历编号",clinical:"临床",chancreTypical:"典型硬下疳",chancreDoubtful:"可疑硬下疳",contact:"接触 < 6 周",neuro:"神经 / 耳鼻喉 / 眼科体征",cutaneous:"其他皮肤体征",scar:"已知血清学瘢痕",cutaneousHelp:"其他皮肤体征不能用于判断感染时间。",serologies:"血清学",treatments:"既往治疗",lcr:"腰椎穿刺 / 脑脊液",evaluation:"解释评估",sero:"+ 血清学",tx:"+ 治疗",analyze:"分析",reset:"重置",pdf:"下载 PDF",big:"打开大图表",expert:"专家模式",empty:"请填写数据后点击分析。",noFeedback:"尚未发送评分。",noProblem:"尚未发送报告。",reportTitle:"是否要报告一个问题病例？",reportDesc:"评论将与本次分析的临床和生物数据一起发送，不包含患者身份信息。",commentLabel:"评论",reportPlaceholder:"请描述观察到的问题、可能的错误或缺失的临床细节。",reportButton:"发送问题病例",downloadAll:"下载所有分析（Excel）",refresh:"刷新",clearMemory:"清空记录",memoryDate:"分析日期",memoryIdentifier:"标识符",memoryConclusion:"结论",memoryVdrl:"参考 VDRL",memoryTx:"保留的既往治疗",noSaved:"没有已保存的分析。"},
   ja:{title:"梅毒の臨床・生物学的解釈ツール",subtitle:"臨床・血清学・治療データを入力すると、構造化された解釈、時系列フォロー、臨床で使える VDRL グラフが得られます。",data:"入力データ",inter:"解釈",interSub:"結論 + 対応 + 根拠",memory:"解析履歴",memorySub:"ブラウザ内ローカル履歴",id:"識別",pid:"患者 / 症例ID",clinical:"臨床",chancreTypical:"典型的な硬性下疳",chancreDoubtful:"疑わしい硬性下疳",contact:"接触 < 6週間",neuro:"神経 / 耳鼻咽喉 / 眼症状",cutaneous:"その他の皮膚症状",scar:"既知の血清学的瘢痕",cutaneousHelp:"その他の皮膚症状だけでは感染時期は判断できません。",serologies:"血清検査",treatments:"既往治療",lcr:"腰椎穿刺 / 髄液",evaluation:"解釈の評価",sero:"+ 血清",tx:"+ 治療",analyze:"解析",reset:"リセット",pdf:"PDF をダウンロード",big:"大きなグラフを開く",expert:"エキスパートモード",empty:"データを入力して解析を押してください。",noFeedback:"評価は未送信です。",noProblem:"報告は未送信です。",reportTitle:"問題のある症例を報告しますか？",reportDesc:"コメントは患者識別情報なしで、この解析の臨床・検査データとともに送信されます。",commentLabel:"コメント",reportPlaceholder:"観察された問題点、想定されるエラー、または不足している臨床的ニュアンスを記載してください。",reportButton:"問題症例を送信",downloadAll:"すべての解析をダウンロード (Excel)",refresh:"更新",clearMemory:"履歴を消去",memoryDate:"解析日",memoryIdentifier:"識別子",memoryConclusion:"結論",memoryVdrl:"参照 VDRL",memoryTx:"保持された既往治療",noSaved:"保存された解析はありません。"}
 };
+
+
+['it','ar','zh','ja'].forEach(lang => {
+  if(!I18N[lang]) I18N[lang] = {};
+  const src = (UI_I18N && UI_I18N[lang]) || {};
+  I18N[lang].title = I18N[lang].title || src.title || I18N.fr.title;
+  I18N[lang].subtitle = I18N[lang].subtitle || src.subtitle || I18N.fr.subtitle;
+  I18N[lang].clinical = I18N[lang].clinical || src.clinical || I18N.fr.clinical;
+  I18N[lang].chancreTypical = I18N[lang].chancreTypical || src.chancreTypical || I18N.fr.chancreTypical;
+  I18N[lang].chancreDoubtful = I18N[lang].chancreDoubtful || src.chancreDoubtful || I18N.fr.chancreDoubtful;
+  I18N[lang].contact = I18N[lang].contact || src.contact || I18N.fr.contact;
+  I18N[lang].neuro = I18N[lang].neuro || src.neuro || I18N.fr.neuro;
+  I18N[lang].cutaneous = I18N[lang].cutaneous || src.cutaneous || I18N.fr.cutaneous;
+  I18N[lang].scar = I18N[lang].scar || src.scar || I18N.fr.scar;
+  I18N[lang].cutaneousHelp = I18N[lang].cutaneousHelp || src.cutaneousHelp || I18N.fr.cutaneousHelp;
+  I18N[lang].expert = I18N[lang].expert || src.expert || I18N.fr.expert;
+  I18N[lang].expertOn = I18N[lang].expertOn || src.expertOn || I18N.fr.expertOn;
+  I18N[lang].noFeedback = I18N[lang].noFeedback || src.noFeedback || I18N.fr.noFeedback;
+  I18N[lang].noProblem = I18N[lang].noProblem || src.noProblem || I18N.fr.noProblem;
+});
+
 
 
 
@@ -972,8 +995,170 @@ const MORE_I18N = {
   }
 };
 function moreT(key){ const fr=(MORE_I18N.fr&&MORE_I18N.fr[key])||key; return (MORE_I18N[currentLang]&&MORE_I18N[currentLang][key])||fr; }
+
+const TX_AUDIT_I18N = {
+  fr:{
+    none:"aucun",
+    expectedEarly:"syphilis précoce",
+    expectedLate:"syphilis tardive",
+    expectedNeuro:"neurosyphilis",
+    expectedScar:"profil cicatriciel",
+    expectedRecontrol:"recontrôle sérologique",
+    expectedUnknown:"stade non déterminable",
+    validEarly:"traitement adapté pour une forme précoce",
+    validLate:"traitement adapté pour une forme tardive",
+    validNeuro:"traitement adapté pour une neurosyphilis",
+    overtreatedEarly:"traitement plus large que nécessaire mais couvrant l’épisode précoce",
+    undertreatedLate:"traitement insuffisant pour une syphilis tardive",
+    invalidNeuroForLate:"traitement de neurosyphilis non retenu pour une syphilis tardive sans argument neuro/ORL/ophtalmo",
+    undertreatedNeuro:"traitement insuffisant pour une atteinte neuro/ORL/ophtalmo",
+    stageScarNoImmediate:"profil cicatriciel / recontrôle : pas de traitement validable à cette date",
+    noUsableBiology:"biologie insuffisante pour valider ce traitement à cette date",
+    unknownImproved:"traitement inconnu retenu car une négativation du VDRL est documentée ensuite",
+    unknownNoProof:"traitement inconnu ignoré faute de preuve de négativation ultérieure",
+    stalePositiveNoZero:"traitement ancien (> 1 an) sans négativation VDRL documentée ensuite : ne protège pas l’épisode actuel",
+    noValidTreatmentRetained:"Aucun traitement valide retenu",
+    overtreatSuffix:"(plus large que nécessaire, mais couvrant l’épisode)",
+    auditSummaryIgnored:"{n} traitement(s) non retenu(s)",
+    auditSummaryOvertreated:"{n} traitement(s) couvrant l’épisode mais plus larges que nécessaire",
+    treatmentAuditTitle:"Audit traitements",
+    validTag:"VALIDÉ",
+    invalidTag:"IGNORÉ"
+  },
+  en:{
+    none:"none",
+    expectedEarly:"early syphilis",
+    expectedLate:"late syphilis",
+    expectedNeuro:"neurosyphilis",
+    expectedScar:"serologic scar profile",
+    expectedRecontrol:"repeat serology",
+    expectedUnknown:"undetermined stage",
+    validEarly:"treatment appropriate for early syphilis",
+    validLate:"treatment appropriate for late syphilis",
+    validNeuro:"treatment appropriate for neurosyphilis",
+    overtreatedEarly:"broader-than-needed treatment that still covers the early episode",
+    undertreatedLate:"treatment insufficient for late syphilis",
+    invalidNeuroForLate:"neurosyphilis regimen not retained for late syphilis without neuro/ENT/ophthalmic evidence",
+    undertreatedNeuro:"treatment insufficient for neuro/ENT/ophthalmic involvement",
+    stageScarNoImmediate:"scar/recontrol profile: no treatment can be validated at that date",
+    noUsableBiology:"insufficient biology to validate this treatment at that date",
+    unknownImproved:"unknown treatment retained because later VDRL negativation is documented",
+    unknownNoProof:"unknown treatment ignored because there is no later proof of VDRL negativation",
+    stalePositiveNoZero:"old treatment (> 1 year) without documented later VDRL negativation: does not protect the current episode",
+    noValidTreatmentRetained:"No valid treatment retained",
+    overtreatSuffix:"(broader than needed, but covers the episode)",
+    auditSummaryIgnored:"{n} treatment(s) not retained",
+    auditSummaryOvertreated:"{n} treatment(s) cover the episode but are broader than needed",
+    treatmentAuditTitle:"Treatment audit",
+    validTag:"VALIDATED",
+    invalidTag:"IGNORED"
+  }
+};
+function txAuditT(key){ const fr=(TX_AUDIT_I18N.fr&&TX_AUDIT_I18N.fr[key])||key; return (TX_AUDIT_I18N[currentLang]&&TX_AUDIT_I18N[currentLang][key])||fr; }
+function fmtTxAudit(key, vars){ let s = txAuditT(key); Object.entries(vars||{}).forEach(([k,v])=>{ s = s.split('{'+k+'}').join(v ?? '');}); return s; }
+function txAuditStageText(stage){
+  if(stage === "early") return txAuditT("expectedEarly");
+  if(stage === "late") return txAuditT("expectedLate");
+  if(stage === "neuro") return txAuditT("expectedNeuro");
+  if(stage === "scar") return txAuditT("expectedScar");
+  if(stage === "recontrol") return txAuditT("expectedRecontrol");
+  return txAuditT("expectedUnknown");
+}
+function txAuditReasonText(audit){ return txAuditT(audit?.reasonKey || "expectedUnknown"); }
+
+const LOGIC_I18N = {
+  fr:{
+    supabaseReady:"Supabase prêt.",
+    launchAnalysisFirst:"Lance d'abord une analyse.",
+    rulebookNeuroPriority:"Si signes neuro/ORL/ophtalmo, proposer PL même avec chancre typique (formes primo-tertiaires possibles).",
+    rulebookLateDefault:"Si infection indatable avec VDRL positif, traiter comme syphilis tardive sauf argument robuste de forme récente.",
+    rulebookScarRule:"Une augmentation < 2 dilutions est plutôt compatible avec un profil cicatriciel ; recontrôle si doute clinique ou contage.",
+    expertCsfNegNeg:"Interprétation LCR: TPHA- / VDRL- => neurosyphilis non confirmée",
+    expertCsfPosNeg:"Interprétation LCR: TPHA+ / VDRL- => possible neurosyphilis",
+    expertCsfPosPos:"Interprétation LCR: TPHA+ / VDRL+ => neurosyphilis confirmée",
+    expertCsfPending:"Module LCR affiché, résultats non encore saisis",
+    expertTypicalNegative:"Règle déclenchée: chancre typique + sérologie négative => traiter comme précoce",
+    expertTypicalPosPos:"Règle déclenchée: chancre typique + EIA/TPHA positif + VDRL positif => précoce certain",
+    expertDoubtfulPosPos:"Règle déclenchée: chancre douteux + EIA/TPHA positif + VDRL positif => précoce probable, tardive en réserve",
+    expertRecentNegative:"Règle déclenchée: contage récent + sérologie négative => post-exposition",
+    expertTrepIndeterminate:"Règle déclenchée: tréponémique indéterminé",
+    expertNegativeNoVdrl:"Règle déclenchée: EIA ou TPHA négatif sans VDRL => sérologie négative",
+    expertKnownScar:"Règle déclenchée: cicatrice connue + tréponémique positif + VDRL 0 => cicatrice probable",
+    expertTrepPosVdrlZero:"Règle déclenchée: tréponémique positif + VDRL 0 sans autre argument => recontrôle",
+    expertSinglePositiveLate:"Règle déclenchée: une seule sérologie avec VDRL > 0 sans chancre ni cicatrice => tardive",
+    expertNoNegativeHistoryLate:"Règle déclenchée: pas d'antécédent négatif ni traitement validé => tardive par défaut",
+    expertValidTreatment:"Règle déclenchée: traitement adapté reçu dans les 7 jours avant dernier VDRL => bien traité",
+    expertGoodResponse:"Règle déclenchée: baisse >= 2 dilutions en < 3 mois => bonne réponse post-traitement",
+    expertKineticPriority:"Règle déclenchée: traitement tardif entre deux sérologies + augmentation >= 2 dilutions => cinétique fine prioritaire",
+    expertReinfection:"Règle déclenchée: augmentation >= 2 dilutions => recontamination",
+    expertScarProfile:"Règle déclenchée: augmentation < 2 dilutions => cicatriciel probable",
+    expertLateFallback:"Règle déclenchée: fallback de sécurité => tardive"
+  },
+  en:{
+    supabaseReady:"Supabase ready.",
+    launchAnalysisFirst:"Run an analysis first.",
+    rulebookNeuroPriority:"If neuro/ENT/ophthalmic signs are present, suggest LP even with a typical chancre (primary-tertiary forms are possible).",
+    rulebookLateDefault:"If infection cannot be dated and VDRL is positive, treat as late syphilis unless there is robust evidence of recent disease.",
+    rulebookScarRule:"A rise < 2 dilutions is more compatible with a scar profile; recheck if there is clinical doubt or recent exposure.",
+    expertCsfNegNeg:"CSF interpretation: TPHA- / VDRL- => neurosyphilis not confirmed",
+    expertCsfPosNeg:"CSF interpretation: TPHA+ / VDRL- => possible neurosyphilis",
+    expertCsfPosPos:"CSF interpretation: TPHA+ / VDRL+ => confirmed neurosyphilis",
+    expertCsfPending:"CSF module displayed, results not yet entered",
+    expertTypicalNegative:"Rule triggered: typical chancre + negative serology => treat as early syphilis",
+    expertTypicalPosPos:"Rule triggered: typical chancre + positive EIA/TPHA + positive VDRL => definite early syphilis",
+    expertDoubtfulPosPos:"Rule triggered: doubtful chancre + positive EIA/TPHA + positive VDRL => probable early syphilis, late syphilis kept in reserve",
+    expertRecentNegative:"Rule triggered: recent exposure + negative serology => post-exposure treatment",
+    expertTrepIndeterminate:"Rule triggered: treponemal test indeterminate",
+    expertNegativeNoVdrl:"Rule triggered: EIA or TPHA negative without VDRL => serology considered negative",
+    expertKnownScar:"Rule triggered: known serologic scar + positive treponemal test + VDRL 0 => probable scar",
+    expertTrepPosVdrlZero:"Rule triggered: positive treponemal test + VDRL 0 without other argument => recheck",
+    expertSinglePositiveLate:"Rule triggered: single serology with VDRL > 0 without chancre or scar => late syphilis",
+    expertNoNegativeHistoryLate:"Rule triggered: no prior negative result and no validated treatment => default late syphilis",
+    expertValidTreatment:"Rule triggered: adequate treatment received within 7 days before last VDRL => episode considered adequately treated",
+    expertGoodResponse:"Rule triggered: decrease >= 2 dilutions in < 3 months => good post-treatment response",
+    expertKineticPriority:"Rule triggered: late treatment between two serologies + increase >= 2 dilutions => prioritize kinetic interpretation",
+    expertReinfection:"Rule triggered: increase >= 2 dilutions => probable reinfection",
+    expertScarProfile:"Rule triggered: increase < 2 dilutions => probable scar profile",
+    expertLateFallback:"Rule triggered: safety fallback => late syphilis"
+  },
+  es:{
+    supabaseReady:"Supabase listo.",
+    launchAnalysisFirst:"Ejecute primero un análisis."
+  },
+  pt:{
+    supabaseReady:"Supabase pronto.",
+    launchAnalysisFirst:"Execute primeiro uma análise."
+  },
+  de:{
+    supabaseReady:"Supabase bereit.",
+    launchAnalysisFirst:"Führen Sie zuerst eine Analyse aus."
+  },
+  pl:{
+    supabaseReady:"Supabase gotowy.",
+    launchAnalysisFirst:"Najpierw uruchom analizę."
+  },
+  it:{
+    supabaseReady:"Supabase pronto.",
+    launchAnalysisFirst:"Avvia prima un'analisi."
+  },
+  ar:{
+    supabaseReady:"Supabase جاهز.",
+    launchAnalysisFirst:"ابدأ التحليل أولاً."
+  },
+  zh:{
+    supabaseReady:"Supabase 已就绪。",
+    launchAnalysisFirst:"请先运行一次分析。"
+  },
+  ja:{
+    supabaseReady:"Supabase の準備ができました。",
+    launchAnalysisFirst:"先に解析を実行してください。"
+  }
+};
+function logicT(key){ const langMap = LOGIC_I18N[currentLang] || {}; const frMap = LOGIC_I18N.fr || {}; return langMap[key] || frMap[key] || key; }
+
 function fmtMore(key, vars){ let s = moreT(key); Object.entries(vars||{}).forEach(([k,v])=>{ s = s.split('{'+k+'}').join(v ?? '');}); return s; }
 function treatmentLabel(type){ const fr=(TREATMENT_I18N.fr&&TREATMENT_I18N.fr[type])||type; return (TREATMENT_I18N[currentLang]&&TREATMENT_I18N[currentLang][type])||fr; }
+// Dynamic serology/treatment rows stay unlimited; only their visible labels/options are source-driven.
 function translateDynamicFormFields(){
   document.querySelectorAll('#seroList .rowbox').forEach(row => {
     const labels=row.querySelectorAll('label');
@@ -1048,6 +1233,7 @@ function applyTranslations(lang){
   setText("i18nSerologiesHelp", moreT("serologiesHelp"));
   setText("i18nTreatmentsStatic", d.treatments);
   setText("i18nTreatmentsHelp", moreT("treatmentsHelp"));
+  document.title = d.title;
 
   const cardHeads = document.querySelectorAll('.card-h h2');
   if(cardHeads[0]) cardHeads[0].textContent = d.data;
@@ -1059,7 +1245,7 @@ function applyTranslations(lang){
   if(sectionTitles[0]) sectionTitles[0].textContent = d.id;
   if(sectionTitles[1]) sectionTitles[1].textContent = d.clinical;
 
-  const pidLabel = document.querySelector('#patientId')?.previousElementSibling;
+  const pidLabel = document.getElementById('i18nPatientIdLabel') || document.querySelector('#patientId')?.previousElementSibling;
   if(pidLabel) pidLabel.textContent = d.pid;
 
   const labels = document.querySelectorAll('.pillbar label.check');
@@ -1085,6 +1271,8 @@ function applyTranslations(lang){
   const problemStatus = document.getElementById('problemStatus');
   if(feedbackStatus && (!feedbackStatus.textContent || /Aucune|No |Ning|Nenhuma|Keine|尚未|評価/.test(feedbackStatus.textContent))) feedbackStatus.textContent = d.noFeedback;
   if(problemStatus && (!problemStatus.textContent || /Aucun|No |Ning|Nenhum|Kein|尚未|報告/.test(problemStatus.textContent))) problemStatus.textContent = d.noProblem;
+  const supabaseStatus = document.getElementById('supabaseStatus');
+  if(supabaseStatus && (!supabaseStatus.textContent || /Supabase|准备|جاهز|bereit|gotow|ready|pronto|準備/.test(supabaseStatus.textContent))) supabaseStatus.textContent = logicT('supabaseReady');
 
   const problemBox = document.getElementById('problematicCaseText');
   if(problemBox) problemBox.placeholder = d.reportPlaceholder;
@@ -1098,10 +1286,10 @@ function applyTranslations(lang){
   const txInfo = document.getElementById('txInfo');
   const confInfo = document.getElementById('confidenceInfo');
   const whyInfo = document.getElementById('whyInfo');
-  if(compareInfo) compareInfo.textContent = translateDeepText(compareInfo.textContent);
-  if(txInfo) txInfo.textContent = translateDeepText(txInfo.textContent);
-  if(confInfo) confInfo.textContent = translateDeepText(confInfo.textContent);
-  if(whyInfo) whyInfo.textContent = translateDeepText(whyInfo.textContent);
+  if(compareInfo) compareInfo.textContent = normalizeReasonString(compareInfo.textContent);
+  if(txInfo) txInfo.textContent = normalizeReasonString(txInfo.textContent);
+  if(confInfo) confInfo.textContent = normalizeReasonString(confInfo.textContent);
+  if(whyInfo) whyInfo.textContent = normalizeReasonString(whyInfo.textContent);
   const compareTitle = compareInfo ? compareInfo.previousElementSibling : null;
   if(compareTitle) compareTitle.innerHTML = `<span id="i18nMemoryVdrlRef">${d.memoryVdrl}</span> ${extraT('retainedSuffix')}`;
   const txTitle = txInfo ? txInfo.previousElementSibling : null;
@@ -1162,6 +1350,14 @@ const DYN_I18N = {
     high:"Élevée"
 
   },
+
+  es:{late_treatment_title:"Tratamiento recomendado (sífilis tardía):",late_1:"Extencillina 2,4 MUI 1 vez/semana durante 3 semanas",late_2:"Doxiciclina 4 semanas",early_treatment_title:"Tratamiento recomendado (sífilis precoz):",early_1:"1ª línea: Extencillina 2,4 MUI dosis única",early_2:"2ª línea: Doxiciclina 2 semanas",early_3:"3ª línea: Ceftriaxona 1 g/día durante 7 días",neuro_treatment_title:"Tratamiento recomendado (neurosífilis / afectación ORL / ocular):",neuro_1:"Penicilina G IV 14 días",neuro_2:"Ceftriaxona 2 g/día durante 14 días",kinetic_conclusion:"Interpretación prudente: aumento del VDRL tras tratamiento intermedio, compatible con cinética insuficientemente controlada o reinfección.",kinetic_badge:"Cinética VDRL a reevaluar",kinetic_text_1:"El VDRL aumenta al menos 2 diluciones entre dos serologías.",kinetic_text_2:"Hubo tratamiento entre ambas muestras, pero tardíamente tras la primera serología.",kinetic_text_3:"Esta situación no permite afirmar una buena respuesta terapéutica.",kinetic_text_4:"Debe repetirse pronto y razonarse como sífilis precoz activa si el contexto es compatible.",kinetic_management_title:"Conducta a seguir:",kinetic_followup:"Reevaluación clínica y VDRL estrecho.",kinetic_if_worse:"Si empeora clínica o biológicamente, retratar como sífilis precoz.",kinetic_confidence:"cinética biológica intermedia, interpretación prudente",kinetic_why:"aumento de al menos 2 diluciones pese a tratamiento intermedio tardío",reinfection_conclusion:"Probable reinfección / recaída biológica.",reinfection_badge:"Reinfección probable",reinfection_text:"El VDRL aumenta al menos 2 diluciones entre los dos últimos controles.",reinfection_text2:"En ausencia de mejor explicación, esto sugiere reinfección o reactivación evolutiva.",reinfection_text3:"Tratar como sífilis precoz y retomar el seguimiento serológico.",reinfection_confidence:"aumento franco del VDRL",reinfection_why:"aumento de al menos 2 diluciones",scar_conclusion:"Variación leve compatible con cicatriz serológica.",scar_badge:"Perfil cicatricial probable",scar_text1:"La variación del VDRL es inferior a 2 diluciones.",scar_text2:"Este perfil es más compatible con fluctuación cicatricial que con reinfección segura.",scar_text3:"Se recomienda control si hay duda clínica o contacto reciente.",scar_text4:"Sin argumentos clínicos fuertes, no concluir sífilis reciente solo por esta variación.",scar_confidence:"variación leve del VDRL",scar_why:"aumento inferior a 2 diluciones",moderate:"Moderada",high:"Alta"},
+  pt:{late_treatment_title:"Tratamento recomendado (sífilis tardia):",late_1:"Extencillina 2,4 MUI 1 vez/semana durante 3 semanas",late_2:"Doxiciclina 4 semanas",early_treatment_title:"Tratamento recomendado (sífilis precoce):",early_1:"1ª linha: Extencillina 2,4 MUI dose única",early_2:"2ª linha: Doxiciclina 2 semanas",early_3:"3ª linha: Ceftriaxona 1 g/dia durante 7 dias",neuro_treatment_title:"Tratamento recomendado (neurossífilis / envolvimento ORL / ocular):",neuro_1:"Penicilina G IV 14 dias",neuro_2:"Ceftriaxona 2 g/dia durante 14 dias",kinetic_conclusion:"Interpretação prudente: aumento do VDRL após tratamento intermédio, compatível com cinética insuficientemente controlada ou reinfeção.",kinetic_badge:"Cinética VDRL a reavaliar",kinetic_text_1:"O VDRL aumenta pelo menos 2 diluições entre duas sorologias.",kinetic_text_2:"Houve tratamento entre as duas colheitas, mas tardiamente após a primeira sorologia.",kinetic_text_3:"Esta situação não permite afirmar uma boa resposta terapêutica.",kinetic_text_4:"Deve ser reavaliado rapidamente e encarado como sífilis precoce ativa se o contexto for compatível.",kinetic_management_title:"Conduta:",kinetic_followup:"Reavaliação clínica e VDRL de perto.",kinetic_if_worse:"Se houver agravamento clínico ou biológico, retratar como sífilis precoce.",kinetic_confidence:"cinética biológica intermédia, interpretação prudente",kinetic_why:"aumento de pelo menos 2 diluições apesar de tratamento intermédio tardio",reinfection_conclusion:"Provável reinfeção / recidiva biológica.",reinfection_badge:"Reinfeção provável",reinfection_text:"O VDRL aumenta pelo menos 2 diluições entre os dois últimos controlos.",reinfection_text2:"Na ausência de melhor explicação, isto sugere reinfeção ou retoma evolutiva.",reinfection_text3:"Tratar como sífilis precoce e retomar o seguimento serológico.",reinfection_confidence:"aumento claro do VDRL",reinfection_why:"aumento de pelo menos 2 diluições",scar_conclusion:"Variação fraca compatível com cicatriz serológica.",scar_badge:"Perfil cicatricial provável",scar_text1:"A variação do VDRL é inferior a 2 diluições.",scar_text2:"Este perfil é mais compatível com flutuação cicatricial do que com reinfeção certa.",scar_text3:"É recomendado recontrolo em caso de dúvida clínica ou contacto recente.",scar_text4:"Na ausência de argumento clínico forte, não concluir sífilis recente apenas com esta variação.",scar_confidence:"variação fraca do VDRL",scar_why:"aumento inferior a 2 diluições",moderate:"Moderada",high:"Alta"},
+  de:{late_treatment_title:"Empfohlene Behandlung (Spätsyphilis):",late_1:"Extencillin 2,4 Mio. IE 1×/Woche für 3 Wochen",late_2:"Doxycyclin 4 Wochen",early_treatment_title:"Empfohlene Behandlung (Frühsyphilis):",early_1:"1. Wahl: Extencillin 2,4 Mio. IE Einmaldosis",early_2:"2. Wahl: Doxycyclin 2 Wochen",early_3:"3. Wahl: Ceftriaxon 1 g/Tag für 7 Tage",neuro_treatment_title:"Empfohlene Behandlung (Neurosyphilis / HNO- / okuläre Beteiligung):",neuro_1:"Penicillin G i.v. 14 Tage",neuro_2:"Ceftriaxon 2 g/Tag für 14 Tage",kinetic_conclusion:"Vorsichtige Interpretation: Anstieg des VDRL nach Zwischenbehandlung, vereinbar mit unzureichend kontrollierter Kinetik oder Reinfektion.",kinetic_badge:"VDRL-Kinetik erneut kontrollieren",kinetic_text_1:"Der VDRL steigt zwischen zwei Serologien um mindestens 2 Verdünnungen.",kinetic_text_2:"Zwischen den beiden Proben erfolgte eine Behandlung, jedoch spät nach der ersten Serologie.",kinetic_text_3:"Diese Situation erlaubt keine sichere Aussage über ein gutes Therapieansprechen.",kinetic_text_4:"Es sollte zeitnah kontrolliert und bei passendem Kontext wie aktive Frühsyphilis behandelt werden.",kinetic_management_title:"Vorgehen:",kinetic_followup:"Engmaschige klinische Kontrolle und VDRL-Kontrolle.",kinetic_if_worse:"Bei klinischer oder biologischer Verschlechterung als Frühsyphilis erneut behandeln.",kinetic_confidence:"intermediäre biologische Kinetik, vorsichtige Interpretation",kinetic_why:"Anstieg um mindestens 2 Verdünnungen trotz später Zwischenbehandlung",reinfection_conclusion:"Wahrscheinliche Reinfektion / biologisches Rezidiv.",reinfection_badge:"Wahrscheinliche Reinfektion",reinfection_text:"Der VDRL steigt zwischen den letzten beiden Kontrollen um mindestens 2 Verdünnungen.",reinfection_text2:"Mangels besserer Erklärung spricht dies für eine Reinfektion oder erneute Progression.",reinfection_text3:"Wie Frühsyphilis behandeln und serologische Verlaufskontrolle wieder aufnehmen.",reinfection_confidence:"deutlicher VDRL-Anstieg",reinfection_why:"Anstieg um mindestens 2 Verdünnungen",scar_conclusion:"Geringe Variation vereinbar mit serologischer Narbe.",scar_badge:"Wahrscheinliches Narbenprofil",scar_text1:"Die VDRL-Variation beträgt weniger als 2 Verdünnungen.",scar_text2:"Dieses Profil passt eher zu einer narbigen Schwankung als zu einer sicheren Reinfektion.",scar_text3:"Bei klinischem Zweifel oder kürzlichem Kontakt wird eine Kontrolle empfohlen.",scar_text4:"Ohne starke klinische Hinweise sollte aufgrund dieser Variation allein keine frische Syphilis diagnostiziert werden.",scar_confidence:"geringe VDRL-Variation",scar_why:"Anstieg unter 2 Verdünnungen",moderate:"Moderat",high:"Hoch"},
+  pl:{late_treatment_title:"Zalecane leczenie (kiła późna):",late_1:"Extencillina 2,4 mln j. 1×/tydzień przez 3 tygodnie",late_2:"Doxycyklina 4 tygodnie",early_treatment_title:"Zalecane leczenie (kiła wczesna):",early_1:"1. wybór: Extencillina 2,4 mln j. dawka jednorazowa",early_2:"2. wybór: Doxycyklina 2 tygodnie",early_3:"3. wybór: Ceftriakson 1 g/dobę przez 7 dni",neuro_treatment_title:"Zalecane leczenie (neurosyfilis / zajęcie laryngologiczne / oczne):",neuro_1:"Penicylina G IV przez 14 dni",neuro_2:"Ceftriakson 2 g/dobę przez 14 dni",kinetic_conclusion:"Ostrożna interpretacja: wzrost VDRL po leczeniu pośrednim, zgodny z niewystarczająco kontrolowaną kinetyką lub reinfekcją.",kinetic_badge:"Kinetyka VDRL do ponownej kontroli",kinetic_text_1:"VDRL wzrasta o co najmniej 2 rozcieńczenia między dwiema serologiami.",kinetic_text_2:"Między dwoma pobraniami zastosowano leczenie, ale późno po pierwszej serologii.",kinetic_text_3:"Ta sytuacja nie pozwala potwierdzić dobrej odpowiedzi terapeutycznej.",kinetic_text_4:"Należy szybko skontrolować i rozważać aktywną kiłę wczesną, jeśli kontekst jest zgodny.",kinetic_management_title:"Postępowanie:",kinetic_followup:"Ścisła kontrola kliniczna i VDRL.",kinetic_if_worse:"W razie pogorszenia klinicznego lub biologicznego leczyć ponownie jak kiłę wczesną.",kinetic_confidence:"pośrednia kinetyka biologiczna, ostrożna interpretacja",kinetic_why:"wzrost o co najmniej 2 rozcieńczenia mimo późnego leczenia pośredniego",reinfection_conclusion:"Prawdopodobna reinfekcja / nawrót biologiczny.",reinfection_badge:"Prawdopodobna reinfekcja",reinfection_text:"VDRL wzrasta o co najmniej 2 rozcieńczenia między dwoma ostatnimi kontrolami.",reinfection_text2:"Przy braku lepszego wyjaśnienia sugeruje to reinfekcję lub ponowną progresję.",reinfection_text3:"Leczyć jak kiłę wczesną i wznowić kontrolę serologiczną.",reinfection_confidence:"wyraźny wzrost VDRL",reinfection_why:"wzrost o co najmniej 2 rozcieńczenia",scar_conclusion:"Niewielka zmiana zgodna z blizną serologiczną.",scar_badge:"Prawdopodobny profil bliznowaty",scar_text1:"Zmiana VDRL jest mniejsza niż 2 rozcieńczenia.",scar_text2:"Ten profil bardziej odpowiada fluktuacji bliznowatej niż pewnej reinfekcji.",scar_text3:"Przy wątpliwościach klinicznych lub niedawnym kontakcie zaleca się kontrolę.",scar_text4:"Przy braku silnych argumentów klinicznych nie należy rozpoznawać świeżej kiły tylko na podstawie tej zmiany.",scar_confidence:"niewielka zmiana VDRL",scar_why:"wzrost poniżej 2 rozcieńczeń",moderate:"Umiarkowana",high:"Wysoka"},
+  it:{late_treatment_title:"Trattamento raccomandato (sifilide tardiva):",late_1:"Extencillina 2,4 MUI 1 volta/settimana per 3 settimane",late_2:"Doxiciclina 4 settimane",early_treatment_title:"Trattamento raccomandato (sifilide precoce):",early_1:"1ª linea: Extencillina 2,4 MUI dose unica",early_2:"2ª linea: Doxiciclina 2 settimane",early_3:"3ª linea: Ceftriaxone 1 g/die per 7 giorni",neuro_treatment_title:"Trattamento raccomandato (neurosifilide / interessamento ORL / oculare):",neuro_1:"Penicillina G EV 14 giorni",neuro_2:"Ceftriaxone 2 g/die per 14 giorni",kinetic_conclusion:"Interpretazione prudente: aumento del VDRL dopo trattamento intermedio, compatibile con cinetica insufficientemente controllata o reinfezione.",kinetic_badge:"Cinetica VDRL da ricontrollare",kinetic_text_1:"Il VDRL aumenta di almeno 2 diluizioni tra due sierologie.",kinetic_text_2:"Un trattamento è avvenuto tra i due prelievi, ma tardivamente dopo la prima sierologia.",kinetic_text_3:"Questa situazione non consente di affermare una buona risposta terapeutica.",kinetic_text_4:"Occorre ricontrollare rapidamente e ragionare come sifilide precoce attiva se il contesto è compatibile.",kinetic_management_title:"Condotta:",kinetic_followup:"Ricontrollo clinico e VDRL ravvicinato.",kinetic_if_worse:"In caso di peggioramento clinico o biologico, ritrattare come sifilide precoce.",kinetic_confidence:"cinetica biologica intermedia, interpretazione prudente",kinetic_why:"aumento di almeno 2 diluizioni nonostante trattamento intermedio tardivo",reinfection_conclusion:"Probabile reinfezione / recidiva biologica.",reinfection_badge:"Probabile reinfezione",reinfection_text:"Il VDRL aumenta di almeno 2 diluizioni tra gli ultimi due controlli.",reinfection_text2:"In assenza di una spiegazione migliore, questo suggerisce reinfezione o ripresa evolutiva.",reinfection_text3:"Trattare come sifilide precoce e riprendere il follow-up sierologico.",reinfection_confidence:"marcato aumento del VDRL",reinfection_why:"aumento di almeno 2 diluizioni",scar_conclusion:"Variazione lieve compatibile con cicatrice sierologica.",scar_badge:"Profilo cicatriziale probabile",scar_text1:"La variazione del VDRL è inferiore a 2 diluizioni.",scar_text2:"Questo profilo è più compatibile con una fluttuazione cicatriziale che con una reinfezione certa.",scar_text3:"È raccomandato un ricontrollo in caso di dubbio clinico o contatto recente.",scar_text4:"In assenza di forti argomenti clinici, non concludere per sifilide recente solo su questa variazione.",scar_confidence:"lieve variazione del VDRL",scar_why:"aumento inferiore a 2 diluizioni",moderate:"Moderata",high:"Alta"},
+  ar:{late_treatment_title:"العلاج الموصى به (الزهري المتأخر):",late_1:"إكستنسيلين 2.4 مليون وحدة مرة أسبوعيًا لمدة 3 أسابيع",late_2:"دوكسيسيكلين لمدة 4 أسابيع",early_treatment_title:"العلاج الموصى به (الزهري المبكر):",early_1:"الخيار الأول: إكستنسيلين 2.4 مليون وحدة جرعة وحيدة",early_2:"الخيار الثاني: دوكسيسيكلين لمدة أسبوعين",early_3:"الخيار الثالث: سيفترياكسون 1 غ/يوم لمدة 7 أيام",neuro_treatment_title:"العلاج الموصى به (الزهري العصبي / إصابة الأنف والأذن والحنجرة / العينية):",neuro_1:"بنسلين G وريدي لمدة 14 يومًا",neuro_2:"سيفترياكسون 2 غ/يوم لمدة 14 يومًا",kinetic_conclusion:"تفسير حذر: ارتفاع VDRL بعد علاج متوسط، بما يتوافق مع ديناميكية غير مضبوطة بما يكفي أو مع إعادة عدوى.",kinetic_badge:"ديناميكية VDRL تحتاج إلى إعادة التقييم",kinetic_text_1:"يرتفع VDRL بما لا يقل عن درجتي تخفيف بين تحليلين مصليين.",kinetic_text_2:"تم إعطاء علاج بين العينتين، لكن متأخرًا بعد التحليل المصلي الأول.",kinetic_text_3:"لا تسمح هذه الحالة بتأكيد استجابة علاجية جيدة.",kinetic_text_4:"يجب إعادة التقييم سريعًا والتفكير بزهري مبكر فعّال إذا كان السياق مناسبًا.",kinetic_management_title:"التدبير:",kinetic_followup:"إعادة تقييم سريري وVDRL بشكل متقارب.",kinetic_if_worse:"إذا حدث تدهور سريري أو بيولوجي، يُعاد العلاج كزهري مبكر.",kinetic_confidence:"ديناميكية بيولوجية متوسطة، تفسير حذر",kinetic_why:"ارتفاع بمقدار درجتي تخفيف على الأقل رغم علاج متوسط ومتأخر",reinfection_conclusion:"احتمال إعادة عدوى / نكس بيولوجي.",reinfection_badge:"إعادة عدوى محتملة",reinfection_text:"يرتفع VDRL بما لا يقل عن درجتي تخفيف بين آخر تحليلين.",reinfection_text2:"في غياب تفسير أفضل، يرجح ذلك إعادة عدوى أو عودة التطور المرضي.",reinfection_text3:"يُعالج كزهري مبكر ويُستأنف المتابعة المصلية.",reinfection_confidence:"ارتفاع واضح في VDRL",reinfection_why:"ارتفاع بما لا يقل عن درجتي تخفيف",scar_conclusion:"تبدل طفيف يتماشى مع ندبة مصلية.",scar_badge:"نمط ندبي مرجح",scar_text1:"تبدل VDRL أقل من درجتي تخفيف.",scar_text2:"هذا النمط يتماشى أكثر مع تقلب ندبي منه مع إعادة عدوى مؤكدة.",scar_text3:"يوصى بإعادة الفحص في حال الشك السريري أو التعرض الحديث.",scar_text4:"في غياب دلائل سريرية قوية، لا ينبغي استنتاج زهري حديث من هذا التبدل وحده.",scar_confidence:"تبدل طفيف في VDRL",scar_why:"ارتفاع أقل من درجتي تخفيف",moderate:"متوسطة",high:"مرتفعة"},
+
   en:{late_treatment_title:"Recommended treatment (late syphilis):",late_1:"Benzathine penicillin 2.4 M IU once weekly for 3 weeks",late_2:"Doxycycline for 4 weeks",early_treatment_title:"Recommended treatment (early syphilis):",early_1:"First-line: Benzathine penicillin 2.4 M IU single dose",early_2:"Second-line: Doxycycline for 2 weeks",early_3:"Third-line: Ceftriaxone 1 g/day for 7 days",neuro_treatment_title:"Recommended treatment (neurosyphilis / ENT / ocular involvement):",neuro_1:"Penicillin G IV for 14 days",neuro_2:"Ceftriaxone 2 g/day for 14 days",kinetic_conclusion:"Cautious interpretation: VDRL increase after intermediate treatment, compatible with insufficiently controlled kinetics or reinfection.",kinetic_badge:"VDRL kinetics to monitor",kinetic_text_1:"VDRL increases by at least 2 dilutions between two serologies.",kinetic_text_2:"A treatment occurred between the two samples, but late after the first serology.",kinetic_text_3:"This situation does not allow confirmation of a good therapeutic response.",kinetic_text_4:"Prompt recheck is required and the case should be reasoned as active early syphilis if the context is compatible.",kinetic_management_title:"Management:",kinetic_followup:"Close clinical follow-up and repeat VDRL.",kinetic_if_worse:"If clinical or biological worsening occurs, retreat as early syphilis.",kinetic_confidence:"intermediate biological kinetics, cautious interpretation",kinetic_why:"increase of at least 2 dilutions despite late intermediate treatment",reinfection_conclusion:"Probable reinfection / biological relapse.",reinfection_badge:"Probable reinfection",reinfection_text:"VDRL increases by at least 2 dilutions between the last two controls.",reinfection_text2:"Without a better explanation, this suggests reinfection or renewed progression.",reinfection_text3:"Treat as early syphilis and resume serologic follow-up.",reinfection_confidence:"marked VDRL increase",reinfection_why:"increase of at least 2 dilutions",scar_conclusion:"Small variation compatible with a serologic scar.",scar_badge:"Probable scar pattern",scar_text1:"The VDRL variation is less than 2 dilutions.",scar_text2:"This profile is more compatible with scar fluctuation than with definite reinfection.",scar_text3:"Repeat testing is recommended if there is clinical doubt or recent exposure.",scar_text4:"Without strong clinical arguments, do not conclude recent syphilis on this variation alone.",scar_confidence:"small VDRL variation",scar_why:"increase of less than 2 dilutions",moderate:"Moderate",high:"High"},
   zh:{late_treatment_title:"推荐治疗（晚期梅毒）：",late_1:"苄星青霉素 2.4 百万单位，每周一次，共 3 周",late_2:"多西环素 4 周",early_treatment_title:"推荐治疗（早期梅毒）：",early_1:"首选：苄星青霉素 2.4 百万单位 单次",early_2:"二线：多西环素 2 周",early_3:"三线：头孢曲松 1 g/日，共 7 天",neuro_treatment_title:"推荐治疗（神经梅毒 / 耳鼻喉 / 眼部受累）：",neuro_1:"青霉素 G 静脉注射 14 天",neuro_2:"头孢曲松 2 g/日，共 14 天",kinetic_conclusion:"谨慎解释：中间治疗后 VDRL 升高，提示可能为控制不足的动力学变化或再感染。",kinetic_badge:"VDRL 动态需复查",kinetic_text_1:"两次血清学检查之间，VDRL 至少升高 2 个稀释度。",kinetic_text_2:"两次采样之间进行了治疗，但距第一次血清学检查较晚。",kinetic_text_3:"这种情况不能确认治疗反应良好。",kinetic_text_4:"应尽快复查；如临床背景相符，应按活动性早期梅毒考虑。",kinetic_management_title:"处理建议：",kinetic_followup:"进行密切临床复查及 VDRL 复查。",kinetic_if_worse:"如临床或生物学加重，按早期梅毒重新治疗。",kinetic_confidence:"中间型生物学动力学，需谨慎解释",kinetic_why:"尽管有中间且较晚的治疗，VDRL 仍至少升高 2 个稀释度",reinfection_conclusion:"可能为再感染 / 生物学复发。",reinfection_badge:"可能再感染",reinfection_text:"最近两次检测之间，VDRL 至少升高 2 个稀释度。",reinfection_text2:"若无更好解释，这提示再感染或疾病再次进展。",reinfection_text3:"按早期梅毒治疗，并恢复血清学随访。",reinfection_confidence:"VDRL 明显升高",reinfection_why:"至少升高 2 个稀释度",scar_conclusion:"轻微变化符合血清学瘢痕。",scar_badge:"可能为瘢痕型",scar_text1:"VDRL 变化少于 2 个稀释度。",scar_text2:"该模式更符合瘢痕性波动，而非确定的再感染。",scar_text3:"如有临床疑问或近期接触，建议复查。",scar_text4:"在缺乏强有力临床证据时，不应仅凭此变化判断近期梅毒。",scar_confidence:"VDRL 轻微变化",scar_why:"升高少于 2 个稀释度",moderate:"中等",high:"高"},
   ja:{late_treatment_title:"推奨治療（後期梅毒）：",late_1:"ベンザチンペニシリン 2.4百万単位を週1回、3週間",late_2:"ドキシサイクリン 4週間",early_treatment_title:"推奨治療（早期梅毒）：",early_1:"第一選択：ベンザチンペニシリン 2.4百万単位 単回投与",early_2:"第二選択：ドキシサイクリン 2週間",early_3:"第三選択：セフトリアキソン 1 g/日を 7日間",neuro_treatment_title:"推奨治療（神経梅毒 / 耳鼻咽喉 / 眼病変）：",neuro_1:"ペニシリン G 静注 14日間",neuro_2:"セフトリアキソン 2 g/日を 14日間",kinetic_conclusion:"慎重な解釈：中間治療後に VDRL が上昇しており、十分に制御されていない推移または再感染と整合します。",kinetic_badge:"VDRL 動態は再評価が必要",kinetic_text_1:"2回の血清学検査の間で VDRL が少なくとも 2 希釈分上昇しています。",kinetic_text_2:"2回の採血の間に治療が行われましたが、最初の血清学検査から遅れて実施されています。",kinetic_text_3:"この状況では良好な治療反応を断定できません。",kinetic_text_4:"早急に再検し、文脈が合えば活動性早期梅毒として考える必要があります。",kinetic_management_title:"対応：",kinetic_followup:"臨床再評価と VDRL の近接再検。",kinetic_if_worse:"臨床的または生物学的に悪化した場合は、早期梅毒として再治療。",kinetic_confidence:"中間的な生物学的動態であり、慎重な解釈が必要",kinetic_why:"中間かつ遅い治療にもかかわらず、少なくとも 2 希釈分上昇",reinfection_conclusion:"再感染 / 生物学的再燃が疑われます。",reinfection_badge:"再感染の可能性が高い",reinfection_text:"直近 2 回の検査で VDRL が少なくとも 2 希釈分上昇しています。",reinfection_text2:"より適切な説明がなければ、再感染または再進行を示唆します。",reinfection_text3:"早期梅毒として治療し、血清学フォローを再開してください。",reinfection_confidence:"VDRL の明らかな上昇",reinfection_why:"少なくとも 2 希釈分の上昇",scar_conclusion:"小さな変動であり、血清学的瘢痕と整合します。",scar_badge:"瘢痕パターンの可能性",scar_text1:"VDRL の変化は 2 希釈未満です。",scar_text2:"このプロファイルは、確実な再感染よりも瘢痕性変動により一致します。",scar_text3:"臨床的疑いまたは最近の接触がある場合は再検を推奨します。",scar_text4:"強い臨床的根拠がない限り、この変動だけで最近の梅毒と結論すべきではありません。",scar_confidence:"VDRL の軽微な変動",scar_why:"2 希釈未満の上昇",moderate:"中等度",high:"高い"}
@@ -1174,7 +1370,7 @@ function dynT(key){
 function initSupabase(){
   try{
     supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-    document.getElementById("supabaseStatus").textContent = translatePlainText("Supabase prêt.");
+    document.getElementById("supabaseStatus").textContent = logicT("supabaseReady");
   }catch(e){
     console.error(e);
     document.getElementById("supabaseStatus").textContent = "Erreur initialisation Supabase.";
@@ -1182,7 +1378,8 @@ function initSupabase(){
 }
 function badge(kind, text){
   const map = { danger:"b-red", success:"b-green", warning:"b-orange", info:"b-blue", violet:"b-violet" };
-  return `<span class="badge ${map[kind] || 'b-blue'}">${text}</span>`;
+  const label = (typeof tDyn === "function") ? tDyn(text) : text;
+  return `<span class="badge ${map[kind] || 'b-blue'}">${label}</span>`;
 }
 function setToday(){ document.getElementById("analysisDate").value = new Date().toISOString().slice(0,10); }
 function createSerologyRow(v={}){
@@ -1190,11 +1387,11 @@ function createSerologyRow(v={}){
   row.className = "rowbox";
   row.innerHTML = `
     <div class="row">
-      <div class="field"><label>Date</label><input type="date" class="sero-date" value="${v.date || ''}"></div>
-      <div class="field"><label>EIA</label><select class="sero-eia"><option value="" ${!v.eia ? "selected":""}>—</option><option value="pos" ${v.eia==="pos"?"selected":""}>Positif</option><option value="neg" ${v.eia==="neg"?"selected":""}>Négatif</option><option value="ind" ${v.eia==="ind"?"selected":""}>Indéterminé</option></select></div>
-      <div class="field"><label>TPHA</label><select class="sero-tpha"><option value="" ${!v.tpha ? "selected":""}>—</option><option value="pos" ${v.tpha==="pos"?"selected":""}>Positif</option><option value="neg" ${v.tpha==="neg"?"selected":""}>Négatif</option><option value="ind" ${v.tpha==="ind"?"selected":""}>Indéterminé</option></select></div>
-      <div class="field"><label>VDRL (0, 1, 2, 4, 8...)</label><input type="number" min="0" step="1" class="sero-vdrl" value="${v.vdrl ?? ''}"></div>
-      <div><button class="btn-red btnRemoveSero" type="button">Supprimer</button></div>
+      <div class="field"><label>${extraT('date')}</label><input type="date" class="sero-date" value="${v.date || ''}"></div>
+      <div class="field"><label>${extraT('eia')}</label><select class="sero-eia"><option value="" ${!v.eia ? "selected":""}>—</option><option value="pos" ${v.eia==="pos"?"selected":""}>${extraT('positive')}</option><option value="neg" ${v.eia==="neg"?"selected":""}>${extraT('negative')}</option><option value="ind" ${v.eia==="ind"?"selected":""}>${extraT('indeterminate')}</option></select></div>
+      <div class="field"><label>${extraT('tpha')}</label><select class="sero-tpha"><option value="" ${!v.tpha ? "selected":""}>—</option><option value="pos" ${v.tpha==="pos"?"selected":""}>${extraT('positive')}</option><option value="neg" ${v.tpha==="neg"?"selected":""}>${extraT('negative')}</option><option value="ind" ${v.tpha==="ind"?"selected":""}>${extraT('indeterminate')}</option></select></div>
+      <div class="field"><label>${extraT('vdrlInput')}</label><input type="number" min="0" step="1" class="sero-vdrl" value="${v.vdrl ?? ''}"></div>
+      <div><button class="btn-red btnRemoveSero" type="button">${extraT('remove')}</button></div>
     </div>`;
   row.querySelector(".btnRemoveSero").addEventListener("click", () => row.remove());
   document.getElementById("seroList").appendChild(row);
@@ -1205,27 +1402,60 @@ function createTreatmentRow(v={}){
   row.className = "rowbox";
   row.innerHTML = `
     <div class="row tx">
-      <div class="field"><label>Date</label><input type="date" class="tx-date" value="${v.date || ''}"></div>
-      <div class="field"><label>Traitement</label><select class="tx-type">
+      <div class="field"><label>${extraT('date')}</label><input type="date" class="tx-date" value="${v.date || ''}"></div>
+      <div class="field"><label>${extraT('treatment')}</label><select class="tx-type">
         <option value="" ${!v.type ? "selected":""}>—</option>
-        <option value="benz1" ${v.type==="benz1"?"selected":""}>Extencilline 2,4 MUI dose unique</option>
-        <option value="doxy2" ${v.type==="doxy2"?"selected":""}>Doxycycline 2 semaines</option>
-        <option value="cef7" ${v.type==="cef7"?"selected":""}>Ceftriaxone 1 g/j pendant 7 jours</option>
-        <option value="benz3" ${v.type==="benz3"?"selected":""}>Extencilline 2,4 MUI 3 semaines</option>
-        <option value="doxy4" ${v.type==="doxy4"?"selected":""}>Doxycycline 4 semaines</option>
-        <option value="peniv" ${v.type==="peniv"?"selected":""}>Pénicilline G IV 14 jours</option>
-        <option value="cef14" ${v.type==="cef14"?"selected":""}>Ceftriaxone 2 g/j pendant 14 jours</option>
-        <option value="unknown" ${v.type==="unknown"?"selected":""}>Inconnu</option>
+        <option value="benz1" ${v.type==="benz1"?"selected":""}>${treatmentLabel('benz1')}</option>
+        <option value="doxy2" ${v.type==="doxy2"?"selected":""}>${treatmentLabel('doxy2')}</option>
+        <option value="cef7" ${v.type==="cef7"?"selected":""}>${treatmentLabel('cef7')}</option>
+        <option value="benz3" ${v.type==="benz3"?"selected":""}>${treatmentLabel('benz3')}</option>
+        <option value="doxy4" ${v.type==="doxy4"?"selected":""}>${treatmentLabel('doxy4')}</option>
+        <option value="peniv" ${v.type==="peniv"?"selected":""}>${treatmentLabel('peniv')}</option>
+        <option value="cef14" ${v.type==="cef14"?"selected":""}>${treatmentLabel('cef14')}</option>
+        <option value="unknown" ${v.type==="unknown"?"selected":""}>${treatmentLabel('unknown')}</option>
       </select></div>
-      <div><button class="btn-red btnRemoveTx" type="button">Supprimer</button></div>
+      <div><button class="btn-red btnRemoveTx" type="button">${extraT('remove')}</button></div>
     </div>`;
   row.querySelector(".btnRemoveTx").addEventListener("click", () => row.remove());
   document.getElementById("treatmentList").appendChild(row);
   translateDynamicFormFields();
 }
 
+
+function translateFromDictionaries(text){
+  if(text == null) return text;
+  let out = String(text);
+
+  const dictSources = [];
+  if(typeof MORE_I18N !== "undefined" && MORE_I18N.fr) dictSources.push(MORE_I18N);
+  if(typeof EXTRA_I18N !== "undefined" && EXTRA_I18N.fr) dictSources.push(EXTRA_I18N);
+  if(typeof SOURCE_CLINICAL_I18N !== "undefined" && SOURCE_CLINICAL_I18N.fr) dictSources.push(SOURCE_CLINICAL_I18N);
+  if(typeof DYN_I18N !== "undefined" && DYN_I18N.fr) dictSources.push(DYN_I18N);
+
+  for(const dict of dictSources){
+    const frMap = dict.fr || {};
+    const curMap = dict[currentLang] || {};
+
+    const valueEntries = Object.keys(frMap)
+      .map(k => [frMap[k], (curMap[k] || frMap[k])])
+      .filter(([frVal, curVal]) => typeof frVal === "string" && frVal && frVal !== curVal)
+      .sort((a,b) => b[0].length - a[0].length);
+    for(const [frVal, curVal] of valueEntries){
+      out = out.split(frVal).join(curVal);
+    }
+
+    const keyEntries = Object.keys(curMap)
+      .map(k => [k, curMap[k]])
+      .filter(([k, curVal]) => typeof curVal === "string" && k && curVal)
+      .sort((a,b) => b[0].length - a[0].length);
+    for(const [keyName, curVal] of keyEntries){
+      out = out.split(keyName).join(curVal);
+    }
+  }
+  return out;
+}
 function translatePlainText(text){
-  if(currentLang === "fr" || !text) return text;
+  if(!text) return text;
   const maps = {
     en: {
       "Ponction lombaire indiquée":"Lumbar puncture indicated",
@@ -1244,13 +1474,7 @@ function translatePlainText(text){
       "Aucun traitement valide retenu":"No valid previous treatment retained",
       "Dernière sérologie positive du ":"Last positive serology on ",
       "Dernière sérologie du ":"Last serology on ",
-      "PL indiquée":"LP indicated",
-      "Ponction lombaire à proposer":"Lumbar puncture indicated",
-      "Signes neurologiques / ORL / ophtalmologiques associés à un chancre évocateur, sans biologie exploitable.":"Neurological / ENT / ophthalmologic signs associated with a suggestive chancre, without interpretable biology.",
-      "→ Ne pas rassurer sur le seul aspect de chancre primaire":"→ Do not be reassured by the primary chancre appearance alone",
-      "→ Proposer une ponction lombaire":"→ Propose a lumbar puncture",
-      "→ Faire sérologie tréponémique + VDRL en urgence":"→ Perform treponemal serology + VDRL urgently",
-      "→ Avis spécialisé si atteinte ophtalmologique / ORL / neurologique":"→ Specialist advice if ophthalmologic / ENT / neurologic involvement"
+      "PL indiquée":"LP indicated"
     },
     es: {
       "Ponction lombaire indiquée":"Punción lumbar indicada",
@@ -1288,13 +1512,7 @@ function translatePlainText(text){
       "Aucun traitement valide retenu":"Nenhum tratamento válido retido",
       "Dernière sérologie positive du ":"Última sorologia positiva de ",
       "Dernière sérologie du ":"Última sorologia de ",
-      "PL indiquée":"PL indicada",
-      "Ponction lombaire à proposer":"Punção lombar indicada",
-      "Signes neurologiques / ORL / ophtalmologiques associés à un chancre évocateur, sans biologie exploitable.":"Sinais neurológicos / ORL / oftalmológicos associados a um cancro sugestivo, sem biologia interpretável.",
-      "→ Ne pas rassurer sur le seul aspect de chancre primaire":"→ Não tranquilizar apenas pelo aspeto de cancro primário",
-      "→ Proposer une ponction lombaire":"→ Propor punção lombar",
-      "→ Faire sérologie tréponémique + VDRL en urgence":"→ Fazer serologia treponémica + VDRL com urgência",
-      "→ Avis spécialisé si atteinte ophtalmologique / ORL / neurologique":"→ Avaliação especializada se houver atingimento oftalmológico / ORL / neurológico"
+      "PL indiquée":"PL indicada"
     },
     de: {
       "Ponction lombaire indiquée":"Lumbalpunktion indiziert",
@@ -1313,13 +1531,7 @@ function translatePlainText(text){
       "Aucun traitement valide retenu":"Keine gültige Vorbehandlung berücksichtigt",
       "Dernière sérologie positive du ":"Letzte positive Serologie vom ",
       "Dernière sérologie du ":"Letzte Serologie vom ",
-      "PL indiquée":"LP indiziert",
-      "Ponction lombaire à proposer":"Lumbalpunktion empfohlen",
-      "Signes neurologiques / ORL / ophtalmologiques associés à un chancre évocateur, sans biologie exploitable.":"Neurologische / HNO- / ophthalmologische Zeichen bei verdächtigem Schanker ohne verwertbare Biologie.",
-      "→ Ne pas rassurer sur le seul aspect de chancre primaire":"→ Nicht allein durch das Bild eines Primärschankers beruhigen lassen",
-      "→ Proposer une ponction lombaire":"→ Lumbalpunktion vorschlagen",
-      "→ Faire sérologie tréponémique + VDRL en urgence":"→ Dringend treponemale Serologie + VDRL durchführen",
-      "→ Avis spécialisé si atteinte ophtalmologique / ORL / neurologique":"→ Fachärztliche Beurteilung bei ophthalmologischer / HNO- / neurologischer Beteiligung"
+      "PL indiquée":"LP indiziert"
     },
     pl: {
       "Ponction lombaire indiquée":"Wskazana punkcja lędźwiowa",
@@ -1338,13 +1550,7 @@ function translatePlainText(text){
       "Aucun traitement valide retenu":"Nie uwzględniono żadnego ważnego leczenia",
       "Dernière sérologie positive du ":"Ostatnia dodatnia serologia z ",
       "Dernière sérologie du ":"Ostatnia serologia z ",
-      "PL indiquée":"PL wskazana",
-      "Ponction lombaire à proposer":"Zaproponować punkcję lędźwiową",
-      "Signes neurologiques / ORL / ophtalmologiques associés à un chancre évocateur, sans biologie exploitable.":"Objawy neurologiczne / laryngologiczne / okulistyczne związane z sugerującym wrzodem, bez interpretowalnych wyników biologicznych.",
-      "→ Ne pas rassurer sur le seul aspect de chancre primaire":"→ Nie uspokajać się wyłącznie obrazem wrzodu pierwotnego",
-      "→ Proposer une ponction lombaire":"→ Zaproponować punkcję lędźwiową",
-      "→ Faire sérologie tréponémique + VDRL en urgence":"→ Pilnie wykonać serologię krętkową + VDRL",
-      "→ Avis spécialisé si atteinte ophtalmologique / ORL / neurologique":"→ Konsultacja specjalistyczna przy zajęciu okulistycznym / laryngologicznym / neurologicznym"
+      "PL indiquée":"PL wskazana"
     },
     it: {
       "Ponction lombaire indiquée":"Puntura lombare indicata",
@@ -1366,12 +1572,7 @@ function translatePlainText(text){
       "PL indiquée":"PL indicata",
       "Ponction lombaire à proposer":"Puntura lombare da proporre",
       "Contexte clinique associé :":"Contesto clinico associato:",
-      "Traitement(s) saisi(s) sans biologie exploitable":"Trattamento/i inserito/i senza biologia interpretabile",
-      "Signes neurologiques / ORL / ophtalmologiques associés à un chancre évocateur, sans biologie exploitable.":"Segni neurologici / ORL / oftalmologici associati a un sifiloma evocativo, senza biologia interpretabile.",
-      "→ Ne pas rassurer sur le seul aspect de chancre primaire":"→ Non rassicurarsi sul solo aspetto di sifiloma primario",
-      "→ Proposer une ponction lombaire":"→ Proporre una puntura lombare",
-      "→ Faire sérologie tréponémique + VDRL en urgence":"→ Eseguire sierologia treponemica + VDRL con urgenza",
-      "→ Avis spécialisé si atteinte ophtalmologique / ORL / neurologique":"→ Valutazione specialistica in caso di interessamento oftalmologico / ORL / neurologico"
+      "Traitement(s) saisi(s) sans biologie exploitable":"Trattamento/i inserito/i senza biologia interpretabile"
     },
     ar: {
       "Ponction lombaire indiquée":"البزل القطني مُوصى به",
@@ -1409,12 +1610,7 @@ function translatePlainText(text){
       "absence de biologie exploitable":"غياب معطيات بيولوجية قابلة للتفسير",
       "Faible — absence de biologie exploitable":"منخفضة — غياب معطيات بيولوجية قابلة للتفسير",
       "Élevée — pas d’antécédent négatif ni de traitement validé":"مرتفعة — لا توجد مصلية سلبية سابقة ولا علاج سابق مُعتمد",
-      "pas d’antécédent négatif ni de traitement validé":"لا توجد مصلية سلبية سابقة ولا علاج سابق مُعتمد",
-      "Signes neurologiques / ORL / ophtalmologiques associés à un chancre évocateur, sans biologie exploitable.":"علامات عصبية / أنف أذن حنجرة / عينية مرتبطة بقرحة موحية، دون معطيات بيولوجية قابلة للتفسير.",
-      "→ Ne pas rassurer sur le seul aspect de chancre primaire":"→ لا ينبغي الاطمئنان إلى مجرد مظهر القرحة الأولية",
-      "→ Proposer une ponction lombaire":"→ اقتراح البزل القطني",
-      "→ Faire sérologie tréponémique + VDRL en urgence":"→ إجراء مصليات اللولبيات + VDRL بشكل عاجل",
-      "→ Avis spécialisé si atteinte ophtalmologique / ORL / neurologique":"→ استشارة اختصاصية إذا وُجدت إصابة عينية / أنف أذن حنجرة / عصبية"
+      "pas d’antécédent négatif ni de traitement validé":"لا توجد مصلية سلبية سابقة ولا علاج سابق مُعتمد"
     },
     zh: {
       "Ponction lombaire indiquée":"建议腰椎穿刺",
@@ -1433,13 +1629,7 @@ function translatePlainText(text){
       "Aucun traitement valide retenu":"未保留有效既往治疗",
       "Dernière sérologie positive du ":"最近一次阳性血清学日期：",
       "Dernière sérologie du ":"最近一次血清学日期：",
-      "PL indiquée":"已提示腰穿",
-      "Ponction lombaire à proposer":"建议腰椎穿刺",
-      "Signes neurologiques / ORL / ophtalmologiques associés à un chancre évocateur, sans biologie exploitable.":"伴有提示性硬下疳的神经 / 耳鼻喉 / 眼科体征，且无可解释的生物学结果。",
-      "→ Ne pas rassurer sur le seul aspect de chancre primaire":"→ 不应仅因原发硬下疳外观而放心",
-      "→ Proposer une ponction lombaire":"→ 建议进行腰椎穿刺",
-      "→ Faire sérologie tréponémique + VDRL en urgence":"→ 紧急进行梅毒螺旋体血清学 + VDRL",
-      "→ Avis spécialisé si atteinte ophtalmologique / ORL / neurologique":"→ 如有眼科 / 耳鼻喉 / 神经受累，建议专科会诊"
+      "PL indiquée":"已提示腰穿"
     },
     ja: {
       "Ponction lombaire indiquée":"腰椎穿刺を提案",
@@ -1458,13 +1648,7 @@ function translatePlainText(text){
       "Aucun traitement valide retenu":"有効な既往治療は保持されていません",
       "Dernière sérologie positive du ":"直近の陽性血清学: ",
       "Dernière sérologie du ":"直近の血清学: ",
-      "PL indiquée":"腰椎穿刺適応",
-      "Ponction lombaire à proposer":"腰椎穿刺を提案",
-      "Signes neurologiques / ORL / ophtalmologiques associés à un chancre évocateur, sans biologie exploitable.":"示唆的な硬性下疳に神経 / 耳鼻咽喉 / 眼症状を伴い、解釈可能な生物学的データがありません。",
-      "→ Ne pas rassurer sur le seul aspect de chancre primaire":"→ 一次硬性下疳らしい外観だけで安心してはならない",
-      "→ Proposer une ponction lombaire":"→ 腰椎穿刺を提案する",
-      "→ Faire sérologie tréponémique + VDRL en urgence":"→ 緊急でトレポネーマ血清学 + VDRL を行う",
-      "→ Avis spécialisé si atteinte ophtalmologique / ORL / neurologique":"→ 眼科 / 耳鼻咽喉科 / 神経症状があれば専門科へ相談"
+      "PL indiquée":"腰椎穿刺適応"
     },
     ru: {
       "Ponction lombaire indiquée":"Показана люмбальная пункция",
@@ -1486,432 +1670,51 @@ function translatePlainText(text){
       "PL indiquée":"ЛП показана"
     }
   };
+
   const map = maps[currentLang] || {};
   if(map[text]) return map[text];
   let out = text;
   Object.keys(map).sort((a,b)=>b.length-a.length).forEach((k)=>{
     out = out.split(k).join(map[k]);
   });
+  out = translateFromDictionaries(out);
   return out;
 }
-
 function translateResultText(text){
-  return translateDeepText(text);
+  return translatePlainText(text);
 }
 
-function translateDeepText(text){
-  let out = translatePlainText(text);
-  if(currentLang === "fr" || !out) return out;
-  const maps = {
-    en: {
-      "Syphilis tardive par défaut":"Late syphilis by default",
-      "Pas d’historique antérieur exploitable.":"No usable prior history.",
-      "Pas d’historique de traitement validé, pas d’antécédent négatif, et absence de chancre clinique.":"No validated treatment history, no prior negative result, and no clinical chancre.",
-      "→ Une seule sérologie avec VDRL > 0":"→ Only one serology with VDRL > 0",
-      "→ Infection non datable":"→ Undatable infection",
-      "→ À considérer comme syphilis tardive":"→ Should be considered late syphilis",
-      "Situation restant indatable ou historique insuffisant.":"Situation remains undatable or history is insufficient.",
-      "Traitement recommandé (syphilis tardive) :":"Recommended treatment (late syphilis):",
-      "Traitement recommandé (syphilis précoce) :":"Recommended treatment (early syphilis):",
-      "Traitement recommandé (neurosyphilis / atteinte ORL / oculaire) :":"Recommended treatment (neurosyphilis / ENT / ocular involvement):",
-      "Pas d’historique antérieur exploitable":"No usable prior history",
-      "pas d’antécédent négatif":"no prior negative result",
-      "pas de traitement validé":"no validated treatment",
-      "pas de chancre":"no chancre",
-      "une seule sérologie":"single serology",
-      "situation indatable":"undatable situation",
-      "CAT de sécurité":"safety management",
-      "Élevée":"High",
-      "Modérée":"Moderate",
-      "Faible":"Low"
-    },
-    es: {
-      "Syphilis tardive par défaut":"Sífilis tardía por defecto",
-      "Pas d’historique antérieur exploitable.":"Sin antecedentes previos utilizables.",
-      "Pas d’historique de traitement validé, pas d’antécédent négatif, et absence de chancre clinique.":"Sin antecedentes de tratamiento validado, sin antecedente negativo y sin chancro clínico.",
-      "→ Une seule sérologie avec VDRL > 0":"→ Una sola serología con VDRL > 0",
-      "→ Infection non datable":"→ Infección no datable",
-      "→ À considérer comme syphilis tardive":"→ Considerar como sífilis tardía",
-      "Situation restant indatable ou historique insuffisant.":"Situación aún no datable o historia insuficiente.",
-      "Traitement recommandé (syphilis tardive) :":"Tratamiento recomendado (sífilis tardía):",
-      "Traitement recommandé (syphilis précoce) :":"Tratamiento recomendado (sífilis precoz):",
-      "Traitement recommandé (neurosyphilis / atteinte ORL / oculaire) :":"Tratamiento recomendado (neurosífilis / afectación ORL / ocular):",
-      "Pas d’historique antérieur exploitable":"Sin antecedentes previos utilizables",
-      "pas d’antécédent négatif":"sin antecedente negativo",
-      "pas de traitement validé":"sin tratamiento validado",
-      "pas de chancre":"sin chancro",
-      "une seule sérologie":"una sola serología",
-      "situation indatable":"situación no datable",
-      "CAT de sécurité":"conducta de seguridad",
-      "Élevée":"Alta",
-      "Modérée":"Moderada",
-      "Faible":"Baja"
-    },
-    pt: {
-      "Syphilis tardive par défaut":"Sífilis tardia por defeito",
-      "Pas d’historique antérieur exploitable.":"Sem histórico anterior utilizável.",
-      "Pas d’historique de traitement validé, pas d’antécédent négatif, et absence de chancre clinique.":"Sem histórico de tratamento validado, sem antecedente negativo e sem cancro clínico.",
-      "→ Une seule sérologie avec VDRL > 0":"→ Apenas uma serologia com VDRL > 0",
-      "→ Infection non datable":"→ Infeção não datável",
-      "→ À considérer comme syphilis tardive":"→ Considerar como sífilis tardia",
-      "Situation restant indatable ou historique insuffisant.":"Situação ainda não datável ou histórico insuficiente.",
-      "Traitement recommandé (syphilis tardive) :":"Tratamento recomendado (sífilis tardia):",
-      "Traitement recommandé (syphilis précoce) :":"Tratamento recomendado (sífilis precoce):",
-      "Traitement recommandé (neurosyphilis / atteinte ORL / oculaire) :":"Tratamento recomendado (neurossífilis / envolvimento ORL / ocular):",
-      "Pas d’historique antérieur exploitable":"Sem histórico anterior utilizável",
-      "pas d’antécédent négatif":"sem antecedente negativo",
-      "pas de traitement validé":"sem tratamento validado",
-      "pas de chancre":"sem cancro",
-      "une seule sérologie":"uma única serologia",
-      "situation indatable":"situação não datável",
-      "CAT de sécurité":"conduta de segurança",
-      "Élevée":"Elevada",
-      "Modérée":"Moderada",
-      "Faible":"Baixa"
-    },
-    de: {
-      "Syphilis tardive par défaut":"Späte Syphilis standardmäßig",
-      "Pas d’historique antérieur exploitable.":"Keine verwertbare Vorgeschichte.",
-      "Pas d’historique de traitement validé, pas d’antécédent négatif, et absence de chancre clinique.":"Keine validierte Behandlungsvorgeschichte, kein negativer Vorbefund und kein klinischer Schanker.",
-      "→ Une seule sérologie avec VDRL > 0":"→ Nur eine Serologie mit VDRL > 0",
-      "→ Infection non datable":"→ Infektion nicht datierbar",
-      "→ À considérer comme syphilis tardive":"→ Als späte Syphilis zu betrachten",
-      "Situation restant indatable ou historique insuffisant.":"Situation weiterhin nicht datierbar oder Vorgeschichte unzureichend.",
-      "Traitement recommandé (syphilis tardive) :":"Empfohlene Behandlung (späte Syphilis):",
-      "Traitement recommandé (syphilis précoce) :":"Empfohlene Behandlung (frühe Syphilis):",
-      "Traitement recommandé (neurosyphilis / atteinte ORL / oculaire) :":"Empfohlene Behandlung (Neurosyphilis / HNO- / okuläre Beteiligung):",
-      "Pas d’historique antérieur exploitable":"Keine verwertbare Vorgeschichte",
-      "pas d’antécédent négatif":"kein negativer Vorbefund",
-      "pas de traitement validé":"keine validierte Behandlung",
-      "pas de chancre":"kein Schanker",
-      "une seule sérologie":"nur eine Serologie",
-      "situation indatable":"nicht datierbare Situation",
-      "CAT de sécurité":"Sicherheitsvorgehen",
-      "Élevée":"Hoch",
-      "Modérée":"Moderat",
-      "Faible":"Niedrig"
-    },
-    pl: {
-      "Syphilis tardive par défaut":"Kiła późna domyślnie",
-      "Pas d’historique antérieur exploitable.":"Brak użytecznej wcześniejszej historii.",
-      "Pas d’historique de traitement validé, pas d’antécédent négatif, et absence de chancre clinique.":"Brak potwierdzonego wcześniejszego leczenia, brak wcześniejszego wyniku ujemnego i brak klinicznego wrzodu.",
-      "→ Une seule sérologie avec VDRL > 0":"→ Tylko jedno badanie serologiczne z VDRL > 0",
-      "→ Infection non datable":"→ Zakażenie niedatowalne",
-      "→ À considérer comme syphilis tardive":"→ Należy traktować jako kiłę późną",
-      "Situation restant indatable ou historique insuffisant.":"Sytuacja nadal niedatowalna lub wywiad niewystarczający.",
-      "Traitement recommandé (syphilis tardive) :":"Zalecane leczenie (kiła późna):",
-      "Traitement recommandé (syphilis précoce) :":"Zalecane leczenie (kiła wczesna):",
-      "Traitement recommandé (neurosyphilis / atteinte ORL / oculaire) :":"Zalecane leczenie (neurosyfilis / zajęcie laryngologiczne / okulistyczne):",
-      "Pas d’historique antérieur exploitable":"Brak użytecznej wcześniejszej historii",
-      "pas d’antécédent négatif":"brak wcześniejszego wyniku ujemnego",
-      "pas de traitement validé":"brak potwierdzonego leczenia",
-      "pas de chancre":"brak wrzodu",
-      "une seule sérologie":"jedno badanie serologiczne",
-      "situation indatable":"sytuacja niedatowalna",
-      "CAT de sécurité":"postępowanie bezpieczeństwa",
-      "Élevée":"Wysoka",
-      "Modérée":"Umiarkowana",
-      "Faible":"Niska"
-    },
-    it: {
-      "Syphilis tardive par défaut":"Sifilide tardiva per default",
-      "Pas d’historique antérieur exploitable.":"Nessuna anamnesi precedente utilizzabile.",
-      "Pas d’historique de traitement validé, pas d’antécédent négatif, et absence de chancre clinique.":"Nessuna storia di trattamento validata, nessun precedente negativo e assenza di sifiloma clinico.",
-      "→ Une seule sérologie avec VDRL > 0":"→ Una sola sierologia con VDRL > 0",
-      "→ Infection non datable":"→ Infezione non databile",
-      "→ À considérer comme syphilis tardive":"→ Da considerare come sifilide tardiva",
-      "Situation restant indatable ou historique insuffisant.":"Situazione ancora non databile o anamnesi insufficiente.",
-      "Traitement recommandé (syphilis tardive) :":"Trattamento raccomandato (sifilide tardiva):",
-      "Traitement recommandé (syphilis précoce) :":"Trattamento raccomandato (sifilide precoce):",
-      "Traitement recommandé (neurosyphilis / atteinte ORL / oculaire) :":"Trattamento raccomandato (neurosifilide / coinvolgimento ORL / oculare):",
-      "Pas d’historique antérieur exploitable":"Nessuna anamnesi precedente utilizzabile",
-      "pas d’antécédent négatif":"nessun precedente negativo",
-      "pas de traitement validé":"nessun trattamento validato",
-      "pas de chancre":"assenza di sifiloma",
-      "une seule sérologie":"una sola sierologia",
-      "situation indatable":"situazione non databile",
-      "CAT de sécurité":"condotta di sicurezza",
-      "Élevée":"Elevata",
-      "Modérée":"Moderata",
-      "Faible":"Bassa"
-    },
-    ar: {
-      "Syphilis tardive par défaut":"زهري متأخر افتراضياً",
-      "Pas d’historique antérieur exploitable.":"لا توجد سوابق قابلة للاستغلال.",
-      "Pas d’historique de traitement validé, pas d’antécédent négatif, et absence de chancre clinique.":"لا توجد قصة علاجية معتمدة، ولا سلبية سابقة، ولا قرحة سريرية.",
-      "→ Une seule sérologie avec VDRL > 0":"→ تحليل مصلي واحد فقط مع VDRL > 0",
-      "→ Infection non datable":"→ عدوى غير قابلة للتأريخ",
-      "→ À considérer comme syphilis tardive":"→ يجب اعتبارها زهرياً متأخراً",
-      "Situation restant indatable ou historique insuffisant.":"الحالة ما زالت غير قابلة للتأريخ أو أن القصة السريرية غير كافية.",
-      "Traitement recommandé (syphilis tardive) :":"العلاج الموصى به (الزهري المتأخر):",
-      "Traitement recommandé (syphilis précoce) :":"العلاج الموصى به (الزهري المبكر):",
-      "Traitement recommandé (neurosyphilis / atteinte ORL / oculaire) :":"العلاج الموصى به (الزهري العصبي / إصابة الأنف والأذن والحنجرة / العينية):",
-      "Pas d’historique antérieur exploitable":"لا توجد سوابق قابلة للاستغلال",
-      "pas d’antécédent négatif":"لا توجد سلبية سابقة",
-      "pas de traitement validé":"لا يوجد علاج معتمد",
-      "pas de chancre":"لا توجد قرحة",
-      "une seule sérologie":"تحليل مصلي واحد فقط",
-      "situation indatable":"حالة غير قابلة للتأريخ",
-      "CAT de sécurité":"تدبير احتياطي",
-      "Élevée":"مرتفعة",
-      "Modérée":"متوسطة",
-      "Faible":"منخفضة"
-    },
-    zh: {
-      "Syphilis tardive par défaut":"默认按晚期梅毒处理",
-      "Pas d’historique antérieur exploitable.":"无可利用既往病史。",
-      "Pas d’historique de traitement validé, pas d’antécédent négatif, et absence de chancre clinique.":"无经确认的既往治疗史、无既往阴性结果，且无临床硬下疳。",
-      "→ Une seule sérologie avec VDRL > 0":"→ 仅有一次血清学检查且 VDRL > 0",
-      "→ Infection non datable":"→ 感染无法定时",
-      "→ À considérer comme syphilis tardive":"→ 应视为晚期梅毒",
-      "Situation restant indatable ou historique insuffisant.":"情况仍无法定时，或病史不足。",
-      "Traitement recommandé (syphilis tardive) :":"推荐治疗（晚期梅毒）：",
-      "Traitement recommandé (syphilis précoce) :":"推荐治疗（早期梅毒）：",
-      "Traitement recommandé (neurosyphilis / atteinte ORL / oculaire) :":"推荐治疗（神经梅毒 / 耳鼻喉 / 眼部受累）：",
-      "Pas d’historique antérieur exploitable":"无可利用既往病史",
-      "pas d’antécédent négatif":"无既往阴性结果",
-      "pas de traitement validé":"无经确认的治疗",
-      "pas de chancre":"无硬下疳",
-      "une seule sérologie":"单次血清学检查",
-      "situation indatable":"无法定时的情况",
-      "CAT de sécurité":"安全处置",
-      "Élevée":"高",
-      "Modérée":"中等",
-      "Faible":"低"
-    },
-    ja: {
-      "Syphilis tardive par défaut":"デフォルトで晩期梅毒",
-      "Pas d’historique antérieur exploitable.":"利用可能な既往歴がありません。",
-      "Pas d’historique de traitement validé, pas d’antécédent négatif, et absence de chancre clinique.":"有効な治療歴も陰性既往もなく、臨床的硬性下疳もありません。",
-      "→ Une seule sérologie avec VDRL > 0":"→ VDRL > 0 の血清検査が1回のみ",
-      "→ Infection non datable":"→ 感染時期を特定できない",
-      "→ À considérer comme syphilis tardive":"→ 晩期梅毒として扱う",
-      "Situation restant indatable ou historique insuffisant.":"依然として感染時期不明、または既往歴が不十分です。",
-      "Traitement recommandé (syphilis tardive) :":"推奨治療（晩期梅毒）：",
-      "Traitement recommandé (syphilis précoce) :":"推奨治療（早期梅毒）：",
-      "Traitement recommandé (neurosyphilis / atteinte ORL / oculaire) :":"推奨治療（神経梅毒 / 耳鼻咽喉 / 眼病変）：",
-      "Pas d’historique antérieur exploitable":"利用可能な既往歴なし",
-      "pas d’antécédent négatif":"陰性既往なし",
-      "pas de traitement validé":"有効治療歴なし",
-      "pas de chancre":"硬性下疳なし",
-      "une seule sérologie":"血清検査1回のみ",
-      "situation indatable":"時期不明の状況",
-      "CAT de sécurité":"安全策",
-      "Élevée":"高い",
-      "Modérée":"中等度",
-      "Faible":"低い"
-    }
-  };
-  const map = maps[currentLang] || {};
-  if(map[out]) return map[out];
-  Object.keys(map).sort((a,b)=>b.length-a.length).forEach((k)=>{
-    out = out.split(k).join(map[k]);
-  });
-
-  const extraClinical = {
-    en: {
-      "Traitement précoce probable":"Probable early treatment",
-      "Traitement précoce sur clinique":"Early treatment based on clinical presentation",
-      "Post-exposition":"Post-exposure",
-      "CAT clinique sans biologie":"Clinical management without biology",
-      "Biologie non renseignée":"Biology not provided",
-      "Chancre douteux sans résultat biologique saisi.":"Doubtful chancre without any recorded biological result.",
-      "Chancre typique sans résultat biologique saisi.":"Typical chancre without any recorded biological result.",
-      "Contage < 6 semaines sans résultat biologique saisi.":"Exposure < 6 weeks without any recorded biological result.",
-      "Autres signes cutanés sans résultat biologique saisi.":"Other skin signs without any recorded biological result.",
-      "→ Traiter comme syphilis précoce":"→ Treat as early syphilis",
-      "→ Faire une sérologie de confirmation":"→ Perform confirmatory serology",
-      "→ Si la clinique devient moins convaincante ou atypique, garder l’hypothèse d’une syphilis tardive":"→ If the clinical picture becomes less convincing or atypical, keep late syphilis as a possibility",
-      "→ Adapter secondairement le traitement si besoin":"→ Adjust treatment afterwards if needed",
-      "→ Traiter comme post-exposition / syphilis précoce":"→ Treat as post-exposure / early syphilis",
-      "→ Faire une sérologie de contrôle / confirmation":"→ Perform follow-up / confirmatory serology",
-      "→ Si tableau évocateur de syphilis secondaire (exanthème maculo-papuleux, atteinte palmo-plantaire), traiter comme syphilis tardive si la situation est indatable":"→ If the presentation suggests secondary syphilis (maculopapular rash, palmoplantar involvement), treat as late syphilis when the situation is undatable",
-      "Aucun résultat sérologique exploitable n’a été saisi, ou aucune sérologie datée n’a été renseignée.":"No usable serological result has been entered, or no dated serology has been provided.",
-      "→ Un tableau clinique seul peut orienter une conduite à tenir":"→ Clinical presentation alone may guide management",
-      "→ En l’absence d’argument clinique saisi, faire une sérologie avant interprétation":"→ If no clinical argument is entered, obtain serology before interpretation"
-    },
-    es: {
-      "Traitement précoce probable":"Tratamiento precoz probable",
-      "Traitement précoce sur clinique":"Tratamiento precoz basado en la clínica",
-      "Post-exposition":"Postexposición",
-      "CAT clinique sans biologie":"Conducta clínica sin biología",
-      "Biologie non renseignée":"Biología no consignada",
-      "Chancre douteux sans résultat biologique saisi.":"Chancro dudoso sin resultado biológico registrado.",
-      "Chancre typique sans résultat biologique saisi.":"Chancro típico sin resultado biológico registrado.",
-      "Contage < 6 semaines sans résultat biologique saisi.":"Contacto < 6 semanas sin resultado biológico registrado.",
-      "Autres signes cutanés sans résultat biologique saisi.":"Otros signos cutáneos sin resultado biológico registrado.",
-      "→ Traiter comme syphilis précoce":"→ Tratar como sífilis precoz",
-      "→ Faire une sérologie de confirmation":"→ Realizar serología de confirmación",
-      "→ Si la clinique devient moins convaincante ou atypique, garder l’hypothèse d’une syphilis tardive":"→ Si la clínica se vuelve menos convincente o atípica, mantener la hipótesis de sífilis tardía",
-      "→ Adapter secondairement le traitement si besoin":"→ Adaptar posteriormente el tratamiento si es necesario",
-      "→ Traiter comme post-exposition / syphilis précoce":"→ Tratar como postexposición / sífilis precoz",
-      "→ Faire une sérologie de contrôle / confirmation":"→ Realizar serología de control / confirmación",
-      "→ Si tableau évocateur de syphilis secondaire (exanthème maculo-papuleux, atteinte palmo-plantaire), traiter comme syphilis tardive si la situation est indatable":"→ Si el cuadro sugiere sífilis secundaria (exantema maculopapular, afectación palmoplantar), tratar como sífilis tardía si la situación no puede fecharse",
-      "Aucun résultat sérologique exploitable n’a été saisi, ou aucune sérologie datée n’a été renseignée.":"No se ha introducido ningún resultado serológico interpretable, o no se ha registrado ninguna serología fechada.",
-      "→ Un tableau clinique seul peut orienter une conduite à tenir":"→ El cuadro clínico por sí solo puede orientar la conducta",
-      "→ En l’absence d’argument clinique saisi, faire une sérologie avant interprétation":"→ En ausencia de argumentos clínicos registrados, realizar serología antes de interpretar"
-    },
-    pt: {
-      "Traitement précoce probable":"Tratamento precoce provável",
-      "Traitement précoce sur clinique":"Tratamento precoce com base na clínica",
-      "Post-exposition":"Pós-exposição",
-      "CAT clinique sans biologie":"Conduta clínica sem biologia",
-      "Biologie non renseignée":"Biologia não informada",
-      "Chancre douteux sans résultat biologique saisi.":"Cancro duvidoso sem resultado biológico registado.",
-      "Chancre typique sans résultat biologique saisi.":"Cancro típico sem resultado biológico registado.",
-      "Contage < 6 semaines sans résultat biologique saisi.":"Contacto < 6 semanas sem resultado biológico registado.",
-      "Autres signes cutanés sans résultat biologique saisi.":"Outros sinais cutâneos sem resultado biológico registado.",
-      "→ Traiter comme syphilis précoce":"→ Tratar como sífilis precoce",
-      "→ Faire une sérologie de confirmation":"→ Fazer serologia de confirmação",
-      "→ Si la clinique devient moins convaincante ou atypique, garder l’hypothèse d’une syphilis tardive":"→ Se a clínica se tornar menos convincente ou atípica, manter a hipótese de sífilis tardia",
-      "→ Adapter secondairement le traitement si besoin":"→ Adaptar posteriormente o tratamento se necessário",
-      "→ Traiter comme post-exposition / syphilis précoce":"→ Tratar como pós-exposição / sífilis precoce",
-      "→ Faire une sérologie de contrôle / confirmation":"→ Fazer serologia de controlo / confirmação",
-      "→ Si tableau évocateur de syphilis secondaire (exanthème maculo-papuleux, atteinte palmo-plantaire), traiter comme syphilis tardive si la situation est indatable":"→ Se o quadro sugerir sífilis secundária (exantema maculopapular, atingimento palmo-plantar), tratar como sífilis tardia se a situação for não datável",
-      "Aucun résultat sérologique exploitable n’a été saisi, ou aucune sérologie datée n’a été renseignée.":"Nenhum resultado serológico interpretável foi introduzido, ou nenhuma serologia datada foi registada.",
-      "→ Un tableau clinique seul peut orienter une conduite à tenir":"→ O quadro clínico isolado pode orientar a conduta",
-      "→ En l’absence d’argument clinique saisi, faire une sérologie avant interprétation":"→ Na ausência de argumento clínico registado, fazer serologia antes da interpretação"
-    },
-    de: {
-      "Traitement précoce probable":"Wahrscheinliche Frühbehandlung",
-      "Traitement précoce sur clinique":"Frühbehandlung nach klinischem Bild",
-      "Post-exposition":"Postexposition",
-      "CAT clinique sans biologie":"Klinisches Vorgehen ohne Biologie",
-      "Biologie non renseignée":"Biologie nicht angegeben",
-      "Chancre douteux sans résultat biologique saisi.":"Fraglicher Schanker ohne eingetragenes biologisches Ergebnis.",
-      "Chancre typique sans résultat biologique saisi.":"Typischer Schanker ohne eingetragenes biologisches Ergebnis.",
-      "Contage < 6 semaines sans résultat biologique saisi.":"Kontakt < 6 Wochen ohne eingetragenes biologisches Ergebnis.",
-      "Autres signes cutanés sans résultat biologique saisi.":"Andere Hautzeichen ohne eingetragenes biologisches Ergebnis.",
-      "→ Traiter comme syphilis précoce":"→ Als Frühsyphilis behandeln",
-      "→ Faire une sérologie de confirmation":"→ Bestätigungsserologie durchführen",
-      "→ Si la clinique devient moins convaincante ou atypique, garder l’hypothèse d’une syphilis tardive":"→ Wenn das klinische Bild weniger überzeugend oder atypisch wird, die Möglichkeit einer Spätsyphilis beibehalten",
-      "→ Adapter secondairement le traitement si besoin":"→ Behandlung bei Bedarf sekundär anpassen",
-      "→ Traiter comme post-exposition / syphilis précoce":"→ Als Postexposition / Frühsyphilis behandeln",
-      "→ Faire une sérologie de contrôle / confirmation":"→ Kontroll-/Bestätigungsserologie durchführen",
-      "→ Si tableau évocateur de syphilis secondaire (exanthème maculo-papuleux, atteinte palmo-plantaire), traiter comme syphilis tardive si la situation est indatable":"→ Wenn das Bild an eine sekundäre Syphilis denken lässt (makulopapulöses Exanthem, palmoplantare Beteiligung), als Spätsyphilis behandeln, wenn die Situation nicht datierbar ist",
-      "Aucun résultat sérologique exploitable n’a été saisi, ou aucune sérologie datée n’a été renseignée.":"Es wurde kein verwertbares serologisches Ergebnis eingegeben oder keine datierte Serologie angegeben.",
-      "→ Un tableau clinique seul peut orienter une conduite à tenir":"→ Das klinische Bild allein kann das Vorgehen leiten",
-      "→ En l’absence d’argument clinique saisi, faire une sérologie avant interprétation":"→ Fehlt ein klinisches Argument, sollte vor der Interpretation eine Serologie erfolgen"
-    },
-    pl: {
-      "Traitement précoce probable":"Prawdopodobne leczenie wczesne",
-      "Traitement précoce sur clinique":"Leczenie wczesne na podstawie obrazu klinicznego",
-      "Post-exposition":"Poekspozycyjne",
-      "CAT clinique sans biologie":"Postępowanie kliniczne bez badań biologicznych",
-      "Biologie non renseignée":"Brak danych biologicznych",
-      "Chancre douteux sans résultat biologique saisi.":"Wrzód wątpliwy bez wprowadzonego wyniku biologicznego.",
-      "Chancre typique sans résultat biologique saisi.":"Typowy wrzód bez wprowadzonego wyniku biologicznego.",
-      "Contage < 6 semaines sans résultat biologique saisi.":"Kontakt < 6 tygodni bez wprowadzonego wyniku biologicznego.",
-      "Autres signes cutanés sans résultat biologique saisi.":"Inne objawy skórne bez wprowadzonego wyniku biologicznego.",
-      "→ Traiter comme syphilis précoce":"→ Leczyć jak kiłę wczesną",
-      "→ Faire une sérologie de confirmation":"→ Wykonać serologię potwierdzającą",
-      "→ Si la clinique devient moins convaincante ou atypique, garder l’hypothèse d’une syphilis tardive":"→ Jeśli obraz kliniczny stanie się mniej przekonujący lub atypowy, zachować hipotezę kiły późnej",
-      "→ Adapter secondairement le traitement si besoin":"→ W razie potrzeby wtórnie dostosować leczenie",
-      "→ Traiter comme post-exposition / syphilis précoce":"→ Leczyć jak poekspozycyjnie / kiłę wczesną",
-      "→ Faire une sérologie de contrôle / confirmation":"→ Wykonać serologię kontrolną / potwierdzającą",
-      "→ Si tableau évocateur de syphilis secondaire (exanthème maculo-papuleux, atteinte palmo-plantaire), traiter comme syphilis tardive si la situation est indatable":"→ Jeśli obraz sugeruje kiłę wtórną (wysypka plamisto-grudkowa, zajęcie dłoni i stóp), leczyć jak kiłę późną, jeśli sytuacji nie da się datować",
-      "Aucun résultat sérologique exploitable n’a été saisi, ou aucune sérologie datée n’a été renseignée.":"Nie wprowadzono żadnego użytecznego wyniku serologicznego ani żadnej datowanej serologii.",
-      "→ Un tableau clinique seul peut orienter une conduite à tenir":"→ Sam obraz kliniczny może ukierunkować postępowanie",
-      "→ En l’absence d’argument clinique saisi, faire une sérologie avant interprétation":"→ Przy braku wprowadzonego argumentu klinicznego należy wykonać serologię przed interpretacją"
-    },
-    it: {
-      "Traitement précoce probable":"Trattamento precoce probabile",
-      "Traitement précoce sur clinique":"Trattamento precoce su base clinica",
-      "Post-exposition":"Post-esposizione",
-      "CAT clinique sans biologie":"Condotta clinica senza biologia",
-      "Biologie non renseignée":"Biologia non inserita",
-      "Chancre douteux sans résultat biologique saisi.":"Sifiloma dubbio senza alcun risultato biologico inserito.",
-      "Chancre typique sans résultat biologique saisi.":"Sifiloma tipico senza alcun risultato biologico inserito.",
-      "Contage < 6 semaines sans résultat biologique saisi.":"Contatto < 6 settimane senza alcun risultato biologico inserito.",
-      "Autres signes cutanés sans résultat biologique saisi.":"Altri segni cutanei senza alcun risultato biologico inserito.",
-      "→ Traiter comme syphilis précoce":"→ Trattare come sifilide precoce",
-      "→ Faire une sérologie de confirmation":"→ Eseguire sierologia di conferma",
-      "→ Si la clinique devient moins convaincante ou atypique, garder l’hypothèse d’une syphilis tardive":"→ Se il quadro clinico diventa meno convincente o atipico, mantenere l’ipotesi di sifilide tardiva",
-      "→ Adapter secondairement le traitement si besoin":"→ Adattare successivamente il trattamento se necessario",
-      "→ Traiter comme post-exposition / syphilis précoce":"→ Trattare come post-esposizione / sifilide precoce",
-      "→ Faire une sérologie de contrôle / confirmation":"→ Eseguire sierologia di controllo / conferma",
-      "→ Si tableau évocateur de syphilis secondaire (exanthème maculo-papuleux, atteinte palmo-plantaire), traiter comme syphilis tardive si la situation est indatable":"→ Se il quadro suggerisce sifilide secondaria (esantema maculo-papuloso, interessamento palmo-plantare), trattare come sifilide tardiva se la situazione non è databile",
-      "Aucun résultat sérologique exploitable n’a été saisi, ou aucune sérologie datée n’a été renseignée.":"Non è stato inserito alcun risultato sierologico interpretabile, oppure nessuna sierologia datata.",
-      "→ Un tableau clinique seul peut orienter une conduite à tenir":"→ Il solo quadro clinico può orientare la condotta",
-      "→ En l’absence d’argument clinique saisi, faire une sérologie avant interprétation":"→ In assenza di argomenti clinici inseriti, eseguire sierologia prima dell’interpretazione"
-    },
-    ar: {
-      "Traitement précoce probable":"علاج مبكر محتمل",
-      "Traitement précoce sur clinique":"علاج مبكر بناءً على المعطيات السريرية",
-      "Post-exposition":"ما بعد التعرّض",
-      "CAT clinique sans biologie":"تدبير سريري دون معطيات بيولوجية",
-      "Biologie non renseignée":"لم يتم إدخال البيولوجيا",
-      "Chancre douteux sans résultat biologique saisi.":"قرحة مشكوك فيها دون أي نتيجة بيولوجية مُدخلة.",
-      "Chancre typique sans résultat biologique saisi.":"قرحة نموذجية دون أي نتيجة بيولوجية مُدخلة.",
-      "Contage < 6 semaines sans résultat biologique saisi.":"تعرّض منذ أقل من 6 أسابيع دون أي نتيجة بيولوجية مُدخلة.",
-      "Autres signes cutanés sans résultat biologique saisi.":"علامات جلدية أخرى دون أي نتيجة بيولوجية مُدخلة.",
-      "→ Traiter comme syphilis précoce":"→ يُعالج كزهري مبكر",
-      "→ Faire une sérologie de confirmation":"→ إجراء مصلية تأكيدية",
-      "→ Si la clinique devient moins convaincante ou atypique, garder l’hypothèse d’une syphilis tardive":"→ إذا أصبحت الصورة السريرية أقل إقناعاً أو غير نمطية، فيجب الإبقاء على فرضية الزهري المتأخر",
-      "→ Adapter secondairement le traitement si besoin":"→ تعديل العلاج لاحقاً عند الحاجة",
-      "→ Traiter comme post-exposition / syphilis précoce":"→ يُعالج كحالة ما بعد التعرّض / زهري مبكر",
-      "→ Faire une sérologie de contrôle / confirmation":"→ إجراء مصلية للمراقبة / التأكيد",
-      "→ Si tableau évocateur de syphilis secondaire (exanthème maculo-papuleux, atteinte palmo-plantaire), traiter comme syphilis tardive si la situation est indatable":"→ إذا كانت الصورة توحي بزهري ثانوي (طفح بقعي حطاطي، إصابة راحية أخمصية)، فيُعالج كزهري متأخر إذا كانت الحالة غير قابلة للتأريخ",
-      "Aucun résultat sérologique exploitable n’a été saisi, ou aucune sérologie datée n’a été renseignée.":"لم يتم إدخال أي نتيجة مصلية قابلة للتفسير، أو لم تُسجَّل أي مصلية مؤرخة.",
-      "→ Un tableau clinique seul peut orienter une conduite à tenir":"→ يمكن للصورة السريرية وحدها أن توجه التدبير",
-      "→ En l’absence d’argument clinique saisi, faire une sérologie avant interprétation":"→ عند غياب أي معطى سريري مُدخل، يجب إجراء مصلية قبل التفسير"
-    },
-    zh: {
-      "Traitement précoce probable":"可能为早期治疗方案",
-      "Traitement précoce sur clinique":"基于临床表现的早期治疗",
-      "Post-exposition":"暴露后处理",
-      "CAT clinique sans biologie":"无生物学结果时的临床处理",
-      "Biologie non renseignée":"未填写生物学结果",
-      "Chancre douteux sans résultat biologique saisi.":"可疑硬下疳，未录入任何生物学结果。",
-      "Chancre typique sans résultat biologique saisi.":"典型硬下疳，未录入任何生物学结果。",
-      "Contage < 6 semaines sans résultat biologique saisi.":"接触史 < 6 周，未录入任何生物学结果。",
-      "Autres signes cutanés sans résultat biologique saisi.":"其他皮肤体征，未录入任何生物学结果。",
-      "→ Traiter comme syphilis précoce":"→ 按早期梅毒处理",
-      "→ Faire une sérologie de confirmation":"→ 进行确认性血清学检测",
-      "→ Si la clinique devient moins convaincante ou atypique, garder l’hypothèse d’une syphilis tardive":"→ 如果临床表现变得不典型或说服力下降，应保留晚期梅毒的可能",
-      "→ Adapter secondairement le traitement si besoin":"→ 必要时后续调整治疗",
-      "→ Traiter comme post-exposition / syphilis précoce":"→ 按暴露后 / 早期梅毒处理",
-      "→ Faire une sérologie de contrôle / confirmation":"→ 进行复查 / 确认性血清学检测",
-      "→ Si tableau évocateur de syphilis secondaire (exanthème maculo-papuleux, atteinte palmo-plantaire), traiter comme syphilis tardive si la situation est indatable":"→ 如表现提示二期梅毒（斑丘疹、掌跖受累），若病程无法判定，则按晚期梅毒处理",
-      "Aucun résultat sérologique exploitable n’a été saisi, ou aucune sérologie datée n’a été renseignée.":"未录入可解释的血清学结果，或未填写带日期的血清学结果。",
-      "→ Un tableau clinique seul peut orienter une conduite à tenir":"→ 单凭临床表现也可指导处理",
-      "→ En l’absence d’argument clinique saisi, faire une sérologie avant interprétation":"→ 若未录入临床依据，应先做血清学检测再解释"
-    },
-    ja: {
-      "Traitement précoce probable":"早期治療が疑われる",
-      "Traitement précoce sur clinique":"臨床所見に基づく早期治療",
-      "Post-exposition":"曝露後対応",
-      "CAT clinique sans biologie":"生物学的検査なしの臨床対応",
-      "Biologie non renseignée":"生物学的結果が未入力",
-      "Chancre douteux sans résultat biologique saisi.":"疑わしい硬性下疳で、生物学的結果が入力されていません。",
-      "Chancre typique sans résultat biologique saisi.":"典型的な硬性下疳で、生物学的結果が入力されていません。",
-      "Contage < 6 semaines sans résultat biologique saisi.":"接触から6週間未満で、生物学的結果が入力されていません。",
-      "Autres signes cutanés sans résultat biologique saisi.":"その他の皮膚症状で、生物学的結果が入力されていません。",
-      "→ Traiter comme syphilis précoce":"→ 早期梅毒として治療する",
-      "→ Faire une sérologie de confirmation":"→ 確認のため血清学検査を行う",
-      "→ Si la clinique devient moins convaincante ou atypique, garder l’hypothèse d’une syphilis tardive":"→ 臨床像の説得力が低下する、または非典型的な場合は、晩期梅毒の可能性も残す",
-      "→ Adapter secondairement le traitement si besoin":"→ 必要に応じて後から治療を調整する",
-      "→ Traiter comme post-exposition / syphilis précoce":"→ 曝露後 / 早期梅毒として治療する",
-      "→ Faire une sérologie de contrôle / confirmation":"→ フォローアップ / 確認のため血清学検査を行う",
-      "→ Si tableau évocateur de syphilis secondaire (exanthème maculo-papuleux, atteinte palmo-plantaire), traiter comme syphilis tardive si la situation est indatable":"→ 二期梅毒を示唆する所見（斑状丘疹性発疹、手掌足底病変）がある場合、時期判定不能なら晩期梅毒として治療する",
-      "Aucun résultat sérologique exploitable n’a été saisi, ou aucune sérologie datée n’a été renseignée.":"解釈可能な血清学的結果が入力されていないか、日付付きの血清学検査が入力されていません。",
-      "→ Un tableau clinique seul peut orienter une conduite à tenir":"→ 臨床像のみでも対応方針を決める手がかりになる",
-      "→ En l’absence d’argument clinique saisi, faire une sérologie avant interprétation":"→ 臨床的根拠が入力されていない場合は、解釈前に血清学検査を行う"
-    }
-  };
-  const extraMap = extraClinical[currentLang] || {};
-  Object.keys(extraMap).sort((a,b)=>b.length-a.length).forEach((k)=>{
-    out = out.split(k).join(extraMap[k]);
-  });
-  return out;
+function resolveReasonToken(token){
+  const key = String(token || '').trim();
+  if(!key) return key;
+  const maps = [];
+  if(typeof MORE_I18N !== "undefined") maps.push(MORE_I18N);
+  if(typeof EXTRA_I18N !== "undefined") maps.push(EXTRA_I18N);
+  if(typeof DYN_I18N !== "undefined") maps.push(DYN_I18N);
+  for(const dict of maps){
+    const cur = dict[currentLang] || {};
+    const fr = dict.fr || {};
+    if(typeof cur[key] === 'string') return cur[key];
+    if(typeof fr[key] === 'string') return fr[key];
+  }
+  return key;
+}
+function normalizeReasonString(value){
+  if(value == null) return value;
+  const raw = String(value);
+  const resolved = raw
+    .split('|')
+    .map(s => resolveReasonToken(s.trim()))
+    .join(' | ');
+  return translatePlainText(resolved);
 }
 
 
 function setBoxes(compare, tx, conf, why){
-  document.getElementById("compareInfo").textContent = translateDeepText(compare);
-  document.getElementById("txInfo").textContent = translateDeepText(tx);
-  document.getElementById("confidenceInfo").textContent = translateDeepText(conf);
-  document.getElementById("whyInfo").textContent = translateDeepText(why);
+  document.getElementById("compareInfo").textContent = normalizeReasonString(compare || "—");
+  document.getElementById("txInfo").textContent = normalizeReasonString(tx || "—");
+  document.getElementById("confidenceInfo").textContent = normalizeReasonString(conf || "—");
+  document.getElementById("whyInfo").textContent = normalizeReasonString(why || "—");
 }
 
 function parseDate(s){ return new Date(s + "T00:00:00"); }
@@ -2086,7 +1889,7 @@ function isValidVDRL(v){
   return valid.has(Number(v));
 }
 
-function confidence(level, reason){ return translatePlainText(`${level} — ${reason}`); }
+function confidence(level, reason){ return normalizeReasonString(`${level} — ${reason}`); }
 function standardLateTreatment(){
   const items = CLINICAL_RULEBOOK.treatments.late.map(code => treatmentLabel(code)).filter(Boolean);
   return `${dynT("late_treatment_title")}
@@ -2122,6 +1925,108 @@ function getEpisodeSerologyForTreatment(serologies, tx){
 /* =============================
    ETAT CLINIQUE COURANT
    ============================= */
+
+const SOURCE_CLINICAL_I18N = {
+  fr:{
+    moderateLevel:"Modérée", lowLevel:"Faible",
+    txWithoutBiology:"Traitement(s) saisi(s) sans biologie exploitable", noValidTreatment:"Aucun traitement valide retenu",
+    clinicalReferencePrefix:"Référence clinique du ",
+    neuro_chancre_no_bio_conclusion:"Signes neuro / ORL / ophtalmo avec chancre évocateur : proposer une ponction lombaire et évaluation spécialisée, même si une syphilis primaire paraît possible (formes primo-tertiaires possibles).",
+    neuro_chancre_no_bio_intro:"Signes neurologiques / ORL / ophtalmologiques associés à un chancre évocateur, sans biologie exploitable.",
+    neuro_chancre_no_bio_line1:"Ne pas rassurer sur le seul aspect de chancre primaire",
+    neuro_chancre_no_bio_line2:"Proposer une ponction lombaire",
+    neuro_chancre_no_bio_line3:"Faire sérologie tréponémique + VDRL en urgence",
+    neuro_chancre_no_bio_line4:"Avis spécialisé si atteinte ophtalmologique / ORL / neurologique",
+    conf_neuro_chancre_no_bio:"priorité aux signes neuro/ORL/ophtalmo malgré chancre évocateur",
+    why_neuro_chancre_no_bio:"signes neuro/ORL/ophtalmo | chancre évocateur | formes primo-tertiaires possibles | biologie non exploitable",
+    early_clinical_conclusion:"Traitement comme syphilis précoce sur tableau clinique ; confirmer par sérologie.",
+    early_clinical_badge:"Traitement précoce sur clinique",
+    early_typical_intro:"Chancre typique sans résultat biologique saisi.",
+    early_typical_line1:"Traiter comme syphilis précoce",
+    early_typical_line2:"Faire une sérologie de confirmation",
+    early_typical_line3:"Adapter secondairement le traitement si besoin",
+    conf_typical_no_bio:"tableau clinique évocateur sans biologie",
+    why_typical_no_bio:"chancre typique sans biologie",
+    early_prob_conclusion:"Traitement comme syphilis précoce probable sur tableau clinique ; confirmer par sérologie et garder une forme tardive en réserve si doute clinique.",
+    early_prob_badge:"Traitement précoce probable",
+    early_doubtful_intro:"Chancre douteux sans résultat biologique saisi.",
+    early_doubtful_line1:"Traiter comme syphilis précoce",
+    early_doubtful_line2:"Faire une sérologie de confirmation",
+    early_doubtful_line3:"Si la clinique devient moins convaincante ou atypique, garder l’hypothèse d’une syphilis tardive",
+    conf_doubtful_no_bio:"tableau clinique compatible mais non confirmé biologiquement",
+    why_doubtful_no_bio:"chancre douteux sans biologie",
+    postexp_conclusion:"Contage récent sans biologie : traitement post-exposition / stade précoce à confirmer secondairement.",
+    postexp_badge:"Post-exposition",
+    contact_no_bio_intro:"Contage < 6 semaines sans résultat biologique saisi.",
+    contact_no_bio_line1:"Traiter comme post-exposition / syphilis précoce",
+    contact_no_bio_line2:"Faire une sérologie de contrôle / confirmation",
+    conf_contact_no_bio:"contage récent sans biologie",
+    why_contact_no_bio:"contage récent sans biologie",
+    cutaneous_no_bio_conclusion:"Tableau cutané isolé sans biologie : si exanthème évocateur, traiter comme syphilis tardive si indatable et confirmer biologiquement.",
+    cutaneous_no_bio_badge:"CAT clinique sans biologie",
+    cutaneous_no_bio_intro:"Autres signes cutanés sans résultat biologique saisi.",
+    cutaneous_no_bio_line1:"Si tableau évocateur de syphilis secondaire (exanthème maculo-papuleux, atteinte palmo-plantaire), traiter comme syphilis tardive si la situation est indatable",
+    cutaneous_no_bio_line2:"Faire une sérologie de confirmation",
+    conf_cutaneous_no_bio:"tableau clinique isolé sans biologie",
+    why_cutaneous_no_bio:"signes cutanés isolés sans biologie",
+    no_bio_badge:"Biologie non renseignée",
+    no_bio_intro:"Aucun résultat sérologique exploitable n’a été saisi, ou aucune sérologie datée n’a été renseignée.",
+    no_bio_line1:"Un tableau clinique seul peut orienter une conduite à tenir",
+    no_bio_line2:"En présence de chancre typique, un traitement précoce peut être proposé",
+    no_bio_line3:"En présence de signes neuro / ORL / ophtalmo, une ponction lombaire doit être envisagée si sérologie positive dès qu’elle est disponible",
+    no_bio_line4:"Faire une sérologie datée complète avant de conclure définitivement",
+    no_bio_conclusion:"Absence de biologie exploitable : interprétation définitive impossible sans sérologie datée."
+  },
+  en:{
+    moderateLevel:"Moderate", lowLevel:"Low", txWithoutBiology:"Treatment(s) entered without interpretable biological data", noValidTreatment:"No valid previous treatment retained", clinicalReferencePrefix:"Clinical reference of ",
+    neuro_chancre_no_bio_conclusion:"Neuro / ENT / ophthalmic signs with a suggestive chancre: lumbar puncture and specialist assessment are recommended even if primary syphilis seems possible (primary-tertiary forms may occur).",
+    neuro_chancre_no_bio_intro:"Neurological / ENT / ophthalmological signs associated with a suggestive chancre, without interpretable biological data.", neuro_chancre_no_bio_line1:"Do not reassure based only on the appearance of a primary chancre", neuro_chancre_no_bio_line2:"Propose a lumbar puncture", neuro_chancre_no_bio_line3:"Perform treponemal serology + VDRL urgently", neuro_chancre_no_bio_line4:"Specialist opinion if ophthalmologic / ENT / neurologic involvement", conf_neuro_chancre_no_bio:"priority to neuro/ENT/ophthalmic signs despite suggestive chancre", why_neuro_chancre_no_bio:"neuro/ENT/ophthalmic signs | suggestive chancre | primary-tertiary forms possible | uninterpretable biology",
+    early_clinical_conclusion:"Treat as early syphilis based on the clinical picture; confirm by serology.", early_clinical_badge:"Early treatment on clinical grounds", early_typical_intro:"Typical chancre without biological result entered.", early_typical_line1:"Treat as early syphilis", early_typical_line2:"Perform confirmatory serology", early_typical_line3:"Adjust treatment secondarily if needed", conf_typical_no_bio:"suggestive clinical picture without biology", why_typical_no_bio:"typical chancre without biology",
+    early_prob_conclusion:"Treat as probable early syphilis based on the clinical picture; confirm by serology and keep late syphilis in reserve if clinical doubt remains.", early_prob_badge:"Probable early treatment", early_doubtful_intro:"Doubtful chancre without biological result entered.", early_doubtful_line1:"Treat as early syphilis", early_doubtful_line2:"Perform confirmatory serology", early_doubtful_line3:"If the clinical picture becomes less convincing or atypical, keep late syphilis as an alternative", conf_doubtful_no_bio:"compatible clinical picture but not biologically confirmed", why_doubtful_no_bio:"doubtful chancre without biology",
+    postexp_conclusion:"Recent exposure without biology: post-exposure / early-stage treatment to be secondarily confirmed.", postexp_badge:"Post-exposure", contact_no_bio_intro:"Exposure < 6 weeks without biological result entered.", contact_no_bio_line1:"Treat as post-exposure / early syphilis", contact_no_bio_line2:"Perform control / confirmatory serology", conf_contact_no_bio:"recent exposure without biology", why_contact_no_bio:"recent exposure without biology",
+    cutaneous_no_bio_conclusion:"Isolated skin presentation without biology: if the rash is suggestive, treat as late syphilis when undatable and confirm biologically.", cutaneous_no_bio_badge:"Clinical management without biology", cutaneous_no_bio_intro:"Other skin signs without biological result entered.", cutaneous_no_bio_line1:"If the presentation suggests secondary syphilis (maculopapular rash, palmoplantar involvement), treat as late syphilis if the situation is undatable", cutaneous_no_bio_line2:"Perform confirmatory serology", conf_cutaneous_no_bio:"isolated clinical picture without biology", why_cutaneous_no_bio:"isolated skin signs without biology",
+    no_bio_badge:"Biology not entered", no_bio_intro:"No interpretable serologic result has been entered, or no dated serology has been entered.", no_bio_line1:"Clinical presentation alone may guide management", no_bio_line2:"In the presence of a typical chancre, early treatment may be proposed", no_bio_line3:"If neuro / ENT / ophthalmic signs are present, lumbar puncture should be considered if serology is positive as soon as available", no_bio_line4:"Perform a complete dated serology before making a final conclusion", no_bio_conclusion:"No interpretable biology: final interpretation is impossible without dated serology."
+  },
+  es:{
+    moderateLevel:"Moderada", lowLevel:"Baja", txWithoutBiology:"Tratamiento(s) introducido(s) sin biología interpretable", noValidTreatment:"Ningún tratamiento válido retenido", clinicalReferencePrefix:"Referencia clínica del ",
+    neuro_chancre_no_bio_conclusion:"Signos neuro / ORL / oftalmológicos con chancro sugestivo: proponer punción lumbar y valoración especializada, incluso si una sífilis primaria parece posible (pueden existir formas primo-terciarias).",
+    neuro_chancre_no_bio_intro:"Signos neurológicos / ORL / oftalmológicos asociados a un chancro sugestivo, sin biología interpretable.", neuro_chancre_no_bio_line1:"No tranquilizarse únicamente por el aspecto de chancro primario", neuro_chancre_no_bio_line2:"Proponer una punción lumbar", neuro_chancre_no_bio_line3:"Solicitar serología treponémica + VDRL con urgencia", neuro_chancre_no_bio_line4:"Valoración especializada si hay afectación oftalmológica / ORL / neurológica", conf_neuro_chancre_no_bio:"prioridad a los signos neuro/ORL/oftalmológicos a pesar del chancro sugestivo", why_neuro_chancre_no_bio:"signos neuro/ORL/oftalmológicos | chancro sugestivo | posibles formas primo-terciarias | biología no interpretable",
+    early_clinical_conclusion:"Tratar como sífilis precoz según la clínica; confirmar por serología.", early_clinical_badge:"Tratamiento precoz por clínica", early_typical_intro:"Chancro típico sin resultado biológico introducido.", early_typical_line1:"Tratar como sífilis precoz", early_typical_line2:"Realizar serología de confirmación", early_typical_line3:"Adaptar después el tratamiento si es necesario", conf_typical_no_bio:"cuadro clínico evocador sin biología", why_typical_no_bio:"chancro típico sin biología",
+    early_prob_conclusion:"Tratar como sífilis precoz probable según la clínica; confirmar por serología y mantener la hipótesis de sífilis tardía si persiste la duda clínica.", early_prob_badge:"Tratamiento precoz probable", early_doubtful_intro:"Chancro dudoso sin resultado biológico introducido.", early_doubtful_line1:"Tratar como sífilis precoz", early_doubtful_line2:"Realizar serología de confirmación", early_doubtful_line3:"Si la clínica se vuelve menos convincente o atípica, mantener la hipótesis de sífilis tardía", conf_doubtful_no_bio:"cuadro clínico compatible pero no confirmado biológicamente", why_doubtful_no_bio:"chancro dudoso sin biología",
+    postexp_conclusion:"Contacto reciente sin biología: tratamiento posexposición / estadio precoz a confirmar posteriormente.", postexp_badge:"Post-exposición", contact_no_bio_intro:"Contacto < 6 semanas sin resultado biológico introducido.", contact_no_bio_line1:"Tratar como post-exposición / sífilis precoz", contact_no_bio_line2:"Realizar serología de control / confirmación", conf_contact_no_bio:"contacto reciente sin biología", why_contact_no_bio:"contacto reciente sin biología",
+    cutaneous_no_bio_conclusion:"Cuadro cutáneo aislado sin biología: si el exantema es sugestivo, tratar como sífilis tardía si no se puede fechar y confirmar biológicamente.", cutaneous_no_bio_badge:"Conducta clínica sin biología", cutaneous_no_bio_intro:"Otros signos cutáneos sin resultado biológico introducido.", cutaneous_no_bio_line1:"Si el cuadro sugiere sífilis secundaria (exantema maculopapular, afectación palmoplantar), tratar como sífilis tardía si la situación no es fechable", cutaneous_no_bio_line2:"Realizar serología de confirmación", conf_cutaneous_no_bio:"cuadro clínico aislado sin biología", why_cutaneous_no_bio:"signos cutáneos aislados sin biología",
+    no_bio_badge:"Biología no informada", no_bio_intro:"No se ha introducido ningún resultado serológico interpretable o no se ha introducido ninguna serología fechada.", no_bio_line1:"Un cuadro clínico por sí solo puede orientar la conducta", no_bio_line2:"En presencia de un chancro típico, puede proponerse tratamiento precoz", no_bio_line3:"En presencia de signos neuro / ORL / oftalmológicos, debe considerarse una punción lumbar si la serología es positiva en cuanto esté disponible", no_bio_line4:"Realizar una serología completa y fechada antes de concluir de forma definitiva", no_bio_conclusion:"Ausencia de biología interpretable: no es posible una interpretación definitiva sin serología fechada."
+  },
+  pt:{
+    moderateLevel:"Moderada", lowLevel:"Baixa", txWithoutBiology:"Tratamento(s) registado(s) sem biologia interpretável", noValidTreatment:"Nenhum tratamento válido retido", clinicalReferencePrefix:"Referência clínica de ",
+    neuro_chancre_no_bio_conclusion:"Sinais neuro / ORL / oftalmológicos com cancro sugestivo: propor punção lombar e avaliação especializada, mesmo que uma sífilis primária pareça possível (podem existir formas primo-terciárias).",
+    neuro_chancre_no_bio_intro:"Sinais neurológicos / ORL / oftalmológicos associados a um cancro sugestivo, sem biologia interpretável.", neuro_chancre_no_bio_line1:"Não tranquilizar apenas com o aspeto de cancro primário", neuro_chancre_no_bio_line2:"Propor uma punção lombar", neuro_chancre_no_bio_line3:"Pedir serologia treponémica + VDRL com urgência", neuro_chancre_no_bio_line4:"Avaliação especializada se houver atingimento oftalmológico / ORL / neurológico", conf_neuro_chancre_no_bio:"prioridade aos sinais neuro/ORL/oftalmológicos apesar do cancro sugestivo", why_neuro_chancre_no_bio:"sinais neuro/ORL/oftalmológicos | cancro sugestivo | formas primo-terciárias possíveis | biologia não interpretável",
+    early_clinical_conclusion:"Tratar como sífilis precoce com base na clínica; confirmar por serologia.", early_clinical_badge:"Tratamento precoce com base clínica", early_typical_intro:"Cancro típico sem resultado biológico registado.", early_typical_line1:"Tratar como sífilis precoce", early_typical_line2:"Fazer serologia de confirmação", early_typical_line3:"Adaptar posteriormente o tratamento se necessário", conf_typical_no_bio:"quadro clínico sugestivo sem biologia", why_typical_no_bio:"cancro típico sem biologia",
+    early_prob_conclusion:"Tratar como sífilis precoce provável com base na clínica; confirmar por serologia e manter a hipótese de sífilis tardia se persistir dúvida clínica.", early_prob_badge:"Tratamento precoce provável", early_doubtful_intro:"Cancro duvidoso sem resultado biológico registado.", early_doubtful_line1:"Tratar como sífilis precoce", early_doubtful_line2:"Fazer serologia de confirmação", early_doubtful_line3:"Se a clínica se tornar menos convincente ou atípica, manter a hipótese de sífilis tardia", conf_doubtful_no_bio:"quadro clínico compatível mas não confirmado biologicamente", why_doubtful_no_bio:"cancro duvidoso sem biologia",
+    postexp_conclusion:"Contacto recente sem biologia: tratamento pós-exposição / estádio precoce a confirmar posteriormente.", postexp_badge:"Pós-exposição", contact_no_bio_intro:"Contacto < 6 semanas sem resultado biológico registado.", contact_no_bio_line1:"Tratar como pós-exposição / sífilis precoce", contact_no_bio_line2:"Fazer serologia de controlo / confirmação", conf_contact_no_bio:"contacto recente sem biologia", why_contact_no_bio:"contacto recente sem biologia",
+    cutaneous_no_bio_conclusion:"Quadro cutâneo isolado sem biologia: se o exantema for sugestivo, tratar como sífilis tardia se a situação for indatável e confirmar biologicamente.", cutaneous_no_bio_badge:"Conduta clínica sem biologia", cutaneous_no_bio_intro:"Outros sinais cutâneos sem resultado biológico registado.", cutaneous_no_bio_line1:"Se o quadro sugerir sífilis secundária (exantema maculopapular, atingimento palmo-plantar), tratar como sífilis tardia se a situação for indatável", cutaneous_no_bio_line2:"Fazer serologia de confirmação", conf_cutaneous_no_bio:"quadro clínico isolado sem biologia", why_cutaneous_no_bio:"sinais cutâneos isolados sem biologia",
+    no_bio_badge:"Biologia não informada", no_bio_intro:"Não foi registado qualquer resultado serológico interpretável ou qualquer serologia datada.", no_bio_line1:"Um quadro clínico isolado pode orientar a conduta", no_bio_line2:"Na presença de um cancro típico, pode ser proposto tratamento precoce", no_bio_line3:"Na presença de sinais neuro / ORL / oftalmológicos, deve considerar-se punção lombar se a serologia for positiva assim que estiver disponível", no_bio_line4:"Realizar uma serologia completa e datada antes de concluir definitivamente", no_bio_conclusion:"Ausência de biologia interpretável: não é possível uma interpretação definitiva sem serologia datada."
+  },
+  de:{ moderateLevel:"Moderat", lowLevel:"Niedrig", txWithoutBiology:"Behandlung(en) ohne verwertbare biologische Daten eingegeben", noValidTreatment:"Keine gültige Vorbehandlung berücksichtigt", clinicalReferencePrefix:"Klinische Referenz vom ", neuro_chancre_no_bio_conclusion:"Neuro-/HNO-/augenärztliche Zeichen mit verdächtigem Schanker: Lumbalpunktion und fachärztliche Beurteilung vorschlagen, auch wenn eine primäre Syphilis möglich erscheint (primär-tertiäre Formen sind möglich).", neuro_chancre_no_bio_intro:"Neurologische / HNO- / ophthalmologische Zeichen in Verbindung mit einem verdächtigen Schanker, ohne verwertbare biologische Daten.", neuro_chancre_no_bio_line1:"Nicht allein durch das Bild eines primären Schankers beruhigen lassen", neuro_chancre_no_bio_line2:"Eine Lumbalpunktion vorschlagen", neuro_chancre_no_bio_line3:"Treponemen-Serologie + VDRL dringend durchführen", neuro_chancre_no_bio_line4:"Fachärztliche Beurteilung bei ophthalmologischer / HNO- / neurologischer Beteiligung", conf_neuro_chancre_no_bio:"Vorrang für neuro/HNO/ophthalmologische Zeichen trotz verdächtigem Schanker", why_neuro_chancre_no_bio:"neuro/HNO/ophthalmologische Zeichen | verdächtiger Schanker | primär-tertiäre Formen möglich | Biologie nicht verwertbar", early_clinical_conclusion:"Als frühe Syphilis anhand des klinischen Bildes behandeln; serologisch bestätigen.", early_clinical_badge:"Frühbehandlung nach Klinik", early_typical_intro:"Typischer Schanker ohne eingetragenes biologisches Ergebnis.", early_typical_line1:"Als frühe Syphilis behandeln", early_typical_line2:"Bestätigende Serologie durchführen", early_typical_line3:"Behandlung bei Bedarf später anpassen", conf_typical_no_bio:"hinweisendes klinisches Bild ohne Biologie", why_typical_no_bio:"typischer Schanker ohne Biologie", early_prob_conclusion:"Als wahrscheinliche frühe Syphilis nach Klinik behandeln; serologisch bestätigen und bei klinischem Zweifel späte Syphilis als Alternative behalten.", early_prob_badge:"Wahrscheinliche Frühbehandlung", early_doubtful_intro:"Fraglicher Schanker ohne eingetragenes biologisches Ergebnis.", early_doubtful_line1:"Als frühe Syphilis behandeln", early_doubtful_line2:"Bestätigende Serologie durchführen", early_doubtful_line3:"Wenn das klinische Bild weniger überzeugend oder atypisch wird, späte Syphilis als Hypothese beibehalten", conf_doubtful_no_bio:"kompatibles klinisches Bild, aber biologisch nicht bestätigt", why_doubtful_no_bio:"fraglicher Schanker ohne Biologie", postexp_conclusion:"Kürzlicher Kontakt ohne Biologie: Postexpositions-/Frühstadientherapie, später zu bestätigen.", postexp_badge:"Postexposition", contact_no_bio_intro:"Kontakt < 6 Wochen ohne eingetragenes biologisches Ergebnis.", contact_no_bio_line1:"Als Postexposition / frühe Syphilis behandeln", contact_no_bio_line2:"Kontroll-/Bestätigungsserologie durchführen", conf_contact_no_bio:"kürzlicher Kontakt ohne Biologie", why_contact_no_bio:"kürzlicher Kontakt ohne Biologie", cutaneous_no_bio_conclusion:"Isoliertes Hautbild ohne Biologie: bei suggestivem Exanthem als späte Syphilis behandeln, wenn nicht datierbar, und biologisch bestätigen.", cutaneous_no_bio_badge:"Klinisches Vorgehen ohne Biologie", cutaneous_no_bio_intro:"Andere Hautzeichen ohne eingetragenes biologisches Ergebnis.", cutaneous_no_bio_line1:"Wenn das Bild an eine sekundäre Syphilis denken lässt (makulopapulöses Exanthem, palmoplantare Beteiligung), als späte Syphilis behandeln, wenn die Situation nicht datierbar ist", cutaneous_no_bio_line2:"Bestätigende Serologie durchführen", conf_cutaneous_no_bio:"isoliertes klinisches Bild ohne Biologie", why_cutaneous_no_bio:"isolierte Hautzeichen ohne Biologie", no_bio_badge:"Biologie nicht angegeben", no_bio_intro:"Es wurde kein verwertbares serologisches Ergebnis oder keine datierte Serologie eingegeben.", no_bio_line1:"Ein rein klinisches Bild kann das Vorgehen orientieren", no_bio_line2:"Bei typischem Schanker kann eine Frühbehandlung vorgeschlagen werden", no_bio_line3:"Bei neuro-/HNO-/ophthalmologischen Zeichen sollte eine Lumbalpunktion erwogen werden, sobald die Serologie positiv vorliegt", no_bio_line4:"Eine vollständige datierte Serologie durchführen, bevor endgültig geschlossen wird", no_bio_conclusion:"Keine verwertbare Biologie: ohne datierte Serologie ist keine endgültige Interpretation möglich." },
+  pl:{ moderateLevel:"Umiarkowana", lowLevel:"Niska", txWithoutBiology:"Wprowadzone leczenie bez interpretowalnych danych biologicznych", noValidTreatment:"Nie uwzględniono żadnego ważnego leczenia", clinicalReferencePrefix:"Odniesienie kliniczne z dnia ", neuro_chancre_no_bio_conclusion:"Objawy neurologiczne / laryngologiczne / okulistyczne z sugestywnym wrzodem: należy zaproponować punkcję lędźwiową i ocenę specjalistyczną, nawet jeśli możliwa jest kiła pierwotna (możliwe są formy pierwotno-trzeciorzędowe).", neuro_chancre_no_bio_intro:"Objawy neurologiczne / laryngologiczne / okulistyczne związane z sugestywnym wrzodem, bez interpretowalnych danych biologicznych.", neuro_chancre_no_bio_line1:"Nie uspokajać się wyłącznie obrazem wrzodu pierwotnego", neuro_chancre_no_bio_line2:"Zaproponować punkcję lędźwiową", neuro_chancre_no_bio_line3:"Pilnie wykonać serologię krętkową + VDRL", neuro_chancre_no_bio_line4:"Konsultacja specjalistyczna przy zajęciu okulistycznym / laryngologicznym / neurologicznym", conf_neuro_chancre_no_bio:"priorytet dla objawów neuro/laryngologicznych/okulistycznych mimo sugestywnego wrzodu", why_neuro_chancre_no_bio:"objawy neuro/laryngologiczne/okulistyczne | sugestywny wrzód | możliwe formy pierwotno-trzeciorzędowe | biologia nieinterpretowalna", early_clinical_conclusion:"Leczyć jako kiłę wczesną na podstawie obrazu klinicznego; potwierdzić serologicznie.", early_clinical_badge:"Wczesne leczenie na podstawie obrazu klinicznego", early_typical_intro:"Typowy wrzód bez wprowadzonego wyniku biologicznego.", early_typical_line1:"Leczyć jako kiłę wczesną", early_typical_line2:"Wykonać serologię potwierdzającą", early_typical_line3:"W razie potrzeby później dostosować leczenie", conf_typical_no_bio:"sugestywny obraz kliniczny bez biologii", why_typical_no_bio:"typowy wrzód bez biologii", early_prob_conclusion:"Leczyć jako prawdopodobną kiłę wczesną na podstawie obrazu klinicznego; potwierdzić serologicznie i przy wątpliwościach klinicznych zachować hipotezę kiły późnej.", early_prob_badge:"Prawdopodobne wczesne leczenie", early_doubtful_intro:"Wątpliwy wrzód bez wprowadzonego wyniku biologicznego.", early_doubtful_line1:"Leczyć jako kiłę wczesną", early_doubtful_line2:"Wykonać serologię potwierdzającą", early_doubtful_line3:"Jeśli obraz kliniczny stanie się mniej przekonujący lub atypowy, zachować hipotezę kiły późnej", conf_doubtful_no_bio:"obraz kliniczny zgodny, ale niepotwierdzony biologicznie", why_doubtful_no_bio:"wątpliwy wrzód bez biologii", postexp_conclusion:"Niedawny kontakt bez biologii: leczenie poekspozycyjne / wczesne do późniejszego potwierdzenia.", postexp_badge:"Po ekspozycji", contact_no_bio_intro:"Kontakt < 6 tygodni bez wprowadzonego wyniku biologicznego.", contact_no_bio_line1:"Leczyć jako poekspozycyjnie / kiłę wczesną", contact_no_bio_line2:"Wykonać serologię kontrolną / potwierdzającą", conf_contact_no_bio:"niedawny kontakt bez biologii", why_contact_no_bio:"niedawny kontakt bez biologii", cutaneous_no_bio_conclusion:"Izolowany obraz skórny bez biologii: jeśli wysypka jest sugestywna, leczyć jak kiłę późną, gdy nie można ustalić czasu zakażenia, i potwierdzić biologicznie.", cutaneous_no_bio_badge:"Postępowanie kliniczne bez biologii", cutaneous_no_bio_intro:"Inne objawy skórne bez wprowadzonego wyniku biologicznego.", cutaneous_no_bio_line1:"Jeżeli obraz sugeruje kiłę wtórną (osutka plamisto-grudkowa, zajęcie dłoni i stóp), leczyć jak kiłę późną, jeśli sytuacja jest niedatowalna", cutaneous_no_bio_line2:"Wykonać serologię potwierdzającą", conf_cutaneous_no_bio:"izolowany obraz kliniczny bez biologii", why_cutaneous_no_bio:"izolowane objawy skórne bez biologii", no_bio_badge:"Brak danych biologicznych", no_bio_intro:"Nie wprowadzono żadnego interpretowalnego wyniku serologicznego ani datowanej serologii.", no_bio_line1:"Sam obraz kliniczny może ukierunkować postępowanie", no_bio_line2:"W obecności typowego wrzodu można zaproponować wczesne leczenie", no_bio_line3:"W obecności objawów neuro/laryngologicznych/okulistycznych należy rozważyć punkcję lędźwiową, jeśli serologia okaże się dodatnia", no_bio_line4:"Przed ostatecznym wnioskiem wykonać pełną datowaną serologię", no_bio_conclusion:"Brak interpretowalnej biologii: bez datowanej serologii ostateczna interpretacja nie jest możliwa." },
+  it:{ moderateLevel:"Moderata", lowLevel:"Bassa", txWithoutBiology:"Trattamento/i inserito/i senza biologia interpretabile", noValidTreatment:"Nessun trattamento valido considerato", clinicalReferencePrefix:"Riferimento clinico del ", neuro_chancre_no_bio_conclusion:"Segni neuro / ORL / oftalmologici con sifiloma suggestivo: proporre puntura lombare e valutazione specialistica, anche se una sifilide primaria sembra possibile (sono possibili forme primo-terziarie).", neuro_chancre_no_bio_intro:"Segni neurologici / ORL / oftalmologici associati a un sifiloma suggestivo, senza biologia interpretabile.", neuro_chancre_no_bio_line1:"Non rassicurare sulla sola apparenza di sifiloma primario", neuro_chancre_no_bio_line2:"Proporre una puntura lombare", neuro_chancre_no_bio_line3:"Eseguire con urgenza sierologia treponemica + VDRL", neuro_chancre_no_bio_line4:"Valutazione specialistica in caso di interessamento oftalmologico / ORL / neurologico", conf_neuro_chancre_no_bio:"priorità ai segni neuro/ORL/oftalmologici nonostante il sifiloma suggestivo", why_neuro_chancre_no_bio:"segni neuro/ORL/oftalmologici | sifiloma suggestivo | possibili forme primo-terziarie | biologia non interpretabile", early_clinical_conclusion:"Trattare come sifilide precoce sulla base del quadro clinico; confermare con sierologia.", early_clinical_badge:"Trattamento precoce su base clinica", early_typical_intro:"Sifiloma tipico senza risultato biologico inserito.", early_typical_line1:"Trattare come sifilide precoce", early_typical_line2:"Eseguire sierologia di conferma", early_typical_line3:"Adattare successivamente il trattamento se necessario", conf_typical_no_bio:"quadro clinico suggestivo senza biologia", why_typical_no_bio:"sifiloma tipico senza biologia", early_prob_conclusion:"Trattare come sifilide precoce probabile sulla base del quadro clinico; confermare con sierologia e mantenere l’ipotesi di sifilide tardiva se persiste dubbio clinico.", early_prob_badge:"Trattamento precoce probabile", early_doubtful_intro:"Sifiloma dubbio senza risultato biologico inserito.", early_doubtful_line1:"Trattare come sifilide precoce", early_doubtful_line2:"Eseguire sierologia di conferma", early_doubtful_line3:"Se il quadro clinico diventa meno convincente o atipico, mantenere l’ipotesi di sifilide tardiva", conf_doubtful_no_bio:"quadro clinico compatibile ma non confermato biologicamente", why_doubtful_no_bio:"sifiloma dubbio senza biologia", postexp_conclusion:"Contatto recente senza biologia: trattamento post-esposizione / stadio precoce da confermare successivamente.", postexp_badge:"Post-esposizione", contact_no_bio_intro:"Contatto < 6 settimane senza risultato biologico inserito.", contact_no_bio_line1:"Trattare come post-esposizione / sifilide precoce", contact_no_bio_line2:"Eseguire sierologia di controllo / conferma", conf_contact_no_bio:"contatto recente senza biologia", why_contact_no_bio:"contatto recente senza biologia", cutaneous_no_bio_conclusion:"Quadro cutaneo isolato senza biologia: se l’esantema è suggestivo, trattare come sifilide tardiva se la situazione è indatabile e confermare biologicamente.", cutaneous_no_bio_badge:"Condotta clinica senza biologia", cutaneous_no_bio_intro:"Altri segni cutanei senza risultato biologico inserito.", cutaneous_no_bio_line1:"Se il quadro suggerisce sifilide secondaria (esantema maculo-papulare, interessamento palmo-plantare), trattare come sifilide tardiva se la situazione è indatabile", cutaneous_no_bio_line2:"Eseguire sierologia di conferma", conf_cutaneous_no_bio:"quadro clinico isolato senza biologia", why_cutaneous_no_bio:"segni cutanei isolati senza biologia", no_bio_badge:"Biologia non compilata", no_bio_intro:"Non è stato inserito alcun risultato sierologico interpretabile o alcuna sierologia datata.", no_bio_line1:"Il solo quadro clinico può orientare la condotta", no_bio_line2:"In presenza di un sifiloma tipico può essere proposto un trattamento precoce", no_bio_line3:"In presenza di segni neuro / ORL / oftalmologici, la puntura lombare va considerata se la sierologia risulta positiva appena disponibile", no_bio_line4:"Eseguire una sierologia completa e datata prima di concludere definitivamente", no_bio_conclusion:"Assenza di biologia interpretabile: impossibile un’interpretazione definitiva senza sierologia datata." },
+  ar:{ moderateLevel:"متوسطة", lowLevel:"منخفضة", txWithoutBiology:"تم إدخال علاج/علاجات دون معطيات بيولوجية قابلة للتفسير", noValidTreatment:"لم يتم اعتماد أي علاج صحيح", clinicalReferencePrefix:"المرجع السريري بتاريخ ", neuro_chancre_no_bio_conclusion:"علامات عصبية / أنف أذن حنجرة / عينية مع قرحة موحية: ينبغي اقتراح البزل القطني والتقييم المتخصص حتى لو بدت الزهري الأولي ممكنة (قد توجد أشكال أولية-ثالثية).", neuro_chancre_no_bio_intro:"علامات عصبية / أنف أذن حنجرة / عينية مرتبطة بقرحة موحية، دون معطيات بيولوجية قابلة للتفسير.", neuro_chancre_no_bio_line1:"لا ينبغي الاطمئنان اعتماداً فقط على مظهر القرحة الأولية", neuro_chancre_no_bio_line2:"اقتراح بزل قطني", neuro_chancre_no_bio_line3:"إجراء مصلية لولبية + VDRL بشكل عاجل", neuro_chancre_no_bio_line4:"رأي اختصاصي عند وجود إصابة عينية / أنف أذن حنجرة / عصبية", conf_neuro_chancre_no_bio:"أولوية للعلامات العصبية/الأنف أذن حنجرة/العينية رغم القرحة الموحية", why_neuro_chancre_no_bio:"علامات عصبية/أنف أذن حنجرة/عينية | قرحة موحية | احتمال وجود أشكال أولية-ثالثية | بيولوجيا غير قابلة للتفسير", early_clinical_conclusion:"يُعالج كزهري مبكر اعتماداً على الصورة السريرية؛ ويؤكد بالمصلية.", early_clinical_badge:"علاج مبكر على أساس سريري", early_typical_intro:"قرحة نموذجية دون نتيجة بيولوجية مُدخلة.", early_typical_line1:"العلاج كزهري مبكر", early_typical_line2:"إجراء مصلية تأكيدية", early_typical_line3:"تكييف العلاج لاحقاً إذا لزم الأمر", conf_typical_no_bio:"صورة سريرية موحية دون بيولوجيا", why_typical_no_bio:"قرحة نموذجية دون بيولوجيا", early_prob_conclusion:"يُعالج كزهري مبكر مرجح اعتماداً على الصورة السريرية؛ ويؤكد بالمصلية مع إبقاء احتمال الزهري المتأخر إذا استمر الشك السريري.", early_prob_badge:"علاج مبكر مرجح", early_doubtful_intro:"قرحة مشكوك فيها دون نتيجة بيولوجية مُدخلة.", early_doubtful_line1:"العلاج كزهري مبكر", early_doubtful_line2:"إجراء مصلية تأكيدية", early_doubtful_line3:"إذا أصبحت الصورة السريرية أقل إقناعاً أو غير نمطية، فيجب إبقاء فرضية الزهري المتأخر", conf_doubtful_no_bio:"صورة سريرية متوافقة لكنها غير مؤكدة بيولوجياً", why_doubtful_no_bio:"قرحة مشكوك فيها دون بيولوجيا", postexp_conclusion:"تعرّض حديث دون بيولوجيا: علاج ما بعد التعرض / مرحلة مبكرة يجب تأكيدها لاحقاً.", postexp_badge:"ما بعد التعرّض", contact_no_bio_intro:"تعرّض < 6 أسابيع دون نتيجة بيولوجية مُدخلة.", contact_no_bio_line1:"العلاج كحالة ما بعد التعرّض / زهري مبكر", contact_no_bio_line2:"إجراء مصلية مراقبة / تأكيد", conf_contact_no_bio:"تعرّض حديث دون بيولوجيا", why_contact_no_bio:"تعرّض حديث دون بيولوجيا", cutaneous_no_bio_conclusion:"مظاهر جلدية معزولة دون بيولوجيا: إذا كان الطفح موحياً، فيُعالج كزهري متأخر إذا تعذر تأريخه ويؤكد بيولوجياً.", cutaneous_no_bio_badge:"تدبير سريري دون بيولوجيا", cutaneous_no_bio_intro:"علامات جلدية أخرى دون نتيجة بيولوجية مُدخلة.", cutaneous_no_bio_line1:"إذا كانت الصورة توحي بزهري ثانوي (طفح لطخي حطاطي، إصابة راحية أخمصية)، فيُعالج كزهري متأخر إذا كانت الحالة غير قابلة للتأريخ", cutaneous_no_bio_line2:"إجراء مصلية تأكيدية", conf_cutaneous_no_bio:"صورة سريرية معزولة دون بيولوجيا", why_cutaneous_no_bio:"علامات جلدية معزولة دون بيولوجيا", no_bio_badge:"لم تُدخل المعطيات البيولوجية", no_bio_intro:"لم يتم إدخال أي نتيجة مصلية قابلة للتفسير أو أي مصلية مؤرخة.", no_bio_line1:"يمكن للصورة السريرية وحدها أن توجه التدبير", no_bio_line2:"عند وجود قرحة نموذجية يمكن اقتراح علاج مبكر", no_bio_line3:"عند وجود علامات عصبية / أنف أذن حنجرة / عينية، يجب التفكير في البزل القطني إذا كانت المصلية إيجابية حال توفرها", no_bio_line4:"إجراء مصلية كاملة ومؤرخة قبل إعطاء خلاصة نهائية", no_bio_conclusion:"غياب بيولوجيا قابلة للتفسير: لا يمكن تقديم تفسير نهائي دون مصلية مؤرخة." },
+  zh:{ moderateLevel:"中等", lowLevel:"低", txWithoutBiology:"已录入治疗，但缺乏可解释的生物学数据", noValidTreatment:"未保留有效既往治疗", clinicalReferencePrefix:"临床参考日期 ", neuro_chancre_no_bio_conclusion:"存在神经 / 耳鼻喉 / 眼科体征并伴有提示性硬下疳：即使看似原发梅毒，也应建议腰穿及专科评估（可能存在原发-三期形式）。", neuro_chancre_no_bio_intro:"提示性硬下疳伴神经 / 耳鼻喉 / 眼科体征，且无可解释的生物学数据。", neuro_chancre_no_bio_line1:"不要仅因原发硬下疳外观而放松警惕", neuro_chancre_no_bio_line2:"建议腰椎穿刺", neuro_chancre_no_bio_line3:"紧急完成梅毒螺旋体血清学 + VDRL", neuro_chancre_no_bio_line4:"如有眼科 / 耳鼻喉 / 神经受累，建议专科会诊", conf_neuro_chancre_no_bio:"尽管存在提示性硬下疳，仍应优先考虑神经/耳鼻喉/眼科体征", why_neuro_chancre_no_bio:"神经/耳鼻喉/眼科体征 | 提示性硬下疳 | 可能存在原发-三期形式 | 生物学数据不可解释", early_clinical_conclusion:"根据临床表现按早期梅毒处理；以血清学确认。", early_clinical_badge:"基于临床的早期治疗", early_typical_intro:"典型硬下疳，未录入生物学结果。", early_typical_line1:"按早期梅毒治疗", early_typical_line2:"进行确认性血清学检查", early_typical_line3:"必要时随后调整治疗", conf_typical_no_bio:"提示性临床表现但无生物学资料", why_typical_no_bio:"典型硬下疳但无生物学资料", early_prob_conclusion:"根据临床表现按疑似早期梅毒处理；以血清学确认，如临床仍有疑问则保留晚期梅毒假设。", early_prob_badge:"可能的早期治疗", early_doubtful_intro:"可疑硬下疳，未录入生物学结果。", early_doubtful_line1:"按早期梅毒治疗", early_doubtful_line2:"进行确认性血清学检查", early_doubtful_line3:"如果临床表现变得不那么典型或不太可信，应保留晚期梅毒的可能", conf_doubtful_no_bio:"临床表现相符但未获生物学证实", why_doubtful_no_bio:"可疑硬下疳但无生物学资料", postexp_conclusion:"近期接触但无生物学资料：按暴露后 / 早期阶段处理，随后确认。", postexp_badge:"暴露后", contact_no_bio_intro:"接触 < 6 周，未录入生物学结果。", contact_no_bio_line1:"按暴露后 / 早期梅毒处理", contact_no_bio_line2:"进行复查 / 确认性血清学检查", conf_contact_no_bio:"近期接触但无生物学资料", why_contact_no_bio:"近期接触但无生物学资料", cutaneous_no_bio_conclusion:"孤立皮肤表现且无生物学资料：如皮疹提示梅毒，在无法定年的情况下按晚期梅毒处理，并进行生物学确认。", cutaneous_no_bio_badge:"无生物学资料的临床处理", cutaneous_no_bio_intro:"其他皮肤体征，未录入生物学结果。", cutaneous_no_bio_line1:"若表现提示二期梅毒（斑丘疹、掌跖受累），且感染时间无法判定，则按晚期梅毒处理", cutaneous_no_bio_line2:"进行确认性血清学检查", conf_cutaneous_no_bio:"孤立临床表现但无生物学资料", why_cutaneous_no_bio:"孤立皮肤体征但无生物学资料", no_bio_badge:"未填写生物学资料", no_bio_intro:"未录入任何可解释的血清学结果，或未录入任何带日期的血清学检查。", no_bio_line1:"单纯临床表现也可指导处理", no_bio_line2:"若存在典型硬下疳，可考虑早期治疗", no_bio_line3:"若存在神经 / 耳鼻喉 / 眼科体征，一旦血清学阳性应考虑腰穿", no_bio_line4:"在作出最终结论前，应完成完整且带日期的血清学检查", no_bio_conclusion:"缺乏可解释的生物学资料：没有带日期的血清学检查，无法作出最终解释。" },
+  ja:{ moderateLevel:"中等度", lowLevel:"低い", txWithoutBiology:"解釈可能な生物学的データなしに治療が入力されています", noValidTreatment:"有効な既往治療は保持されていません", clinicalReferencePrefix:"臨床参照日 ", neuro_chancre_no_bio_conclusion:"示唆的な硬性下疳に神経 / 耳鼻咽喉 / 眼症状を伴う場合、原発梅毒に見えても腰椎穿刺と専門評価を提案します（一次-三次型があり得ます）。", neuro_chancre_no_bio_intro:"示唆的な硬性下疳に関連する神経 / 耳鼻咽喉 / 眼症状があり、解釈可能な生物学的データがありません。", neuro_chancre_no_bio_line1:"原発硬性下疳の見た目だけで安心しない", neuro_chancre_no_bio_line2:"腰椎穿刺を提案する", neuro_chancre_no_bio_line3:"トレポネーマ血清学 + VDRL を緊急で実施する", neuro_chancre_no_bio_line4:"眼科 / 耳鼻咽喉 / 神経の障害があれば専門医へ相談", conf_neuro_chancre_no_bio:"示唆的な硬性下疳があっても神経/耳鼻咽喉/眼症状を優先", why_neuro_chancre_no_bio:"神経/耳鼻咽喉/眼症状 | 示唆的な硬性下疳 | 一次-三次型の可能性 | 生物学的データが解釈不能", early_clinical_conclusion:"臨床像に基づき早期梅毒として治療し、血清学で確認する。", early_clinical_badge:"臨床に基づく早期治療", early_typical_intro:"典型的な硬性下疳で、生物学的結果が入力されていません。", early_typical_line1:"早期梅毒として治療する", early_typical_line2:"確認のための血清学検査を行う", early_typical_line3:"必要に応じて後で治療を調整する", conf_typical_no_bio:"生物学的裏付けのない示唆的臨床像", why_typical_no_bio:"典型的硬性下疳で生物学的データなし", early_prob_conclusion:"臨床像に基づき早期梅毒疑いとして治療し、血清学で確認する。臨床的疑いが残る場合は後期梅毒も考慮する。", early_prob_badge:"早期治療の可能性", early_doubtful_intro:"疑わしい硬性下疳で、生物学的結果が入力されていません。", early_doubtful_line1:"早期梅毒として治療する", early_doubtful_line2:"確認のための血清学検査を行う", early_doubtful_line3:"臨床像がより説得力を失う、または非典型的なら、後期梅毒の可能性を残す", conf_doubtful_no_bio:"臨床的には合致するが生物学的未確認", why_doubtful_no_bio:"疑わしい硬性下疳で生物学的データなし", postexp_conclusion:"生物学的データのない最近の接触：暴露後 / 早期段階として治療し、後で確認する。", postexp_badge:"曝露後", contact_no_bio_intro:"接触 < 6週間で、生物学的結果が入力されていません。", contact_no_bio_line1:"曝露後 / 早期梅毒として治療する", contact_no_bio_line2:"管理 / 確認のための血清学検査を行う", conf_contact_no_bio:"生物学的データのない最近の接触", why_contact_no_bio:"生物学的データのない最近の接触", cutaneous_no_bio_conclusion:"生物学的データのない孤立した皮膚症状：発疹が示唆的なら、感染時期不明の場合は後期梅毒として治療し、生物学的に確認する。", cutaneous_no_bio_badge:"生物学的データのない臨床対応", cutaneous_no_bio_intro:"他の皮膚症状で、生物学的結果が入力されていません。", cutaneous_no_bio_line1:"二期梅毒を示唆する所見（斑丘疹、掌蹠病変）があり、感染時期が不明なら後期梅毒として治療する", cutaneous_no_bio_line2:"確認のための血清学検査を行う", conf_cutaneous_no_bio:"生物学的データのない孤立した臨床像", why_cutaneous_no_bio:"生物学的データのない孤立した皮膚症状", no_bio_badge:"生物学的情報未入力", no_bio_intro:"解釈可能な血清学結果、または日付付き血清学検査が入力されていません。", no_bio_line1:"臨床像だけでも対応の方向性を決められる", no_bio_line2:"典型的な硬性下疳があれば早期治療を提案できる", no_bio_line3:"神経 / 耳鼻咽喉 / 眼症状がある場合、血清学が陽性となり次第、腰椎穿刺を検討すべきである", no_bio_line4:"最終判断の前に日付付きの完全な血清学検査を行う", no_bio_conclusion:"解釈可能な生物学的データがないため、日付付き血清学なしでは最終的な解釈は不可能です。" }
+};
+function sT(key){ const fr=(SOURCE_CLINICAL_I18N.fr&&SOURCE_CLINICAL_I18N.fr[key])||key; return (SOURCE_CLINICAL_I18N[currentLang]&&SOURCE_CLINICAL_I18N[currentLang][key])||fr; }
+function sourceClinicalCompare(todayRef){ return `${sT('clinicalReferencePrefix')}${todayRef}`; }
+function sourceClinicalTxText(hasTreatments){ return hasTreatments ? sT('txWithoutBiology') : sT('noValidTreatment'); }
+function sourceClinicalBody(kind){
+  if(kind==='neuro_chancre_no_bio') return `${badge('danger', translatePlainText(extraT('lpSuggested')))}\n${sT('neuro_chancre_no_bio_intro')}\n\n→ ${sT('neuro_chancre_no_bio_line1')}\n→ ${sT('neuro_chancre_no_bio_line2')}\n→ ${sT('neuro_chancre_no_bio_line3')}\n→ ${sT('neuro_chancre_no_bio_line4')}\n\n${standardNeuroTreatment()}`;
+  if(kind==='typical_no_bio') return `${badge('warning', sT('early_clinical_badge'))}\n${sT('early_typical_intro')}\n\n→ ${sT('early_typical_line1')}\n→ ${sT('early_typical_line2')}\n→ ${sT('early_typical_line3')}\n\n${standardEarlyTreatment()}`;
+  if(kind==='doubtful_no_bio') return `${badge('warning', sT('early_prob_badge'))}\n${sT('early_doubtful_intro')}\n\n→ ${sT('early_doubtful_line1')}\n→ ${sT('early_doubtful_line2')}\n→ ${sT('early_doubtful_line3')}\n\n${standardEarlyTreatment()}`;
+  if(kind==='contact_no_bio') return `${badge('warning', sT('postexp_badge'))}\n${sT('contact_no_bio_intro')}\n\n→ ${sT('contact_no_bio_line1')}\n→ ${sT('contact_no_bio_line2')}\n\n${standardEarlyTreatment()}`;
+  if(kind==='cutaneous_no_bio') return `${badge('violet', sT('cutaneous_no_bio_badge'))}\n${sT('cutaneous_no_bio_intro')}\n\n→ ${sT('cutaneous_no_bio_line1')}\n→ ${sT('cutaneous_no_bio_line2')}\n\n${standardLateTreatment()}`;
+  if(kind==='no_bio_general') return `${badge('info', sT('no_bio_badge'))}\n${sT('no_bio_intro')}\n\n→ ${sT('no_bio_line1')}\n→ ${sT('no_bio_line2')}\n→ ${sT('no_bio_line3')}\n→ ${sT('no_bio_line4')}`;
+  return '';
+}
+
 function currentClinical(){
   const chancreTypical = !!document.getElementById("chancreTypical")?.checked;
   const chancreDoubtful = !!document.getElementById("chancreDoubtful")?.checked;
@@ -2161,33 +2066,80 @@ function categoryAtSerology(serologiesUpToIndex, serology, clinical){
    AUDIT DES TRAITEMENTS ANTERIEURS
    ============================= */
 function buildTreatmentAudit(serologies, treatments, clinical){
+  const lastSerology = serologies.length ? serologies[serologies.length-1] : null;
   return treatments.map(tx => {
     const ep = getEpisodeSerologyForTreatment(serologies, tx);
     let expected = null;
     if(ep.serology){
       expected = categoryAtSerology(serologies.filter(s=>s.date<=ep.serology.date), ep.serology, clinical);
     }
-    let valid = false, overtreated = false;
+
+    const group = TREATMENTS[tx.type]?.group || "unknown";
+    const afterTx = serologies.filter(s => s.date > tx.date);
+    const hasZeroAfter = afterTx.some(s => s.vdrl === 0);
+    let valid = false, overtreated = false, staleForCurrentEpisode = false;
+    let reasonKey = "noUsableBiology";
+
     if(tx.type==="unknown"){
-      valid = serologies.some(s => s.date > tx.date && s.vdrl===0);
-    } else if(expected==="early" || expected==="late" || expected==="neuro"){
-      valid = treatmentValidForCategory(tx.type, expected);
-      const group = TREATMENTS[tx.type]?.group;
-      if(!valid && expected==="early" && (group==="late" || group==="neuro")){
-        valid = true; overtreated = true;
+      valid = hasZeroAfter;
+      reasonKey = valid ? "unknownImproved" : "unknownNoProof";
+    } else if(expected==="early"){
+      if(group==="early"){
+        valid = true;
+        reasonKey = "validEarly";
+      } else if(group==="late" || group==="neuro"){
+        valid = true;
+        overtreated = true;
+        reasonKey = "overtreatedEarly";
       }
+    } else if(expected==="late"){
+      if(group==="late"){
+        valid = true;
+        reasonKey = "validLate";
+      } else if(group==="early"){
+        reasonKey = "undertreatedLate";
+      } else if(group==="neuro"){
+        reasonKey = "invalidNeuroForLate";
+      }
+    } else if(expected==="neuro"){
+      if(group==="neuro"){
+        valid = true;
+        reasonKey = "validNeuro";
+      } else {
+        reasonKey = "undertreatedNeuro";
+      }
+    } else if(expected==="scar" || expected==="recontrol"){
+      reasonKey = "stageScarNoImmediate";
     }
-    return { ...tx, valid, expected, overtreated };
+
+    if(valid && expected!=="neuro" && lastSerology && vdrlPositive(lastSerology.vdrl) && daysDiff(lastSerology.date, tx.date) > 365 && !hasZeroAfter){
+      valid = false;
+      staleForCurrentEpisode = true;
+      overtreated = false;
+      reasonKey = "stalePositiveNoZero";
+    }
+
+    return {
+      ...tx,
+      valid,
+      expected,
+      overtreated,
+      staleForCurrentEpisode,
+      reasonKey,
+      linkedSerologyDateStr: ep.serology ? ep.serology.dateStr : ""
+    };
   });
 }
-function getLastValidTreatment(audits){ return [...audits].filter(a=>a.valid).slice(-1)[0] || null; }
+function getLastValidTreatment(audits){
+  return [...audits].filter(a=>a.valid && !a.staleForCurrentEpisode).slice(-1)[0] || null;
+}
 function dilutionDiff(current, reference){
   if(current===null || reference===null) return null;
   if(reference===0 && current>1) return Infinity;
   if(reference<=0 || current<=0) return null;
   return Math.log2(current)-Math.log2(reference);
 }
-function finalWhy(lines){ return lines.filter(Boolean).join(" | "); }
+function finalWhy(lines){ return normalizeReasonString(lines.filter(Boolean).join(" | ")); }
 
 function getHistory(){ try{ return JSON.parse(localStorage.getItem(HISTORY_KEY) || "[]"); } catch(e){ return []; } }
 function saveCurrentAnalysisToHistory(){
@@ -2221,10 +2173,10 @@ function downloadHistoryExcel(){
   const rows = history.map(item => ({
     [moreT("excelColDate")]: item.analysisDate || "",
     [moreT("excelColId")]: item.identifier || "",
-    [moreT("excelColResult")]: translateDeepText(item.conclusion || ""),
-    [moreT("excelColCompare")]: translateDeepText(item.compare || ""),
-    [moreT("excelColTx")]: translateDeepText(item.tx || ""),
-    [moreT("excelColWhy")]: translateDeepText(item.why || ""),
+    [moreT("excelColResult")]: translatePlainText(item.conclusion || ""),
+    [moreT("excelColCompare")]: translatePlainText(item.compare || ""),
+    [moreT("excelColTx")]: translatePlainText(item.tx || ""),
+    [moreT("excelColWhy")]: translatePlainText(item.why || ""),
     [moreT("excelColSaved")]: item.savedAt || ""
   }));
   const ws = XLSX.utils.json_to_sheet(rows);
@@ -2295,7 +2247,7 @@ async function sendProblematicCase(){
   }
 }
 async function setResult(html, compare, tx, conf, why, payload, parsed, clinical, expertText){
-  document.getElementById("resultBox").innerHTML = translateResultText(html);
+  document.getElementById("resultBox").innerHTML = translateResultText(translateFromDictionaries(html));
   setBoxes(compare, tx, conf, why);
   lastAnalysisPayload = payload;
   if(payload) saveCurrentAnalysisToHistory();
@@ -2316,106 +2268,69 @@ async function analyse(){
   if(!analysisDate) setToday();
 
   const todayRef = document.getElementById("analysisDate").value || new Date().toISOString().slice(0,10);
-  const txTextEmpty = treatments.length ? "Traitement(s) saisi(s) sans biologie exploitable" : "Aucun traitement valide retenu";
+  const txTextEmpty = sourceClinicalTxText(!!treatments.length);
   const bioEntered = hasBiologicalData(serologies);
 
   // CAT clinique possible même sans aucune sérologie datée ou sans biologie exploitable
   if(!serologies.length || !bioEntered){
 
     if(clinical.neuro && (clinical.chancreTypical || clinical.chancreDoubtful)){
-      const conclusion = "Signes neuro / ORL / ophtalmo avec chancre évocateur : proposer une ponction lombaire et évaluation spécialisée, même si une syphilis primaire paraît possible (formes primo-tertiaires possibles).";
+      const conclusion = sT("neuro_chancre_no_bio_conclusion");
+      const whyNeuro = finalWhy([extraT("reasonNeuro"), clinical.chancreTypical ? extraT("reasonTypicalChancre") : extraT("reasonDoubtfulChancre"), extraT("reasonPrimoTertiary"), extraT("reasonNoBiology")]);
       await setResult(
-`${badge("danger","Ponction lombaire à proposer")}
-Signes neurologiques / ORL / ophtalmologiques associés à un chancre évocateur, sans biologie exploitable.
-
-→ Ne pas rassurer sur le seul aspect de chancre primaire
-→ Proposer une ponction lombaire
-→ Faire sérologie tréponémique + VDRL en urgence
-→ Avis spécialisé si atteinte ophtalmologique / ORL / neurologique
-
-${standardNeuroTreatment()}`,
-        `Référence clinique du ${todayRef}`,
+        sourceClinicalBody('neuro_chancre_no_bio'),
+        sourceClinicalCompare(todayRef),
         txTextEmpty,
-        confidence("Modérée","priorité aux signes neuro/ORL/ophtalmo malgré chancre évocateur"),
-        finalWhy(["signes neuro/ORL/ophtalmo", clinical.chancreTypical ? "chancre typique" : "chancre douteux", "formes primo-tertiaires possibles", "biologie non exploitable"]),
-        { identifier, analysisDate:document.getElementById("analysisDate").value, conclusion, category:"neuro", recommended_treatment:standardNeuroTreatment(), compare:`Référence clinique du ${todayRef}`, tx:txTextEmpty, why:finalWhy(["signes neuro/ORL/ophtalmo", clinical.chancreTypical ? "chancre typique" : "chancre douteux", "formes primo-tertiaires possibles", "biologie non exploitable"]), serologies, treatments },
-        parsed, clinical, "Règle prioritaire: neuro/ORL/ophtalmo + chancre évocateur sans biologie => proposer PL"
+        `${sT('moderateLevel')} — ${sT('conf_neuro_chancre_no_bio')}`,
+        whyNeuro,
+        { identifier, analysisDate:document.getElementById("analysisDate").value, conclusion, category:"neuro", recommended_treatment:standardNeuroTreatment(), compare:sourceClinicalCompare(todayRef), tx:txTextEmpty, why:whyNeuro, serologies, treatments },
+        parsed, clinical, logicT("rulebookNeuroPriority")
       );
       return;
     }
 
     if(clinical.chancreTypical || clinical.chancreDoubtful){
-      const conclusion = clinical.chancreTypical
-        ? "Traitement comme syphilis précoce sur tableau clinique ; confirmer par sérologie."
-        : "Traitement comme syphilis précoce probable sur tableau clinique ; confirmer par sérologie et garder une forme tardive en réserve si doute clinique.";
-      const whyTxt = clinical.chancreTypical ? "chancre typique sans biologie" : "chancre douteux sans biologie";
+      const conclusion = clinical.chancreTypical ? sT("early_clinical_conclusion") : sT("early_prob_conclusion");
+      const whyTxt = clinical.chancreTypical ? sT("why_typical_no_bio") : sT("why_doubtful_no_bio");
       const confTxt = clinical.chancreTypical
-        ? confidence("Modérée","tableau clinique évocateur sans biologie")
-        : confidence("Faible","tableau clinique compatible mais non confirmé biologiquement");
-      const body = clinical.chancreTypical
-        ? `${badge("warning","Traitement précoce sur clinique")}
-Chancre typique sans résultat biologique saisi.
-
-→ Traiter comme syphilis précoce
-→ Faire une sérologie de confirmation
-→ Adapter secondairement le traitement si besoin
-
-${standardEarlyTreatment()}`
-        : `${badge("warning","Traitement précoce probable")}
-Chancre douteux sans résultat biologique saisi.
-
-→ Traiter comme syphilis précoce
-→ Faire une sérologie de confirmation
-→ Si la clinique devient moins convaincante ou atypique, garder l’hypothèse d’une syphilis tardive
-
-${standardEarlyTreatment()}`;
+        ? `${sT('moderateLevel')} — ${sT('conf_typical_no_bio')}`
+        : `${sT('lowLevel')} — ${sT('conf_doubtful_no_bio')}`;
+      const body = clinical.chancreTypical ? sourceClinicalBody('typical_no_bio') : sourceClinicalBody('doubtful_no_bio');
       await setResult(
         body,
-        `Référence clinique du ${todayRef}`,
+        sourceClinicalCompare(todayRef),
         txTextEmpty,
         confTxt,
         whyTxt,
-        { identifier, analysisDate:document.getElementById("analysisDate").value, conclusion, category:"early", recommended_treatment:standardEarlyTreatment(), compare:`Référence clinique du ${todayRef}`, tx:txTextEmpty, why:whyTxt, serologies, treatments },
+        { identifier, analysisDate:document.getElementById("analysisDate").value, conclusion, category:"early", recommended_treatment:standardEarlyTreatment(), compare:sourceClinicalCompare(todayRef), tx:txTextEmpty, why:whyTxt, serologies, treatments },
         parsed, clinical
       );
       return;
     }
 
     if(clinical.contact){
-      const conclusion = "Contage récent sans biologie : traitement post-exposition / stade précoce à confirmer secondairement.";
+      const conclusion = sT("postexp_conclusion");
       await setResult(
-        `${badge("warning","Post-exposition")}
-Contage < 6 semaines sans résultat biologique saisi.
-
-→ Traiter comme post-exposition / syphilis précoce
-→ Faire une sérologie de contrôle / confirmation
-
-${standardEarlyTreatment()}`,
-        `Référence clinique du ${todayRef}`,
+        sourceClinicalBody('contact_no_bio'),
+        sourceClinicalCompare(todayRef),
         txTextEmpty,
-        confidence("Modérée","contage récent sans biologie"),
-        "contage récent sans biologie",
-        { identifier, analysisDate:document.getElementById("analysisDate").value, conclusion, category:"early", recommended_treatment:standardEarlyTreatment(), compare:`Référence clinique du ${todayRef}`, tx:txTextEmpty, why:"contage récent sans biologie", serologies, treatments },
+        `${sT('moderateLevel')} — ${sT('conf_contact_no_bio')}`,
+        sT("why_contact_no_bio"),
+        { identifier, analysisDate:document.getElementById("analysisDate").value, conclusion, category:"early", recommended_treatment:standardEarlyTreatment(), compare:sourceClinicalCompare(todayRef), tx:txTextEmpty, why:sT("why_contact_no_bio"), serologies, treatments },
         parsed, clinical
       );
       return;
     }
 
     if(clinical.cutaneous){
-      const conclusion = "Tableau cutané isolé sans biologie : si exanthème évocateur, traiter comme syphilis tardive si indatable et confirmer biologiquement.";
+      const conclusion = sT("cutaneous_no_bio_conclusion");
       await setResult(
-        `${badge("violet","CAT clinique sans biologie")}
-Autres signes cutanés sans résultat biologique saisi.
-
-→ Si tableau évocateur de syphilis secondaire (exanthème maculo-papuleux, atteinte palmo-plantaire), traiter comme syphilis tardive si la situation est indatable
-→ Faire une sérologie de confirmation
-
-${standardLateTreatment()}`,
-        `Référence clinique du ${todayRef}`,
+        sourceClinicalBody('cutaneous_no_bio'),
+        sourceClinicalCompare(todayRef),
         txTextEmpty,
-        confidence("Faible","tableau clinique isolé sans biologie"),
-        "signes cutanés isolés sans biologie",
-        { identifier, analysisDate:document.getElementById("analysisDate").value, conclusion, category:"late", recommended_treatment:standardLateTreatment(), compare:`Référence clinique du ${todayRef}`, tx:txTextEmpty, why:"signes cutanés isolés sans biologie", serologies, treatments },
+        `${sT('lowLevel')} — ${sT('conf_cutaneous_no_bio')}`,
+        sT("why_cutaneous_no_bio"),
+        { identifier, analysisDate:document.getElementById("analysisDate").value, conclusion, category:"late", recommended_treatment:standardLateTreatment(), compare:sourceClinicalCompare(todayRef), tx:txTextEmpty, why:sT("why_cutaneous_no_bio"), serologies, treatments },
         parsed, clinical
       );
       return;
@@ -2443,14 +2358,18 @@ Aucun résultat sérologique exploitable n’a été saisi, ou aucune sérologie
   const lastVDRL = vdrlSeries.length ? vdrlSeries[vdrlSeries.length-1] : null;
   const audits = buildTreatmentAudit(serologies, treatments, clinical);
   const lastValidTx = getLastValidTreatment(audits);
-  const txText = lastValidTx ? `${lastValidTx.dateStr} — ${TREATMENTS[lastValidTx.type].label}${lastValidTx.overtreated ? " (plus que nécessaire : un traitement précoce aurait suffi)" : ""}` : "Aucun traitement valide retenu";
+  const txText = lastValidTx
+    ? `${lastValidTx.dateStr} — ${treatmentLabel(lastValidTx.type)}${lastValidTx.overtreated ? " " + txAuditT("overtreatSuffix") : ""}`
+    : txAuditT("noValidTreatmentRetained");
   const why = [];
-  if(audits.filter(a => !a.valid).length) why.push(`${audits.filter(a => !a.valid).length} traitement(s) ignoré(s)`);
+  if(audits.filter(a => !a.valid).length) why.push(fmtTxAudit("auditSummaryIgnored", {n: audits.filter(a => !a.valid).length}));
+  if(audits.filter(a => a.overtreated).length) why.push(fmtTxAudit("auditSummaryOvertreated", {n: audits.filter(a => a.overtreated).length}));
   let expert = [];
   expert.push(`Langue: ${currentLang}`);
   expert.push(`Identifiant: ${identifier || "—"}`);
   expert.push(`Sérologies: ${serologies.map(s => `${s.dateStr} EIA=${s.eia||"—"} TPHA=${s.tpha||"—"} VDRL=${s.vdrl ?? "—"}`).join(" | ")}`);
-  expert.push(`Traitements: ${treatments.length ? treatments.map(t => `${t.dateStr} ${TREATMENTS[t.type]?.label || t.type}`).join(" | ") : "aucun"}`);
+  expert.push(`Traitements saisis: ${treatments.length ? treatments.map(t => `${t.dateStr} ${treatmentLabel(t.type) || t.type}`).join(" | ") : txAuditT("none")}`);
+  expert.push(`${txAuditT("treatmentAuditTitle")}: ${audits.length ? audits.map(a => `${a.dateStr} ${treatmentLabel(a.type)} => ${txAuditStageText(a.expected)} | ${txAuditReasonText(a)} | ${a.valid ? txAuditT("validTag") : txAuditT("invalidTag")}${a.linkedSerologyDateStr ? ` | sérologie ${a.linkedSerologyDateStr}` : ""}`).join(" || ") : txAuditT("none")}`);
   expert.push(`Clinique: chancre typique=${clinical.chancreTypical ? "oui":"non"}; chancre douteux=${clinical.chancreDoubtful ? "oui":"non"}; contage=${clinical.contact ? "oui":"non"}; neuro=${clinical.neuro ? "oui":"non"}; cicatrice connue=${clinical.scarKnown ? "oui":"non"}`);
 
   document.getElementById("csfPanel").classList.add("hidden");
@@ -2483,7 +2402,7 @@ Aucun résultat sérologique exploitable n’a été saisi, ou aucune sérologie
 → Compléter par FO / audiométrie / avis spécialisé  
 → Possibilité de traiter comme syphilis tardive`;
       lcrWhy = "PL indiquée | LCR TPHA- VDRL-";
-      expert.push("Interprétation LCR: TPHA- / VDRL- => neurosyphilis non confirmée");
+      expert.push(logicT("expertCsfNegNeg"));
     } else if(csfTpha === "pos" && csfVdrl === "neg"){
       lcrConclusion = "LCR compatible avec possible neurosyphilis ; traiter comme neurosyphilis.";
       lcrText = `
@@ -2495,7 +2414,7 @@ Aucun résultat sérologique exploitable n’a été saisi, ou aucune sérologie
 → Possible neurosyphilis (passage passif des anticorps possible)  
 → Traiter comme neurosyphilis`;
       lcrWhy = "PL indiquée | LCR TPHA+ VDRL-";
-      expert.push("Interprétation LCR: TPHA+ / VDRL- => possible neurosyphilis");
+      expert.push(logicT("expertCsfPosNeg"));
     } else if(csfTpha === "pos" && csfVdrl === "pos"){
       lcrConclusion = "LCR confirmant une neurosyphilis.";
       lcrText = `
@@ -2507,14 +2426,14 @@ Aucun résultat sérologique exploitable n’a été saisi, ou aucune sérologie
 → Neurosyphilis confirmée  
 → Traitement de neurosyphilis`;
       lcrWhy = "PL indiquée | LCR TPHA+ VDRL+";
-      expert.push("Interprétation LCR: TPHA+ / VDRL+ => neurosyphilis confirmée");
+      expert.push(logicT("expertCsfPosPos"));
     } else {
       lcrText = `
 --- 
 
 ${extraT("lcrInteractiveTitle")}
 ${extraT("lcrInteractiveText")}`;
-      expert.push("Module LCR affiché, résultats non encore saisis");
+      expert.push(logicT("expertCsfPending"));
     }
 
     expert.push(`Règle déclenchée: neuro + tréponémique positif${neuroContext.length ? ' + ' + neuroContext.join(' + ') : ''} => priorité PL, même si chancre apparent`);
@@ -2570,7 +2489,7 @@ ${standardEarlyTreatment()}`,
     const category = "early";
     const recommended_treatment = standardEarlyTreatment();
     const conclusion = "Chancre typique avec sérologie négative : syphilis précoce à traiter.";
-    expert.push("Règle déclenchée: chancre typique + sérologie négative => traiter comme précoce");
+    expert.push(logicT("expertTypicalNegative"));
     return await setResult(
 `${badge("warning", tr("earlyCertain"))}
 Chancre compatible avec syphilis primaire.
@@ -2592,7 +2511,7 @@ ${recommended_treatment}`,
     const category = "early";
     const recommended_treatment = standardEarlyTreatment();
     const conclusion = "Syphilis précoce certaine.";
-    expert.push("Règle déclenchée: chancre typique + EIA/TPHA positif + VDRL positif => précoce certain");
+    expert.push(logicT("expertTypicalPosPos"));
     return await setResult(
 `${badge("warning", tr("earlyCertain"))}
 Chancre compatible avec syphilis primaire.
@@ -2618,7 +2537,7 @@ Note de sécurité :
     const category = "early";
     const recommended_treatment = standardEarlyTreatment();
     const conclusion = "Syphilis précoce probable.";
-    expert.push("Règle déclenchée: chancre douteux + EIA/TPHA positif + VDRL positif => précoce probable, tardive en réserve");
+    expert.push(logicT("expertDoubtfulPosPos"));
     return await setResult(
 `${badge("warning", tr("earlyProb"))}
 Chancre compatible avec syphilis primaire, mais clinique non certaine.
@@ -2640,7 +2559,7 @@ ${recommended_treatment}`,
     const category = "early";
     const recommended_treatment = standardEarlyTreatment();
     const conclusion = "Contage récent avec sérologie négative : traiter comme post-exposition / primaire très précoce.";
-    expert.push("Règle déclenchée: contage récent + sérologie négative => post-exposition");
+    expert.push(logicT("expertRecentNegative"));
     return await setResult(
 `${badge("warning", tr("postexp"))}
 Contage récent (< 6 semaines) avec sérologie négative.
@@ -2672,7 +2591,7 @@ Pas de contage ni symptôme datant.
 → Recontrôle précoce à 2–3 semaines
 → En se protégeant d’ici là`;
     const conclusion = clinical.contact || clinical.chancreTypical || clinical.chancreDoubtful ? "EIA/TPHA indéterminé avec contexte compatible : traiter comme syphilis précoce." : "EIA/TPHA indéterminé : recontrôle à 2–3 semaines.";
-    expert.push("Règle déclenchée: tréponémique indéterminé");
+    expert.push(logicT("expertTrepIndeterminate"));
     return await setResult(html, `Dernière sérologie du ${last.dateStr}`, txText, confidence(clinical.contact || clinical.chancreTypical || clinical.chancreDoubtful ? "Modérée":"Faible", clinical.contact || clinical.chancreTypical || clinical.chancreDoubtful ? "indéterminé mais contexte compatible":"indéterminé isolé"), finalWhy([...why,"EIA/TPHA indéterminé"]),
       { identifier, analysisDate:document.getElementById("analysisDate").value, conclusion, category, recommended_treatment, compare:`Dernière sérologie du ${last.dateStr}`, tx:txText, why:finalWhy([...why,"EIA/TPHA indéterminé"]), serologies, treatments }, parsed, clinical, expert.join("\n"));
   }
@@ -2681,7 +2600,7 @@ Pas de contage ni symptôme datant.
     const category = "recontrol";
     const recommended_treatment = "Recontrôle selon le contexte clinique";
     const conclusion = "Sérologie considérée négative (EIA ou TPHA négatif sans VDRL).";
-    expert.push("Règle déclenchée: EIA ou TPHA négatif sans VDRL => sérologie négative");
+    expert.push(logicT("expertNegativeNoVdrl"));
     return await setResult(
 `${badge("info", tr("negative"))}
 EIA ou TPHA négatif sans VDRL renseigné.
@@ -2700,7 +2619,7 @@ EIA ou TPHA négatif sans VDRL renseigné.
     const category = "scar";
     const recommended_treatment = "Pas de traitement immédiat ; recontrôle à 3 mois si exposition ou doute clinique";
     const conclusion = "Sérologie cicatricielle probable ; pas de traitement immédiat.";
-    expert.push("Règle déclenchée: cicatrice connue + tréponémique positif + VDRL 0 => cicatrice probable");
+    expert.push(logicT("expertKnownScar"));
     return await setResult(
 `${badge("info", tr("scarProb"))}
 Sérologie compatible avec une cicatrice syphilitique connue.
@@ -2724,7 +2643,7 @@ Conduite à tenir :
     const category = "recontrol";
     const recommended_treatment = "Pas de traitement immédiat ; recontrôle à 3–6 semaines";
     const conclusion = "Possible cicatrice ou infection récente ; recontrôle à 3–6 semaines.";
-    expert.push("Règle déclenchée: tréponémique positif + VDRL 0 sans autre argument => recontrôle");
+    expert.push(logicT("expertTrepPosVdrlZero"));
     return await setResult(
 `${badge("info", tr("recentOrScar"))}
 Sérologie tréponémique positive avec VDRL négatif, sans cicatrice connue, sans chancre et sans contage récent.
@@ -2745,7 +2664,7 @@ Sérologie tréponémique positive avec VDRL négatif, sans cicatrice connue, sa
     const category = "late";
     const recommended_treatment = standardLateTreatment();
     const conclusion = "Considérée comme syphilis tardive par défaut.";
-    expert.push("Règle déclenchée: une seule sérologie avec VDRL > 0 sans chancre ni cicatrice => tardive");
+    expert.push(logicT("expertSinglePositiveLate"));
     return await setResult(
 `${badge("violet", tr("lateDefault"))}
 Pas d’historique antérieur exploitable.
@@ -2769,7 +2688,7 @@ ${recommended_treatment}`,
     const category = "late";
     const recommended_treatment = standardLateTreatment();
     const conclusion = "Considérée comme syphilis tardive par défaut.";
-    expert.push("Règle déclenchée: pas d'antécédent négatif ni traitement validé => tardive par défaut");
+    expert.push(logicT("expertNoNegativeHistoryLate"));
     return await setResult(
 `${badge("violet", tr("lateDefault"))}
 Pas d’historique de traitement validé, pas d’antécédent négatif, et absence de chancre clinique.
@@ -2791,7 +2710,7 @@ ${recommended_treatment}`,
     const category = lastValidTx.expected || "early";
     const recommended_treatment = "Suivi VDRL tous les 3 mois jusqu’à négativation";
     const conclusion = "Épisode considéré bien traité ; suivi VDRL trimestriel jusqu’à négativation.";
-    expert.push("Règle déclenchée: traitement adapté reçu dans les 7 jours avant dernier VDRL => bien traité");
+    expert.push(logicT("expertValidTreatment"));
     return await setResult(
 `${badge("success", tr("treated"))}
 Traitement adapté reçu < 1 semaine avant le dernier VDRL.
@@ -2816,7 +2735,7 @@ Traitement adapté reçu < 1 semaine avant le dernier VDRL.
         const category = "scar";
         const recommended_treatment = "Suivi VDRL tous les 3 mois jusqu’à négativation";
         const conclusion = "Probable cicatrice / bonne réponse post-traitement ; suivi trimestriel.";
-        expert.push("Règle déclenchée: baisse >= 2 dilutions en < 3 mois => bonne réponse post-traitement");
+        expert.push(logicT("expertGoodResponse"));
         return await setResult(
 `${badge("success", tr("goodResponse"))}
 Baisse du VDRL d’au moins 2 dilutions en moins de 3 mois après traitement.
@@ -2841,14 +2760,14 @@ Baisse du VDRL d’au moins 2 dilutions en moins de 3 mois après traitement.
     expert.push(`Comparaison simple multi-VDRL: diff=${diff}`);
 
     // Priorité : interprétation fine si traitement administré tardivement entre les deux sérologies
-    const txBetween = treatments.find(t => t.date > prev.date && t.date < current.date);
+    const txBetween = audits.find(t => t.valid && !t.staleForCurrentEpisode && t.date > prev.date && t.date < current.date);
     if(txBetween && diff !== null && diff >= 2){
       const delayAfterPrev = daysDiff(txBetween.date, prev.date);
       if(delayAfterPrev > 7){
         const category = "early";
         const recommended_treatment = standardEarlyTreatment();
         const conclusion = dynT("kinetic_conclusion");
-        expert.push("Règle déclenchée: traitement tardif entre deux sérologies + augmentation >= 2 dilutions => cinétique fine prioritaire");
+        expert.push(logicT("expertKineticPriority"));
         return await setResult(
 `${badge("warning", dynT("kinetic_badge"))}
 ${dynT("kinetic_text_1")}
@@ -2876,7 +2795,7 @@ ${recommended_treatment}`,
       const category = "early";
       const recommended_treatment = standardEarlyTreatment();
       const conclusion = dynT("reinfection_conclusion");
-      expert.push("Règle déclenchée: augmentation >= 2 dilutions => recontamination");
+      expert.push(logicT("expertReinfection"));
       return await setResult(
 `${badge("warning", dynT("reinfection_badge"))}
 ${dynT("reinfection_text")}
@@ -2896,7 +2815,7 @@ ${recommended_treatment}`,
       const category = "scar";
       const recommended_treatment = "Recontrôle à 6 semaines ou 3 mois si suspicion clinique ou contage";
       const conclusion = dynT("scar_conclusion");
-      expert.push("Règle déclenchée: augmentation < 2 dilutions => cicatriciel probable");
+      expert.push(logicT("expertScarProfile"));
       return await setResult(
 `${badge("info", dynT("scar_badge"))}
 ${dynT("scar_text1")}
@@ -2916,7 +2835,7 @@ ${dynT("scar_text4")}`,
   const category = "late";
   const recommended_treatment = standardLateTreatment();
   const conclusion = "Traiter comme syphilis tardive par sécurité.";
-  expert.push("Règle déclenchée: fallback de sécurité => tardive");
+  expert.push(logicT("expertLateFallback"));
   return await setResult(
 `${badge("violet", tr("lateSafety"))}
 Situation restant indatable ou historique insuffisant.
@@ -2931,7 +2850,7 @@ ${recommended_treatment}`,
 }
 
 async function exportPdf(){
-  if(!lastAnalysisPayload){ alert(translatePlainText("Lance d'abord une analyse.")); return; }
+  if(!lastAnalysisPayload){ alert(logicT("launchAnalysisFirst")); return; }
   const p = lastAnalysisPayload;
   const { jsPDF } = window.jspdf;
   const doc = new jsPDF({unit:"mm", format:"a4"});
@@ -3077,7 +2996,7 @@ function resetAll(){
   document.getElementById("feedbackStatus").textContent = (UI_I18N[currentLang]||UI_I18N.fr).noFeedback;
   document.getElementById("problemStatus").textContent = (UI_I18N[currentLang]||UI_I18N.fr).noProblem;
   document.getElementById("problematicCaseText").value = "";
-  document.getElementById("supabaseStatus").textContent = translatePlainText("Supabase prêt.");
+  document.getElementById("supabaseStatus").textContent = logicT("supabaseReady");
   setToday();
   createSerologyRow();
   setBoxes("—","—","—","—");
@@ -3101,7 +3020,7 @@ function openBigChart(){
   const serologies = parseData().serologies;
   const treatments = parseData().treatments;
   if(!serologies.length && !treatments.length){
-    alert(translatePlainText("Lance d'abord une analyse."));
+    alert(logicT("launchAnalysisFirst"));
     return;
   }
   const win = window.open("", "_blank");
@@ -3225,7 +3144,7 @@ analyse = async function(){
       box.innerHTML = `${badge("danger", "Erreur d'analyse")}<div style="margin-top:10px">${String(error?.message || error)}</div>`;
     }
     const whyInfo = document.getElementById('whyInfo');
-    if(whyInfo) whyInfo.textContent = translateDeepText('Erreur technique : ' + String(error?.message || error));
+    if(whyInfo) whyInfo.textContent = normalizeReasonString('Erreur technique : ' + String(error?.message || error));
     throw error;
   }
 };
