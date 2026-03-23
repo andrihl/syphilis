@@ -87,7 +87,8 @@ table{width:100%;border-collapse:collapse;font-size:14px} th,td{padding:10px;bor
             <label class="check"><input type="checkbox" id="chancreDoubtful"> <span id="i18nChancreDoubtful"></span></label>
             <label class="check"><input type="checkbox" id="contact"> <span id="i18nContact"></span></label>
             <label class="check"><input type="checkbox" id="neuro"> <span id="i18nNeuro"></span></label>
-            <label class="check"><input type="checkbox" id="cutaneous"> <span id="i18nCutaneous"></span></label>
+            <label class="check"><input type="checkbox" id="exanthemeTypical"> <span id="i18nExanthemeTypical">Exanthème syphilitique typique</span></label>
+            <label class="check"><input type="checkbox" id="cutaneousAtypical"> <span id="i18nCutaneousAtypical">Éruption cutanée atypique</span></label>
             <label class="check"><input type="checkbox" id="scarKnown"> <span id="i18nScarKnown"></span></label>
           </div>
           <div class="small" style="margin-top:8px" id="i18nCutaneousHelp"></div>
@@ -284,8 +285,8 @@ const TREATMENTS = {
 };
 let currentLang = "fr";
 const I18N = {
-  fr:{title:"Outil pratique syphilis", subtitle:"Remplissez l’outil avec les données cliniques, biologiques et thérapeutiques pour obtenir une interprétation structurée, un suivi chronologique et un export utile en pratique clinique.", clinical:"Clinique", chancre:"Chancre", chancreHelp:"Si un chancre est coché, préciser s’il est typique ou douteux.", chancreTypical:"Chancre typique", chancreDoubtful:"Chancre douteux", contact:"Contage < 6 semaines", neuro:"Signes neuro / ORL / ophtalmo", cutaneous:"Autres signes cutanés", scar:"Cicatrice sérologique connue", cutaneousHelp:"Les autres signes cutanés ne permettent pas de dater l’infection.", expert:"Mode expert", expertOn:"Masquer mode expert", noFeedback:"Aucune évaluation envoyée.", noProblem:"Aucun signalement envoyé.", severe:"Ponction lombaire indiquée", earlyCertain:"Syphilis précoce certaine", earlyProb:"Syphilis précoce probable", postexp:"Traitement post-exposition / primaire très précoce", negative:"Sérologie considérée négative", scarProb:"Sérologie cicatricielle probable", recentOrScar:"Possible cicatrice / infection récente", lateDefault:"Syphilis tardive par défaut", treated:"Épisode considéré bien traité", goodResponse:"Probable cicatrice post-traitement", lateSafety:"Traiter comme syphilis tardive par sécurité"},
-  en:{title:"Practical syphilis tool", subtitle:"Fill in the clinical, biological and treatment data to obtain a structured interpretation, chronological follow-up and useful clinical export.", clinical:"Clinical", chancre:"Chancre", chancreHelp:"If chancre is checked, specify whether it is typical or doubtful.", chancreTypical:"Typical chancre", chancreDoubtful:"Doubtful chancre", contact:"Exposure < 6 weeks", neuro:"Neuro / ENT / ophthalmic signs", cutaneous:"Other skin signs", scar:"Known serologic scar", cutaneousHelp:"Other skin signs do not date infection.", expert:"Expert mode", expertOn:"Hide expert mode", noFeedback:"No rating sent.", noProblem:"No report sent."},
+  fr:{title:"Outil pratique syphilis", subtitle:"Remplissez l’outil avec les données cliniques, biologiques et thérapeutiques pour obtenir une interprétation structurée, un suivi chronologique et un export utile en pratique clinique.", clinical:"Clinique", chancre:"Chancre", chancreHelp:"Si un chancre est coché, préciser s’il est typique ou douteux.", chancreTypical:"Chancre typique", chancreDoubtful:"Chancre douteux", contact:"Contage < 6 semaines", neuro:"Signes neuro / ORL / ophtalmo", exanthemeTypical:"Exanthème syphilitique typique", cutaneousAtypical:"Éruption cutanée atypique", scar:"Cicatrice sérologique connue", cutaneousHelp:"Une éruption cutanée atypique ne permet pas de dater l’infection.", expert:"Mode expert", expertOn:"Masquer mode expert", noFeedback:"Aucune évaluation envoyée.", noProblem:"Aucun signalement envoyé.", severe:"Ponction lombaire indiquée", earlyCertain:"Syphilis précoce certaine", earlyProb:"Syphilis précoce probable", postexp:"Traitement post-exposition / primaire très précoce", negative:"Sérologie considérée négative", scarProb:"Sérologie cicatricielle probable", recentOrScar:"Possible cicatrice / infection récente", lateDefault:"Syphilis tardive par défaut", treated:"Épisode considéré bien traité", goodResponse:"Probable cicatrice post-traitement", lateSafety:"Traiter comme syphilis tardive par sécurité"},
+  en:{title:"Practical syphilis tool", subtitle:"Fill in the clinical, biological and treatment data to obtain a structured interpretation, chronological follow-up and useful clinical export.", clinical:"Clinical", chancre:"Chancre", chancreHelp:"If chancre is checked, specify whether it is typical or doubtful.", chancreTypical:"Typical chancre", chancreDoubtful:"Doubtful chancre", contact:"Exposure < 6 weeks", neuro:"Neuro / ENT / ophthalmic signs", exanthemeTypical:"Typical syphilitic exanthem", cutaneousAtypical:"Atypical skin eruption", scar:"Known serologic scar", cutaneousHelp:"An atypical skin eruption does not date infection.", expert:"Expert mode", expertOn:"Hide expert mode", noFeedback:"No rating sent.", noProblem:"No report sent."},
   es:{title:"Herramienta práctica de sífilis", subtitle:"Complete la herramienta con los datos clínicos, biológicos y terapéuticos para obtener una interpretación estructurada, seguimiento cronológico y un informe útil en práctica clínica.", clinical:"Clínica", chancre:"Chancro", chancreHelp:"Si se marca chancro, precise si es típico o dudoso.", chancreTypical:"Chancro típico", chancreDoubtful:"Chancro dudoso", contact:"Contacto < 6 semanas", neuro:"Signos neuro / ORL / oftalmológicos", cutaneous:"Otros signos cutáneos", scar:"Cicatriz serológica conocida", cutaneousHelp:"Otros signos cutáneos no datan la infección.", expert:"Modo experto", expertOn:"Ocultar modo experto", noFeedback:"Ninguna evaluación enviada.", noProblem:"Ningún caso enviado."},
   pt:{title:"Ferramenta prática de sífilis", subtitle:"Preencha a ferramenta com dados clínicos, biológicos e terapêuticos para obter uma interpretação estruturada, seguimento cronológico e uma exportação útil na prática clínica.", clinical:"Clínica", chancre:"Cancro", chancreHelp:"Se cancro estiver assinalado, especificar se é típico ou duvidoso.", chancreTypical:"Cancro típico", chancreDoubtful:"Cancro duvidoso", contact:"Contato < 6 semanas", neuro:"Sinais neuro / ORL / oftalmológicos", cutaneous:"Outros sinais cutâneos", scar:"Cicatriz sorológica conhecida", cutaneousHelp:"Outros sinais cutâneos não datam a infecção.", expert:"Modo especialista", expertOn:"Ocultar modo especialista", noFeedback:"Nenhuma avaliação enviada.", noProblem:"Nenhum caso enviado."},
   de:{title:"Praktisches Syphilis-Tool", subtitle:"Korrigierte Version: klinische Analyse, lokaler Verlauf, PDF/Excel-Export, Supabase-Versand, Bewertungen und Problemfälle.", clinical:"Klinik", chancreTypical:"Typischer Schanker", chancreDoubtful:"Unsicherer Schanker", contact:"Kontakt < 6 Wochen", neuro:"Neuro / HNO / Augenzeichen", cutaneous:"Andere Hautzeichen", scar:"Bekannte serologische Narbe", cutaneousHelp:"Andere Hautzeichen datieren die Infektion nicht.", expert:"Expertenmodus", expertOn:"Expertenmodus ausblenden", noFeedback:"Keine Bewertung gesendet.", noProblem:"Kein Fall gesendet."},
@@ -304,7 +305,8 @@ function applyTranslationsLegacy(){
   set("i18nChancreDoubtful", tr("chancreDoubtful"));
   set("i18nContact", tr("contact"));
   set("i18nNeuro", tr("neuro"));
-  set("i18nCutaneous", tr("cutaneous"));
+  set("i18nExanthemeTypical", tr("exanthemeTypical"));
+  set("i18nCutaneousAtypical", tr("cutaneousAtypical"));
   set("i18nScarKnown", tr("scar"));
   set("i18nCutaneousHelp", tr("cutaneousHelp"));
   const btnExpert = document.getElementById("btnExpert");
@@ -319,7 +321,7 @@ function applyTranslationsLegacy(){
 
 
 const UI_I18N = {
-  fr:{title:"Outil d’interprétation clinico-biologique de la syphilis",subtitle:"Renseignez les données cliniques, sérologiques et thérapeutiques pour obtenir une interprétation structurée, un suivi chronologique et un graphique VDRL exploitable en pratique clinique.",data:"Données à remplir",inter:"Interprétation",interSub:"conclusion + CAT + justification",memory:"Mémoire des analyses",memorySub:"historique local dans le navigateur",id:"Identification",pid:"Identifiant patient / dossier",clinical:"Clinique",chancreTypical:"Chancre typique",chancreDoubtful:"Chancre douteux",contact:"Contage < 6 semaines",neuro:"Signes neuro / ORL / ophtalmo",cutaneous:"Autres signes cutanés",scar:"Cicatrice sérologique connue",cutaneousHelp:"Les autres signes cutanés ne permettent pas de dater l’infection.",serologies:"Sérologies",treatments:"Traitements antérieurs",lcr:"Ponction lombaire / LCR",evaluation:"Évaluation de l’interprétation",sero:"+ Sérologie",tx:"+ Traitement",analyze:"Analyser",reset:"Réinitialiser",pdf:"Télécharger PDF",big:"Ouvrir le graphique en grand",expert:"Mode expert",empty:"Remplis les données puis clique sur « Analyser ».",noFeedback:"Aucune évaluation envoyée.",noProblem:"Aucun cas envoyé.",reportTitle:"Souhaitez-vous signaler un cas problématique ?",reportDesc:"Le commentaire sera envoyé avec les données cliniques et biologiques de cette analyse, sans identifiant patient.",commentLabel:"Commentaire",reportPlaceholder:"Décris le problème observé, l’erreur supposée, ou la nuance clinique manquante.",reportButton:"Envoyer le cas problématique",downloadAll:"Télécharger toutes les analyses (Excel)",refresh:"Actualiser",clearMemory:"Vider la mémoire",memoryDate:"Date analyse",memoryIdentifier:"Identifiant",memoryConclusion:"Conclusion",memoryVdrl:"VDRL de référence",memoryTx:"Traitement antérieur retenu",noSaved:"Aucune analyse mémorisée."},
+  fr:{title:"Outil d’interprétation clinico-biologique de la syphilis",subtitle:"Renseignez les données cliniques, sérologiques et thérapeutiques pour obtenir une interprétation structurée, un suivi chronologique et un graphique VDRL exploitable en pratique clinique.",data:"Données à remplir",inter:"Interprétation",interSub:"conclusion + CAT + justification",memory:"Mémoire des analyses",memorySub:"historique local dans le navigateur",id:"Identification",pid:"Identifiant patient / dossier",clinical:"Clinique",chancreTypical:"Chancre typique",chancreDoubtful:"Chancre douteux",contact:"Contage < 6 semaines",neuro:"Signes neuro / ORL / ophtalmo",cutaneous:"Autres signes cutanés",scar:"Cicatrice sérologique connue",cutaneousHelp:"Les éruptions cutanées atypiques ne permettent pas de dater l’infection.",serologies:"Sérologies",treatments:"Traitements antérieurs",lcr:"Ponction lombaire / LCR",evaluation:"Évaluation de l’interprétation",sero:"+ Sérologie",tx:"+ Traitement",analyze:"Analyser",reset:"Réinitialiser",pdf:"Télécharger PDF",big:"Ouvrir le graphique en grand",expert:"Mode expert",empty:"Remplis les données puis clique sur « Analyser ».",noFeedback:"Aucune évaluation envoyée.",noProblem:"Aucun cas envoyé.",reportTitle:"Souhaitez-vous signaler un cas problématique ?",reportDesc:"Le commentaire sera envoyé avec les données cliniques et biologiques de cette analyse, sans identifiant patient.",commentLabel:"Commentaire",reportPlaceholder:"Décris le problème observé, l’erreur supposée, ou la nuance clinique manquante.",reportButton:"Envoyer le cas problématique",downloadAll:"Télécharger toutes les analyses (Excel)",refresh:"Actualiser",clearMemory:"Vider la mémoire",memoryDate:"Date analyse",memoryIdentifier:"Identifiant",memoryConclusion:"Conclusion",memoryVdrl:"VDRL de référence",memoryTx:"Traitement antérieur retenu",noSaved:"Aucune analyse mémorisée."},
   en:{title:"Clinical and biological interpretation tool for syphilis",subtitle:"Enter clinical, serological and treatment data to obtain a structured interpretation, chronological follow-up and a clinically usable VDRL chart.",data:"Data entry",inter:"Interpretation",interSub:"conclusion + management + rationale",memory:"Analysis memory",memorySub:"local browser history",id:"Identification",pid:"Patient / record identifier",clinical:"Clinical",chancreTypical:"Typical chancre",chancreDoubtful:"Doubtful chancre",contact:"Exposure < 6 weeks",neuro:"Neuro / ENT / ophthalmic signs",cutaneous:"Other skin signs",scar:"Known serologic scar",cutaneousHelp:"Other skin signs do not date the infection.",serologies:"Serologies",treatments:"Previous treatments",lcr:"Lumbar puncture / CSF",evaluation:"Interpretation evaluation",sero:"+ Serology",tx:"+ Treatment",analyze:"Analyze",reset:"Reset",pdf:"Download PDF",big:"Open large chart",expert:"Expert mode",empty:"Fill in the data then click Analyze.",noFeedback:"No rating sent.",noProblem:"No report sent.",reportTitle:"Do you want to report a problematic case?",reportDesc:"The comment will be sent with the clinical and biological data from this analysis, without patient identifier.",commentLabel:"Comment",reportPlaceholder:"Describe the observed issue, suspected error, or missing clinical nuance.",reportButton:"Send problematic case",downloadAll:"Download all analyses (Excel)",refresh:"Refresh",clearMemory:"Clear memory",memoryDate:"Analysis date",memoryIdentifier:"Identifier",memoryConclusion:"Conclusion",memoryVdrl:"Reference VDRL",memoryTx:"Previous treatment retained",noSaved:"No saved analysis."},
   es:{title:"Herramienta de interpretación clínico-biológica de la sífilis",subtitle:"Introduzca datos clínicos, serológicos y terapéuticos para obtener una interpretación estructurada, un seguimiento cronológico y un gráfico VDRL útil en la práctica clínica.",data:"Datos a completar",inter:"Interpretación",interSub:"conclusión + conducta + justificación",memory:"Memoria de análisis",memorySub:"historial local del navegador",id:"Identificación",pid:"Identificador del paciente / expediente",clinical:"Clínica",chancreTypical:"Chancro típico",chancreDoubtful:"Chancro dudoso",contact:"Contacto < 6 semanas",neuro:"Signos neuro / ORL / oftálmicos",cutaneous:"Otros signos cutáneos",scar:"Cicatriz serológica conocida",cutaneousHelp:"Otros signos cutáneos no permiten fechar la infección.",serologies:"Serologías",treatments:"Tratamientos previos",lcr:"Punción lumbar / LCR",evaluation:"Evaluación de la interpretación",sero:"+ Serología",tx:"+ Tratamiento",analyze:"Analizar",reset:"Reiniciar",pdf:"Descargar PDF",big:"Abrir gráfico grande",expert:"Modo experto",empty:"Complete los datos y pulse Analizar.",noFeedback:"Ninguna evaluación enviada.",noProblem:"Ningún caso enviado.",reportTitle:"¿Desea reportar un caso problemático?",reportDesc:"El comentario se enviará con los datos clínicos y biológicos de este análisis, sin identificador del paciente.",commentLabel:"Comentario",reportPlaceholder:"Describa el problema observado, el error supuesto o el matiz clínico faltante.",reportButton:"Enviar caso problemático",downloadAll:"Descargar todos los análisis (Excel)",refresh:"Actualizar",clearMemory:"Vaciar memoria",memoryDate:"Fecha del análisis",memoryIdentifier:"Identificador",memoryConclusion:"Conclusión",memoryVdrl:"VDRL de referencia",memoryTx:"Tratamiento previo retenido",noSaved:"Ningún análisis guardado."},
   pt:{title:"Ferramenta de interpretação clínico-biológica da sífilis",subtitle:"Insira dados clínicos, sorológicos e terapêuticos para obter uma interpretação estruturada, seguimento cronológico e gráfico VDRL útil na prática clínica.",data:"Dados a preencher",inter:"Interpretação",interSub:"conclusão + conduta + justificação",memory:"Memória das análises",memorySub:"histórico local no navegador",id:"Identificação",pid:"Identificador do paciente / processo",clinical:"Clínica",chancreTypical:"Cancro típico",chancreDoubtful:"Cancro duvidoso",contact:"Contato < 6 semanas",neuro:"Sinais neuro / ORL / oftalmológicos",cutaneous:"Outros sinais cutâneos",scar:"Cicatriz sorológica conhecida",cutaneousHelp:"Outros sinais cutâneos não datam a infeção.",serologies:"Sorologias",treatments:"Tratamentos prévios",lcr:"Punção lombar / LCR",evaluation:"Avaliação da interpretação",sero:"+ Sorologia",tx:"+ Tratamento",analyze:"Analisar",reset:"Reinicializar",pdf:"Descarregar PDF",big:"Abrir gráfico grande",expert:"Modo especialista",empty:"Preencha os dados e clique em Analisar.",noFeedback:"Nenhuma avaliação enviada.",noProblem:"Nenhum caso enviado.",reportTitle:"Deseja reportar um caso problemático?",reportDesc:"O comentário será enviado com os dados clínicos e biológicos desta análise, sem identificador do paciente.",commentLabel:"Comentário",reportPlaceholder:"Descreva o problema observado, erro suspeito ou nuance clínica ausente.",reportButton:"Enviar caso problemático",downloadAll:"Descarregar todas as análises (Excel)",refresh:"Atualizar",clearMemory:"Limpar memória",memoryDate:"Data da análise",memoryIdentifier:"Identificador",memoryConclusion:"Conclusão",memoryVdrl:"VDRL de referência",memoryTx:"Tratamento prévio retido",noSaved:"Nenhuma análise guardada."},
@@ -1253,11 +1255,12 @@ function applyTranslations(lang){
   if(labels[1]) labels[1].lastChild.textContent = d.chancreDoubtful;
   if(labels[2]) labels[2].lastChild.textContent = d.contact;
   if(labels[3]) labels[3].lastChild.textContent = d.neuro;
-  if(labels[4]) labels[4].lastChild.textContent = d.cutaneous;
-  if(labels[5]) labels[5].lastChild.textContent = d.scar;
+  if(labels[4]) labels[4].lastChild.textContent = d.exanthemeTypical || "Exanthème syphilitique typique";
+  if(labels[5]) labels[5].lastChild.textContent = d.cutaneousAtypical || "Éruption cutanée atypique";
+  if(labels[6]) labels[6].lastChild.textContent = d.scar;
 
   const smalls = document.querySelectorAll('.small');
-  if(smalls[0]) smalls[0].textContent = d.cutaneousHelp;
+  if(smalls[0]) smalls[0].textContent = d.cutaneousHelp || "Une éruption cutanée atypique ne permet pas de dater l’infection.";
 
   setText("btnAddSero", d.sero);
   setText("btnAddTx", d.tx);
@@ -2030,13 +2033,17 @@ function sourceClinicalBody(kind){
 function currentClinical(){
   const chancreTypical = !!document.getElementById("chancreTypical")?.checked;
   const chancreDoubtful = !!document.getElementById("chancreDoubtful")?.checked;
+  const exanthemeTypical = !!document.getElementById("exanthemeTypical")?.checked;
+  const cutaneousAtypical = !!document.getElementById("cutaneousAtypical")?.checked;
   return {
     chancreTypical,
     chancreDoubtful,
     chancre: chancreTypical || chancreDoubtful,
     contact: !!document.getElementById("contact")?.checked,
     neuro: !!document.getElementById("neuro")?.checked,
-    cutaneous: !!document.getElementById("cutaneous")?.checked,
+    exanthemeTypical,
+    cutaneousAtypical,
+    cutaneous: exanthemeTypical || cutaneousAtypical,
     scarKnown: !!document.getElementById("scarKnown")?.checked
   };
 }
@@ -2195,7 +2202,7 @@ function buildAnalyticsPayload(parsed, clinical, resultMeta){
     category: resultMeta.category || "",
     recommended_treatment: resultMeta.recommended_treatment || resultMeta.treatment || "",
     payload: {
-      clinical: { chancre:!!clinical.chancre, contact_lt_6w:!!clinical.contact, neuro_orl_oph:!!clinical.neuro, cutaneous:!!clinical.cutaneous, scar_known:!!clinical.scarKnown },
+      clinical: { chancre:!!clinical.chancre, contact_lt_6w:!!clinical.contact, neuro_orl_oph:!!clinical.neuro, exantheme_typique:!!clinical.exanthemeTypical, eruption_cutanee_atypique:!!clinical.cutaneousAtypical, scar_known:!!clinical.scarKnown },
       serologies: (parsed.serologies || []).map(s => ({ date:s.dateStr, eia:s.eia, tpha:s.tpha, vdrl:s.vdrl })),
       treatments: (parsed.treatments || []).map(t => ({ date:t.dateStr, type:t.type }))
     }
@@ -2322,19 +2329,85 @@ async function analyse(){
       return;
     }
 
-    if(clinical.cutaneous){
-      const conclusion = sT("cutaneous_no_bio_conclusion");
-      await setResult(
-        sourceClinicalBody('cutaneous_no_bio'),
-        sourceClinicalCompare(todayRef),
-        txTextEmpty,
-        `${sT('lowLevel')} — ${sT('conf_cutaneous_no_bio')}`,
-        sT("why_cutaneous_no_bio"),
-        { identifier, analysisDate:document.getElementById("analysisDate").value, conclusion, category:"late", recommended_treatment:standardLateTreatment(), compare:sourceClinicalCompare(todayRef), tx:txTextEmpty, why:sT("why_cutaneous_no_bio"), serologies, treatments },
-        parsed, clinical
-      );
-      return;
-    }
+    if(clinical.exanthemeTypical || clinical.cutaneousAtypical){
+
+  // 🔴 EXANTHÈME TYPIQUE → syphilis secondaire
+  if(clinical.exanthemeTypical){
+
+    const conclusion = "Tableau compatible avec une syphilis secondaire (< 1 an).";
+
+    await setResult(
+      `${badge("warning","Exanthème syphilitique typique")}
+Exanthème évocateur de syphilis secondaire.
+
+→ Syphilis précoce (< 1 an)
+→ Traitement recommandé : schéma précoce
+
+${standardEarlyTreatment()}
+
+⚠️ Si contexte incertain (absence de documentation, doute sur ancienneté), traiter comme syphilis tardive.`,
+      
+      sourceClinicalCompare(todayRef),
+      txTextEmpty,
+      `${sT('moderateLevel')} — tableau compatible avec syphilis secondaire`,
+      "exanthème typique → syphilis secondaire",
+      
+      {
+        identifier,
+        analysisDate:document.getElementById("analysisDate").value,
+        conclusion,
+        category:"early",
+        recommended_treatment:standardEarlyTreatment(),
+        compare:sourceClinicalCompare(todayRef),
+        tx:txTextEmpty,
+        why:"exanthème typique → syphilis secondaire",
+        serologies,
+        treatments
+      },
+
+      parsed,
+      clinical
+    );
+
+    return;
+  }
+
+  // 🔵 ÉRUPTION ATYPIQUE → NON DATABLE
+  if(clinical.cutaneousAtypical){
+
+    const conclusion = "Éruption cutanée atypique : ne permet pas de dater l’infection.";
+
+    await setResult(
+      `${badge("neutral","Éruption cutanée atypique")}
+Aucun argument clinique spécifique pour dater l’infection.
+
+→ Interprétation basée uniquement sur la sérologie et l’historique`,
+      
+      sourceClinicalCompare(todayRef),
+      txTextEmpty,
+      `${sT('lowLevel')} — signe non spécifique`,
+      "éruption atypique non spécifique",
+      
+      {
+        identifier,
+        analysisDate:document.getElementById("analysisDate").value,
+        conclusion,
+        category:"undetermined",
+        recommended_treatment:null,
+        compare:sourceClinicalCompare(todayRef),
+        tx:txTextEmpty,
+        why:"éruption atypique non spécifique",
+        serologies,
+        treatments
+      },
+
+      parsed,
+      clinical
+    );
+
+    return;
+  }
+}
 
     await setResult(
       `${badge("info","Biologie non renseignée")}
@@ -2370,7 +2443,7 @@ Aucun résultat sérologique exploitable n’a été saisi, ou aucune sérologie
   expert.push(`Sérologies: ${serologies.map(s => `${s.dateStr} EIA=${s.eia||"—"} TPHA=${s.tpha||"—"} VDRL=${s.vdrl ?? "—"}`).join(" | ")}`);
   expert.push(`Traitements saisis: ${treatments.length ? treatments.map(t => `${t.dateStr} ${treatmentLabel(t.type) || t.type}`).join(" | ") : txAuditT("none")}`);
   expert.push(`${txAuditT("treatmentAuditTitle")}: ${audits.length ? audits.map(a => `${a.dateStr} ${treatmentLabel(a.type)} => ${txAuditStageText(a.expected)} | ${txAuditReasonText(a)} | ${a.valid ? txAuditT("validTag") : txAuditT("invalidTag")}${a.linkedSerologyDateStr ? ` | sérologie ${a.linkedSerologyDateStr}` : ""}`).join(" || ") : txAuditT("none")}`);
-  expert.push(`Clinique: chancre typique=${clinical.chancreTypical ? "oui":"non"}; chancre douteux=${clinical.chancreDoubtful ? "oui":"non"}; contage=${clinical.contact ? "oui":"non"}; neuro=${clinical.neuro ? "oui":"non"}; cicatrice connue=${clinical.scarKnown ? "oui":"non"}`);
+  expert.push(`Clinique: chancre typique=${clinical.chancreTypical ? "oui":"non"}; chancre douteux=${clinical.chancreDoubtful ? "oui":"non"}; exanthème typique=${clinical.exanthemeTypical ? "oui":"non"}; éruption atypique=${clinical.cutaneousAtypical ? "oui":"non"}; contage=${clinical.contact ? "oui":"non"}; neuro=${clinical.neuro ? "oui":"non"}; cicatrice connue=${clinical.scarKnown ? "oui":"non"}`);
 
   document.getElementById("csfPanel").classList.add("hidden");
 
@@ -2988,7 +3061,8 @@ function resetAll(){
   if(document.getElementById("chancreDoubtful")) document.getElementById("chancreDoubtful").checked = false;
   document.getElementById("contact").checked = false;
   document.getElementById("neuro").checked = false;
-  document.getElementById("cutaneous").checked = false;
+  if(document.getElementById("exanthemeTypical")) document.getElementById("exanthemeTypical").checked = false;
+  if(document.getElementById("cutaneousAtypical")) document.getElementById("cutaneousAtypical").checked = false;
   document.getElementById("scarKnown").checked = false;
   document.getElementById("csfTpha").value = "";
   document.getElementById("csfVdrl").value = "";
@@ -3014,6 +3088,14 @@ function enforceExclusiveChancre(choice){
   const doubtful = document.getElementById("chancreDoubtful");
   if(choice === "typical" && typical.checked) doubtful.checked = false;
   if(choice === "doubtful" && doubtful.checked) typical.checked = false;
+}
+
+function enforceExclusiveCutaneous(choice){
+  const typical = document.getElementById("exanthemeTypical");
+  const atypical = document.getElementById("cutaneousAtypical");
+  if(!typical || !atypical) return;
+  if(choice === "typical" && typical.checked) atypical.checked = false;
+  if(choice === "atypical" && atypical.checked) typical.checked = false;
 }
 
 function openBigChart(){
@@ -3171,6 +3253,10 @@ window.SyphilisTool = {
    BOOTSTRAP UI / EVENTS
    ============================= */
 document.addEventListener("DOMContentLoaded", () => {
+  const exLabel = document.getElementById("i18nExanthemeTypical");
+  const atLabel = document.getElementById("i18nCutaneousAtypical");
+  if(exLabel && !exLabel.textContent.trim()) exLabel.textContent = "Exanthème syphilitique typique";
+  if(atLabel && !atLabel.textContent.trim()) atLabel.textContent = "Éruption cutanée atypique";
   initSupabase();
   applyTranslations("fr");
   currentLang = "fr";
@@ -3181,6 +3267,8 @@ document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("btnAddSero").addEventListener("click", () => createSerologyRow());
   document.getElementById("chancreTypical").addEventListener("change", () => enforceExclusiveChancre("typical"));
   document.getElementById("chancreDoubtful").addEventListener("change", () => enforceExclusiveChancre("doubtful"));
+  document.getElementById("exanthemeTypical").addEventListener("change", () => enforceExclusiveCutaneous("typical"));
+  document.getElementById("cutaneousAtypical").addEventListener("change", () => enforceExclusiveCutaneous("atypical"));
   document.getElementById("btnAddTx").addEventListener("click", () => createTreatmentRow());
   document.getElementById("btnAnalyse").addEventListener("click", () => analyse());
   document.getElementById("btnReset").addEventListener("click", () => resetAll());
